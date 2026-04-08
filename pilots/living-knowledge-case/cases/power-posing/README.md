@@ -18,19 +18,30 @@ That makes it a good demonstration of:
 - evidence attachment,
 - dissent accumulation,
 - verdict revision,
-- and claim splitting.
+- claim splitting,
+- and public snapshotting.
+
+## Reader path
+
+A new reader should start with:
+
+1. [`snapshots/snapshot-v1.md`](./snapshots/snapshot-v1.md) — the current public-facing living snapshot
+2. [`case.md`](./case.md) — the case overview and thesis
+3. [`references.md`](./references.md) — source mapping used by the case
+4. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
 
 ## Folder guide
 
 - [`case.md`](./case.md) — human-readable case overview
+- [`references.md`](./references.md) — source reference mapping
 - [`objects/claims/`](./objects/claims/) — claim objects
 - [`objects/evidence/`](./objects/evidence/) — evidence objects
 - [`objects/dissents/`](./objects/dissents/) — dissent objects
 - [`objects/verdicts/`](./objects/verdicts/) — verdict objects
 - [`timeline/events.md`](./timeline/events.md) — ordered timeline view
-- [`snapshots/`](./snapshots/) — future publication snapshots
+- [`snapshots/`](./snapshots/) — publication snapshots
 
 ## Current scope
 
 This case does not yet aim to be a complete historical archive.
-It is a structured pilot with enough material to prove the object model under real pressure.
+It is a structured pilot with enough material to prove that the object model can begin to carry real knowledge pressure.
