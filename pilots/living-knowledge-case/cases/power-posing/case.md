@@ -6,18 +6,19 @@
 
 ## Why it matters here
 
-This case is not included because it is the most important scientific dispute in the world.
-It is included because it is an excellent demonstration of a structural problem:
+This case is included because it exposes a structural problem in plain view:
 
 **the publication survives, but the knowledge status changes.**
 
 A reader can still encounter the original paper as a stable publication artifact.
 But the later life of the claim includes:
 
+- a small initial study,
+- mass public amplification,
 - replication failure,
 - internal loss of confidence,
-- statistical criticism,
-- and a split between the original claim and a weaker descendant claim.
+- methodological attack,
+- and a split between the original strong claim and a weaker descendant claim.
 
 This is exactly the kind of lifecycle that static publication systems handle badly.
 
@@ -29,32 +30,37 @@ The purpose of this case is to test whether Knowledge OS can represent a claim a
 - attached evidence,
 - explicit dissent,
 - revised verdicts,
-- and visible lineage.
+- visible lineage,
+- and eventually publishable snapshots.
 
-## Initial object set
+## Current object set
 
-The first pass of this case starts with a deliberately small object set:
+The current first-pass object set now includes:
 
-- **Claim C-0001** — the original power-posing claim
-- **Evidence E-0001** — the initial publication and support context
-- **Dissent D-0001** — the large-sample replication failure
-- **Dissent D-0002** — the internal withdrawal of support by the first author
-- **Verdict V-0001** — the later split verdict on the original claim and the weaker descendant
+- **Claim C-0001** — the original 2010 claim about hormones and risk-taking
+- **Claim C-0002** — the weaker descendant claim about subjective feeling
+- **Evidence E-0001** — the initial publication and early amplification context
+- **Dissent D-0001** — the 2015 large-sample replication failure
+- **Dissent D-0002** — the 2016 internal withdrawal of support by Dana Carney
+- **Dissent D-0003** — the 2016 p-curve / methodological attack
+- **Verdict V-0001** — working verdict on the original claim
+- **Verdict V-0002** — working verdict on the weaker descendant claim
 
-This is not the full history.
-It is the minimum set needed to prove the object model under visible pressure.
+This is still not the full history.
+But it is now dense enough to begin testing whether the object model can carry real knowledge pressure.
 
 ## Current thesis of the case
 
-The case is expected to show at least four things:
+The case is expected to show at least five things:
 
 1. A claim should have a visible lifecycle.
 2. Dissent should remain attached rather than evaporating into scattered discussion.
 3. Verdicts should become machine-legible and human-visible.
 4. A claim may not simply survive or die; it may split into weaker descendants.
+5. A static paper cannot adequately display these later changes, but a living knowledge object can.
 
 ## Status
 
-**Pilot status:** bootstrap phase
+**Pilot status:** first pressure-bearing revision
 
-This case is still a working pilot. Object language, verdict grammar, and snapshot structure may still evolve as the repository matures.
+This case is still a working pilot. Source density, verdict grammar, and snapshot structure may still evolve as the repository matures.
