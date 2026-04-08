@@ -25,10 +25,14 @@ That makes it a good demonstration of:
 
 A new reader should start with:
 
-1. [`snapshots/snapshot-v1.md`](./snapshots/snapshot-v1.md) — the current public-facing living snapshot
+1. [`snapshots/snapshot-v2.md`](./snapshots/snapshot-v2.md) — the current public-facing living snapshot
 2. [`case.md`](./case.md) — the case overview and thesis
 3. [`references.md`](./references.md) — source mapping used by the case
 4. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
+
+Earlier snapshot:
+
+- [`snapshots/snapshot-v1.md`](./snapshots/snapshot-v1.md) — the earlier public-facing draft
 
 ## Folder guide
 
