@@ -1,6 +1,6 @@
 # Knowledge OS
 
-**Knowledge OS** is a protocol and product direction for governing the lifecycle of knowledge objects.
+*A protocol layer and operating environment for governing the lifecycle of knowledge objects.*
 
 It is not a chat wrapper, not an automated paper factory, and not a generic note-taking tool.
 It is a system for organizing collaboration between humans and intelligent agents around four core object families:
@@ -82,4 +82,4 @@ Knowledge OS must not:
 
 ## One-sentence definition
 
-**Knowledge OS is a public protocol layer for organizing collaboration between humans and intelligent agents around claims, evidence, dissent, and verdicts.**
+**Knowledge OS is a protocol layer and operating environment for organizing collaboration around claims, evidence, dissent, and verdicts.**
