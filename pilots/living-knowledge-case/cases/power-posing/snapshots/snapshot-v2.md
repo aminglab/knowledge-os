@@ -16,6 +16,14 @@ If you want the raw objects behind this page, follow the object links below.
 
 ## Current visible judgment
 
+The public status phrases used below are not just narrative decoration.
+They are reader-facing renderings of the current governed judgment surface.
+
+See:
+
+- [`../status-legend-v1.md`](../status-legend-v1.md) — public wording note for current status phrases
+- [`../verdict-grammar-v1.md`](../verdict-grammar-v1.md) — case-scoped bridge between snapshot wording and object-layer judgment fields
+
 ### Original claim
 **Current state:** contested and significantly weakened
 
@@ -26,7 +34,7 @@ The original strong-form claim says that brief expansive posture can change horm
 - Main support context: [`E-0001`](../objects/evidence/E-0001.md)
 
 ### Descendant claim
-**Current state:** contested but still surviving as a weaker path
+**Current state:** contested but still surviving
 
 A weaker descendant claim remains in play: expansive posture may affect subjective feelings of power or confidence even if the stronger hormone-and-risk-taking claim does not hold.
 
@@ -116,15 +124,18 @@ This is exactly the sort of history that static publication artifacts hide badly
 
 A reader who wants to go one layer deeper should follow this order:
 
-1. [`V-0001`](../objects/verdicts/V-0001.md)
-2. [`V-0002`](../objects/verdicts/V-0002.md)
-3. [`C-0001`](../objects/claims/C-0001.md)
-4. [`C-0002`](../objects/claims/C-0002.md)
-5. [`D-0001`](../objects/dissents/D-0001.md)
-6. [`D-0002`](../objects/dissents/D-0002.md)
-7. [`D-0003`](../objects/dissents/D-0003.md)
-8. [`../timeline/events.md`](../timeline/events.md)
-9. [`../references.md`](../references.md)
+1. [`../status-legend-v1.md`](../status-legend-v1.md)
+2. [`../verdict-grammar-v1.md`](../verdict-grammar-v1.md)
+3. [`V-0001`](../objects/verdicts/V-0001.md)
+4. [`V-0002`](../objects/verdicts/V-0002.md)
+5. [`C-0001`](../objects/claims/C-0001.md)
+6. [`C-0002`](../objects/claims/C-0002.md)
+7. [`D-0001`](../objects/dissents/D-0001.md)
+8. [`D-0002`](../objects/dissents/D-0002.md)
+9. [`D-0003`](../objects/dissents/D-0003.md)
+10. [`../timeline/events.md`](../timeline/events.md)
+11. [`../references.md`](../references.md)
+12. [`../references-metadata-v1.md`](../references-metadata-v1.md)
 
 ---
 
@@ -147,5 +158,6 @@ This is still a pilot page, not a final product renderer.
 But it is closer to a true public living knowledge page than the earlier snapshot draft:
 
 - object references are explicit,
-- source ids are canonicalized against `references.md`,
+- source ids are canonicalized against `references-metadata-v1.md`,
+- status wording is now backed by `status-legend-v1.md` and `verdict-grammar-v1.md`,
 - and the reader can move from narrative view into governed objects without guessing where to click.
