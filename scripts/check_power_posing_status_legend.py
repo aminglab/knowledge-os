@@ -65,7 +65,7 @@ def extract_snapshot_state(snapshot_text: str, label: str) -> str:
 
 def lookup_grammar_entry(grammar_entries: dict[str, dict[str, str]], label: str) -> tuple[str, dict[str, str]] | tuple[None, None]:
     for entry_id, fields in grammar_entries.items():
-        if fields.get("Snapshot label", "") == f"`{label}`":
+        if unwrap_inline_code(fields.get("Snapshot label", "") or "") == label:
             return entry_id, fields
     return None, None
 
@@ -88,12 +88,12 @@ def validate() -> dict[str, int]:
             if not fields.get(field):
                 errors.append(f"{entry_id}: missing required field `{field}`")
 
-        public_wording = re.search(r"`([^`]+)`", fields.get("Public wording", "") or "")
-        snapshot_label = re.search(r"`([^`]+)`", fields.get("Snapshot label", "") or "")
+        public_wording = unwrap_inline_code(fields.get("Public wording", "") or "")
+        snapshot_label = unwrap_inline_code(fields.get("Snapshot label", "") or "")
         claim_id = re.search(r"`([A-Z]-\d{4})`", fields.get("Claim id", "") or "")
         verdict_id = re.search(r"`([A-Z]-\d{4})`", fields.get("Verdict id", "") or "")
-        verdict_level = re.search(r"`([^`]+)`", fields.get("Governing verdict level", "") or "")
-        claim_status = re.search(r"`([^`]+)`", fields.get("Governing claim epistemic status", "") or "")
+        verdict_level = unwrap_inline_code(fields.get("Governing verdict level", "") or "")
+        claim_status = unwrap_inline_code(fields.get("Governing claim epistemic status", "") or "")
 
         if not public_wording or not snapshot_label or not claim_id or not verdict_id or not verdict_level or not claim_status:
             continue
