@@ -107,14 +107,15 @@ The release summary itself currently includes:
 
 When `--json-summary` is used, the script instead emits a machine-readable JSON object containing:
 
+- `schema_name`
+- `schema_version`
 - validation status,
 - write status,
 - whether `--check` was active,
 - output path when relevant,
 - and the same release-summary counts.
 
-This is still lightweight.
-But it means the pipeline can now speak to humans and to later automation.
+That means the payload now identifies its own contract instead of requiring downstream automation to infer it from repository docs alone.
 
 ---
 

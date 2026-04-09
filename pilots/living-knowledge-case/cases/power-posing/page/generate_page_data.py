@@ -38,6 +38,8 @@ SNAPSHOT_PATH = CASE_ROOT / "snapshots" / "snapshot-v2.md"
 TIMELINE_PATH = CASE_ROOT / "timeline" / "events.md"
 REFERENCES_PATH = CASE_ROOT / "references.md"
 OUTPUT_PATH = ROOT / "page-data.js"
+SCHEMA_NAME = "power_posing_json_summary"
+SCHEMA_VERSION = "v1"
 
 OBJECT_DIRS = {
     "claim": OBJECTS_ROOT / "claims",
@@ -484,6 +486,14 @@ def build_release_summary(objects: dict[str, dict[str, Any]], reference_entries:
     }
 
 
+def build_json_summary_base(check_mode: bool) -> dict[str, Any]:
+    return {
+        "schema_name": SCHEMA_NAME,
+        "schema_version": SCHEMA_VERSION,
+        "check_mode": check_mode,
+    }
+
+
 def print_validation_passed() -> None:
     print("Validation passed.")
 
@@ -523,8 +533,8 @@ def main() -> None:
     except ValidationError as exc:
         errors = [line for line in str(exc).splitlines() if line.strip()]
         failure_payload = {
+            **build_json_summary_base(args.check),
             "validation_status": "failed",
-            "check_mode": args.check,
             "write_status": "skipped_due_to_validation_failure",
             "output_path": None,
             "errors": errors,
@@ -543,8 +553,8 @@ def main() -> None:
     release_summary = build_release_summary(objects, reference_entries, data)
     output_path = None if args.check else str(OUTPUT_PATH)
     success_payload = {
+        **build_json_summary_base(args.check),
         "validation_status": "passed",
-        "check_mode": args.check,
         "write_status": "skipped" if args.check else "completed",
         "output_path": output_path,
         "release_summary": release_summary,

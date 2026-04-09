@@ -43,10 +43,28 @@ It does **not** describe:
 
 ---
 
+## Stable schema identity
+
+Every JSON payload now self-identifies with these top-level fields:
+
+- `schema_name`
+- `schema_version`
+
+### Current stable values
+
+- `schema_name = "power_posing_json_summary"`
+- `schema_version = "v1"`
+
+These fields are present in both success and failure payloads.
+
+---
+
 ## Top-level success payload
 
 When validation passes, the generator emits a JSON object with these top-level keys:
 
+- `schema_name`
+- `schema_version`
 - `validation_status`
 - `check_mode`
 - `write_status`
@@ -54,6 +72,20 @@ When validation passes, the generator emits a JSON object with these top-level k
 - `release_summary`
 
 ### Field meanings
+
+#### `schema_name`
+String.
+
+Current stable value:
+
+- `"power_posing_json_summary"`
+
+#### `schema_version`
+String.
+
+Current stable value:
+
+- `"v1"`
 
 #### `validation_status`
 String.
@@ -111,6 +143,8 @@ All current values are integers.
 
 When validation fails, the generator emits a JSON object with these top-level keys:
 
+- `schema_name`
+- `schema_version`
 - `validation_status`
 - `check_mode`
 - `write_status`
@@ -118,6 +152,16 @@ When validation fails, the generator emits a JSON object with these top-level ke
 - `errors`
 
 ### Field meanings
+
+#### `schema_name`
+String.
+
+Same stable value as in the success payload.
+
+#### `schema_version`
+String.
+
+Same stable value as in the success payload.
 
 #### `validation_status`
 String.
@@ -156,6 +200,8 @@ Downstream automation may rely on these current invariants:
 ### Success path
 If `validation_status == "passed"`, then:
 
+- `schema_name == "power_posing_json_summary"`
+- `schema_version == "v1"`
 - `release_summary` is present
 - `errors` is absent
 - `write_status` is either `"completed"` or `"skipped"`
@@ -163,6 +209,8 @@ If `validation_status == "passed"`, then:
 ### Failure path
 If `validation_status == "failed"`, then:
 
+- `schema_name == "power_posing_json_summary"`
+- `schema_version == "v1"`
 - `errors` is present
 - `release_summary` is absent
 - `write_status == "skipped_due_to_validation_failure"`
@@ -191,6 +239,8 @@ Do not rely on only one of them.
 
 ```json
 {
+  "schema_name": "power_posing_json_summary",
+  "schema_version": "v1",
   "validation_status": "passed",
   "check_mode": true,
   "write_status": "skipped",
@@ -216,6 +266,8 @@ Do not rely on only one of them.
 
 ```json
 {
+  "schema_name": "power_posing_json_summary",
+  "schema_version": "v1",
   "validation_status": "failed",
   "check_mode": false,
   "write_status": "skipped_due_to_validation_failure",
@@ -232,7 +284,10 @@ Do not rely on only one of them.
 
 The following should be treated as schema-breaking unless deliberately versioned:
 
-- renaming any top-level key
+- renaming `schema_name`
+- renaming `schema_version`
+- changing the meaning of the current schema identity values without versioning forward
+- renaming any other top-level key
 - renaming any `release_summary` key
 - changing `write_status` meanings
 - changing success from `release_summary` to a different shape
