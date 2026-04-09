@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -40,6 +41,17 @@ OBJECT_DIRS = {
     "dissent": OBJECTS_ROOT / "dissents",
     "verdict": OBJECTS_ROOT / "verdicts",
 }
+
+REQUIRED_FIELDS = {
+    "*": ["id", "object_type", "title", "lifecycle_state", "visibility", "links"],
+    "claim": ["epistemic_status"],
+    "dissent": ["dissent_kind", "severity"],
+    "verdict": ["verdict_level"],
+}
+
+
+class ValidationError(Exception):
+    """Raised when the current case layer fails generator validation."""
 
 
 def read_text(path: Path) -> str:
@@ -156,7 +168,8 @@ def load_objects() -> dict[str, dict[str, Any]]:
             meta["summary"] = extract_summary(body)
             rel_path = path.relative_to(CASE_ROOT).as_posix()
             meta["href"] = f"../{rel_path}"
-            objects[str(meta["id"])] = meta
+            object_id = str(meta.get("id", path.stem))
+            objects[object_id] = meta
     return objects
 
 
@@ -206,18 +219,85 @@ def parse_references(markdown: str) -> list[dict[str, str]]:
 
 def parse_timeline(markdown: str) -> list[dict[str, str]]:
     items: list[dict[str, str]] = []
-    pattern = re.compile(r"### (.+?) — (.+?)\n((?:- .+\n?)*)", re.M)
-    for match in pattern.finditer(markdown):
-        year = match.group(1).strip()
-        title = match.group(2).strip()
-        bullets = [b[2:].strip() for b in match.group(3).splitlines() if b.startswith("- ")]
+    heading_pattern = re.compile(r"^### (.+)$", re.M)
+    matches = list(heading_pattern.finditer(markdown))
+
+    for index, match in enumerate(matches):
+        heading = match.group(1).strip()
+        start = match.end()
+        end = matches[index + 1].start() if index + 1 < len(matches) else len(markdown)
+        block = markdown[start:end]
+        bullets = [line[2:].strip() for line in block.splitlines() if line.startswith("- ")]
         body = " ".join(bullets)
-        items.append({"year": year, "title": title, "body": body})
+
+        if " — " in heading:
+            year, title = heading.split(" — ", 1)
+        else:
+            year, title = "", heading
+
+        items.append({"year": year.strip(), "title": title.strip(), "body": body})
     return items
 
 
 def make_link(label: str, href: str) -> dict[str, str]:
     return {"label": label, "href": href}
+
+
+def canonical_source_ids(reference_entries: list[dict[str, str]]) -> set[str]:
+    return {entry["id"] for entry in reference_entries if entry.get("id")}
+
+
+def validate_objects(objects: dict[str, dict[str, Any]], source_ids: set[str]) -> None:
+    errors: list[str] = []
+
+    for object_id, obj in sorted(objects.items()):
+        object_type = str(obj.get("object_type", ""))
+        required_fields = REQUIRED_FIELDS["*"] + REQUIRED_FIELDS.get(object_type, [])
+
+        for field in required_fields:
+            value = obj.get(field)
+            missing = value is None or value == "" or value == []
+            if missing:
+                errors.append(f"{object_id}: missing required field `{field}`")
+
+        for source_ref in obj.get("source_refs", []):
+            if source_ref not in source_ids:
+                errors.append(f"{object_id}: undefined source_ref `{source_ref}`")
+
+        for basis_ref in obj.get("basis_refs", []):
+            if basis_ref not in objects:
+                errors.append(f"{object_id}: basis_ref `{basis_ref}` points to a missing object")
+
+        links = obj.get("links", [])
+        if isinstance(links, list):
+            for position, link in enumerate(links, start=1):
+                link_type = link.get("type") if isinstance(link, dict) else None
+                target = link.get("target") if isinstance(link, dict) else None
+                if not link_type:
+                    errors.append(f"{object_id}: link #{position} is missing `type`")
+                if not target:
+                    errors.append(f"{object_id}: link #{position} is missing `target`")
+                elif target not in objects:
+                    errors.append(f"{object_id}: link #{position} points to missing target `{target}`")
+        else:
+            errors.append(f"{object_id}: `links` must be a list")
+
+    if errors:
+        raise ValidationError("\n".join(errors))
+
+
+def validate_snapshot_contract(snapshot_text: str) -> None:
+    required_headings = [
+        "## What this page is",
+        "## Current visible judgment",
+        "### Original claim",
+        "### Descendant claim",
+        "## Why this case matters",
+    ]
+    missing = [heading for heading in required_headings if heading not in snapshot_text]
+    if missing:
+        formatted = ", ".join(missing)
+        raise ValidationError(f"snapshot-v2.md is missing required section(s): {formatted}")
 
 
 def build_status_cards(objects: dict[str, dict[str, Any]], snapshot_text: str) -> list[dict[str, Any]]:
@@ -282,7 +362,12 @@ def build_page_data() -> dict[str, Any]:
     snapshot_text = read_text(SNAPSHOT_PATH)
     references_text = read_text(REFERENCES_PATH)
     timeline_text = read_text(TIMELINE_PATH)
+    reference_entries = parse_references(references_text)
+    source_ids = canonical_source_ids(reference_entries)
     objects = load_objects()
+
+    validate_snapshot_contract(snapshot_text)
+    validate_objects(objects, source_ids)
 
     title = extract_snapshot_title(snapshot_text)
     what_this_page_is = section_text(snapshot_text, "What this page is")
@@ -323,7 +408,7 @@ def build_page_data() -> dict[str, Any]:
             },
         ],
         "timeline": parse_timeline(timeline_text),
-        "sources": parse_references(references_text),
+        "sources": reference_entries,
         "readingPath": [
             make_link("Snapshot v2", "../snapshots/snapshot-v2.md"),
             make_link("Verdict V-0001", objects["V-0001"]["href"]),
@@ -341,15 +426,22 @@ def write_output(data: dict[str, Any]) -> None:
     payload = json.dumps(data, ensure_ascii=False, indent=2)
     content = (
         "// This file is generated by generate_page_data.py.\n"
-        "// Edit object files, snapshot-v2.md, or references.md, then re-run the generator.\n\n"
+        "// Edit object files, snapshot-v2.md, or references.md, then re-run the generator.\n"
+        "// The generator now performs minimal validation before writing this file.\n\n"
         f"window.POWER_POSING_PAGE_DATA = {payload};\n"
     )
     OUTPUT_PATH.write_text(content, encoding="utf-8")
 
 
 def main() -> None:
-    data = build_page_data()
-    write_output(data)
+    try:
+        data = build_page_data()
+        write_output(data)
+    except ValidationError as exc:
+        print("Validation failed before page-data generation:\n", file=sys.stderr)
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(1) from exc
+
     print(f"Wrote {OUTPUT_PATH}")
 
 

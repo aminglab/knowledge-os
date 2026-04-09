@@ -22,7 +22,7 @@ That is enough for the current stage.
 
 - `index.html` — the page shell
 - `styles.css` — the current visual layer
-- `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer
+- `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer and performs minimal validation
 - `page-data.js` — generated page data consumed by the browser renderer
 - `render.js` — the script that turns the generated data into a page
 
@@ -46,10 +46,25 @@ The current intended flow is:
 
 1. edit object files, `snapshot-v2.md`, `references.md`, or `timeline/events.md`
 2. run `generate_page_data.py`
-3. regenerate `page-data.js`
-4. open `index.html`
+3. let the generator validate the current case layer
+4. regenerate `page-data.js`
+5. open `index.html`
 
 That means `page-data.js` should now be treated as a **generated artifact**, not as the canonical place to edit case content.
+
+---
+
+## Current validation floor
+
+The generator now performs a small but useful validation pass before writing `page-data.js`.
+It currently checks for:
+
+- undefined `source_refs`,
+- missing required frontmatter fields,
+- and links or internal references that point to missing objects.
+
+This is not yet a full protocol validator.
+But it gives the publishing pipeline its first real teeth.
 
 ---
 
@@ -74,6 +89,7 @@ For now, the renderer is intentionally simple and honest:
 - the knowledge model still lives in the case objects,
 - the snapshot still acts as a public release layer,
 - the generator creates a thin browser-ready data bridge,
+- validates a small set of high-value invariants,
 - and the page is a presentation surface over that bridge.
 
 ---
@@ -87,6 +103,8 @@ This step proves the next thing:
 
 > the public page no longer depends entirely on hand-written page data.
 
+And the pipeline can now fail early when the case layer drifts in obvious ways.
+
 That is the beginning of a real publishing pipeline.
 
 ---
@@ -97,6 +115,6 @@ Later iterations may:
 
 - make the generator more generic across cases,
 - derive richer cards from object fields and body sections,
-- validate `source_refs` and object ids during generation,
+- validate more protocol constraints,
 - support multiple snapshots,
 - and eventually merge into a broader public layer renderer.
