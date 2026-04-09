@@ -32,8 +32,9 @@ A new reader should start with:
 5. [`verdict-grammar-v1.md`](./verdict-grammar-v1.md) — the case-scoped bridge between snapshot wording and object-layer judgment
 6. [`check-atlas-v1.md`](./check-atlas-v1.md) — the developer-facing map of the current validation network
 7. [`check-merge-assessment-v1.md`](./check-merge-assessment-v1.md) — the current ruling on whether adjacent checks should stay separate or be partially merged later
-8. [`case.md`](./case.md) — the case overview and thesis
-9. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
+8. [`case-template-boundary-v1.md`](./case-template-boundary-v1.md) — the current boundary ruling on what is already reusable shell versus what remains case-specific
+9. [`case.md`](./case.md) — the case overview and thesis
+10. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
 
 Earlier snapshot:
 
@@ -48,6 +49,7 @@ Earlier snapshot:
 - [`verdict-grammar-v1.md`](./verdict-grammar-v1.md) — case-scoped verdict grammar bridge
 - [`check-atlas-v1.md`](./check-atlas-v1.md) — developer-facing validation map and checker boundary guide
 - [`check-merge-assessment-v1.md`](./check-merge-assessment-v1.md) — developer-facing merge ruling for adjacent validation checks
+- [`case-template-boundary-v1.md`](./case-template-boundary-v1.md) — developer-facing boundary ruling for the first small reusable template seam
 - [`objects/claims/`](./objects/claims/) — claim objects
 - [`objects/evidence/`](./objects/evidence/) — evidence objects
 - [`objects/dissents/`](./objects/dissents/) — dissent objects
