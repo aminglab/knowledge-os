@@ -26,9 +26,10 @@ That makes it a good demonstration of:
 A new reader should start with:
 
 1. [`snapshots/snapshot-v2.md`](./snapshots/snapshot-v2.md) — the current public-facing living snapshot
-2. [`case.md`](./case.md) — the case overview and thesis
-3. [`references.md`](./references.md) — source mapping used by the case
-4. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
+2. [`references.md`](./references.md) — the thin reader-facing reference entrypoint
+3. [`references-metadata-v1.md`](./references-metadata-v1.md) — the stable source metadata layer
+4. [`case.md`](./case.md) — the case overview and thesis
+5. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
 
 Earlier snapshot:
 
