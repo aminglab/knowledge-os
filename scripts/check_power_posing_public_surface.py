@@ -50,6 +50,14 @@ def find_markdown_links(markdown: str) -> list[tuple[str, str]]:
     return re.findall(r"\[([^\]]+)\]\(([^)]+)\)", markdown)
 
 
+def find_markdown_links_with_lines(markdown: str) -> list[tuple[str, str, str]]:
+    results: list[tuple[str, str, str]] = []
+    for line in markdown.splitlines():
+        for label, target in re.findall(r"\[([^\]]+)\]\(([^)]+)\)", line):
+            results.append((label, target, line.strip()))
+    return results
+
+
 def validate() -> dict[str, int]:
     snapshot_text = read_text(SNAPSHOT_PATH)
     readme_text = read_text(README_PATH)
@@ -60,13 +68,17 @@ def validate() -> dict[str, int]:
 
     errors: list[str] = []
 
-    judgment_links = {target: label for label, target in find_markdown_links(snapshot_judgment_section)}
-    for target, expected_label_fragment in REQUIRED_SNAPSHOT_CURRENT_VISIBLE_JUDGMENT_LINKS.items():
+    judgment_links = {target: (label, full_line) for label, target, full_line in find_markdown_links_with_lines(snapshot_judgment_section)}
+    for target, expected_line_fragment in REQUIRED_SNAPSHOT_CURRENT_VISIBLE_JUDGMENT_LINKS.items():
         if target not in judgment_links:
             errors.append(f"snapshot current visible judgment is missing required link `{target}`")
-        elif expected_label_fragment not in judgment_links[target]:
+            continue
+
+        _, full_line = judgment_links[target]
+        if expected_line_fragment not in full_line:
             errors.append(
-                f"snapshot current visible judgment link `{target}` has label `{judgment_links[target]}` which does not contain `{expected_label_fragment}`"
+                f"snapshot current visible judgment link `{target}` appears on line `{full_line}` "
+                f"which does not contain `{expected_line_fragment}`"
             )
 
     snapshot_reading_path_targets = [target for _, target in find_markdown_links(snapshot_reading_path)]
