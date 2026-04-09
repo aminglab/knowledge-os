@@ -30,8 +30,9 @@ A new reader should start with:
 3. [`references-metadata-v1.md`](./references-metadata-v1.md) — the stable source metadata layer
 4. [`status-legend-v1.md`](./status-legend-v1.md) — the public wording note for current status phrases
 5. [`verdict-grammar-v1.md`](./verdict-grammar-v1.md) — the case-scoped bridge between snapshot wording and object-layer judgment
-6. [`case.md`](./case.md) — the case overview and thesis
-7. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
+6. [`check-atlas-v1.md`](./check-atlas-v1.md) — the developer-facing map of the current validation network
+7. [`case.md`](./case.md) — the case overview and thesis
+8. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
 
 Earlier snapshot:
 
@@ -44,6 +45,7 @@ Earlier snapshot:
 - [`references-metadata-v1.md`](./references-metadata-v1.md) — stable source metadata layer
 - [`status-legend-v1.md`](./status-legend-v1.md) — public wording note for current status phrases
 - [`verdict-grammar-v1.md`](./verdict-grammar-v1.md) — case-scoped verdict grammar bridge
+- [`check-atlas-v1.md`](./check-atlas-v1.md) — developer-facing validation map and checker boundary guide
 - [`objects/claims/`](./objects/claims/) — claim objects
 - [`objects/evidence/`](./objects/evidence/) — evidence objects
 - [`objects/dissents/`](./objects/dissents/) — dissent objects
