@@ -3,15 +3,18 @@
 This directory contains the **first simple renderer prototype** for the `power-posing` living knowledge case.
 
 It is intentionally small.
-It does not yet parse the markdown object files automatically.
-Instead, it creates a real page surface from a thin hand-maintained data bridge.
+It is still a zero-build prototype.
+But it no longer treats `page-data.js` as a hand-maintained bridge.
+
+The current page stack now has a small publishing pipeline:
+
+- governed markdown object files,
+- snapshot markdown,
+- a case-scoped page-data generator,
+- generated page data,
+- and a reader-facing page shell.
 
 That is enough for the current stage.
-
-The goal is not to pretend the full product already exists.
-The goal is to cross an important threshold:
-
-> move from a repository-readable case to a reader-facing page prototype.
 
 ---
 
@@ -19,54 +22,72 @@ The goal is to cross an important threshold:
 
 - `index.html` — the page shell
 - `styles.css` — the current visual layer
-- `page-data.js` — a small renderer data bridge derived from the current case objects and snapshot
-- `render.js` — the script that turns the data bridge into a page
+- `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer
+- `page-data.js` — generated page data consumed by the browser renderer
+- `render.js` — the script that turns the generated data into a page
 
 ---
 
 ## Current scope
 
-This renderer prototype is designed to prove four things:
+This renderer prototype is designed to prove five things:
 
 1. the case can be rendered as a page rather than only as a markdown tree,
 2. object ids can remain visible at the UI layer,
 3. the page can point back to source objects and the reference map,
-4. the snapshot can become a navigable public reading surface.
+4. the snapshot can become a navigable public reading surface,
+5. and the page layer can now grow from the governed object layer through a minimal generation step.
+
+---
+
+## How it works now
+
+The current intended flow is:
+
+1. edit object files, `snapshot-v2.md`, `references.md`, or `timeline/events.md`
+2. run `generate_page_data.py`
+3. regenerate `page-data.js`
+4. open `index.html`
+
+That means `page-data.js` should now be treated as a **generated artifact**, not as the canonical place to edit case content.
 
 ---
 
 ## Important honesty note
 
-This is a **zero-build prototype**.
+This is still a **case-scoped prototype**.
 It does not yet implement:
 
-- automatic markdown/frontmatter parsing,
+- a universal markdown/frontmatter parser for all cases,
 - a generic case renderer pipeline,
 - live snapshot selection,
 - search,
 - filters,
 - object graph visualization,
-- or formal routing.
+- formal routing,
+- or multi-case publishing automation.
 
 Those should come later.
 
 For now, the renderer is intentionally simple and honest:
 
 - the knowledge model still lives in the case objects,
-- the page is a presentation layer,
-- and `page-data.js` is the temporary bridge between the two.
+- the snapshot still acts as a public release layer,
+- the generator creates a thin browser-ready data bridge,
+- and the page is a presentation surface over that bridge.
 
 ---
 
 ## Why this matters
 
 The repository already proved that the case can exist as governed files.
-This renderer prototype proves the next thing:
+The first renderer prototype proved that the case could begin to look like a product surface.
 
-> the same case can begin to look like a product surface.
+This step proves the next thing:
 
-That shift matters because Knowledge OS is not only a protocol idea.
-It also needs public-facing reading surfaces.
+> the public page no longer depends entirely on hand-written page data.
+
+That is the beginning of a real publishing pipeline.
 
 ---
 
@@ -74,7 +95,8 @@ It also needs public-facing reading surfaces.
 
 Later iterations may:
 
-- generate `page-data.js` from object frontmatter,
-- support multiple cases through one renderer shell,
-- turn object references into richer cards,
-- and eventually merge into a more general public layer renderer.
+- make the generator more generic across cases,
+- derive richer cards from object fields and body sections,
+- validate `source_refs` and object ids during generation,
+- support multiple snapshots,
+- and eventually merge into a broader public layer renderer.
