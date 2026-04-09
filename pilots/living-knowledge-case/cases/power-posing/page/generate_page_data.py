@@ -1,0 +1,357 @@
+#!/usr/bin/env python3
+"""Generate page-data.js for the power-posing page prototype.
+
+This script is intentionally small and case-scoped.
+It is the first automation step between:
+
+- governed markdown object files,
+- snapshot markdown,
+- and the public page prototype.
+
+It does not attempt to be a universal Knowledge OS compiler.
+It only proves that page data can be derived from the current case layer
+rather than written entirely by hand.
+
+Usage:
+    python generate_page_data.py
+
+It rewrites:
+    ./page-data.js
+"""
+
+from __future__ import annotations
+
+import json
+import re
+from pathlib import Path
+from typing import Any
+
+ROOT = Path(__file__).resolve().parent
+CASE_ROOT = ROOT.parent
+OBJECTS_ROOT = CASE_ROOT / "objects"
+SNAPSHOT_PATH = CASE_ROOT / "snapshots" / "snapshot-v2.md"
+TIMELINE_PATH = CASE_ROOT / "timeline" / "events.md"
+REFERENCES_PATH = CASE_ROOT / "references.md"
+OUTPUT_PATH = ROOT / "page-data.js"
+
+OBJECT_DIRS = {
+    "claim": OBJECTS_ROOT / "claims",
+    "evidence": OBJECTS_ROOT / "evidence",
+    "dissent": OBJECTS_ROOT / "dissents",
+    "verdict": OBJECTS_ROOT / "verdicts",
+}
+
+
+def read_text(path: Path) -> str:
+    return path.read_text(encoding="utf-8")
+
+
+def extract_frontmatter_and_body(text: str) -> tuple[list[str], str]:
+    if not text.startswith("---\n"):
+        return [], text
+    parts = text.split("\n---\n", 1)
+    if len(parts) != 2:
+        return [], text
+    frontmatter = parts[0].splitlines()[1:]
+    body = parts[1]
+    return frontmatter, body
+
+
+def parse_scalar(value: str) -> Any:
+    value = value.strip()
+    if value.startswith('"') and value.endswith('"'):
+        return value[1:-1]
+    if value.startswith("'") and value.endswith("'"):
+        return value[1:-1]
+    if re.fullmatch(r"-?\d+", value):
+        return int(value)
+    return value
+
+
+def parse_frontmatter(lines: list[str]) -> dict[str, Any]:
+    data: dict[str, Any] = {}
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if not line.strip():
+            i += 1
+            continue
+
+        top_match = re.match(r"^([A-Za-z_][A-Za-z0-9_]*):(?:\s*(.*))?$", line)
+        if not top_match:
+            i += 1
+            continue
+
+        key = top_match.group(1)
+        value = top_match.group(2)
+
+        if value:
+            data[key] = parse_scalar(value)
+            i += 1
+            continue
+
+        i += 1
+        block: list[str] = []
+        while i < len(lines):
+            nxt = lines[i]
+            if nxt.startswith("  ") or not nxt.strip():
+                block.append(nxt)
+                i += 1
+            else:
+                break
+
+        block = [b for b in block if b.strip()]
+        if not block:
+            data[key] = None
+            continue
+
+        if all(b.startswith("  - ") and not re.search(r":\s", b[4:]) for b in block):
+            data[key] = [parse_scalar(b[4:]) for b in block]
+            continue
+
+        if all(b.startswith("  ") and not b.startswith("  - ") for b in block):
+            mapping: dict[str, Any] = {}
+            for b in block:
+                m = re.match(r"^  ([A-Za-z_][A-Za-z0-9_]*):\s*(.*)$", b)
+                if m:
+                    mapping[m.group(1)] = parse_scalar(m.group(2))
+            data[key] = mapping
+            continue
+
+        if all(b.startswith("  - ") or b.startswith("    ") for b in block):
+            items: list[dict[str, Any]] = []
+            current: dict[str, Any] | None = None
+            for b in block:
+                first = re.match(r"^  - ([A-Za-z_][A-Za-z0-9_]*):\s*(.*)$", b)
+                nested = re.match(r"^    ([A-Za-z_][A-Za-z0-9_]*):\s*(.*)$", b)
+                if first:
+                    current = {first.group(1): parse_scalar(first.group(2))}
+                    items.append(current)
+                elif nested and current is not None:
+                    current[nested.group(1)] = parse_scalar(nested.group(2))
+            data[key] = items
+            continue
+
+        data[key] = [b.strip() for b in block]
+
+    return data
+
+
+def extract_summary(body: str) -> str:
+    match = re.search(r"## Summary\n\n(.+?)(?:\n\n## |\Z)", body, re.S)
+    if match:
+        return " ".join(line.strip() for line in match.group(1).strip().splitlines())
+    paragraphs = [p.strip() for p in body.split("\n\n") if p.strip() and not p.strip().startswith("#")]
+    return paragraphs[0] if paragraphs else ""
+
+
+def load_objects() -> dict[str, dict[str, Any]]:
+    objects: dict[str, dict[str, Any]] = {}
+    for object_type, directory in OBJECT_DIRS.items():
+        for path in sorted(directory.glob("*.md")):
+            text = read_text(path)
+            frontmatter_lines, body = extract_frontmatter_and_body(text)
+            meta = parse_frontmatter(frontmatter_lines)
+            meta["object_type"] = meta.get("object_type", object_type)
+            meta["summary"] = extract_summary(body)
+            rel_path = path.relative_to(CASE_ROOT).as_posix()
+            meta["href"] = f"../{rel_path}"
+            objects[str(meta["id"])] = meta
+    return objects
+
+
+def section_text(markdown: str, heading: str) -> str:
+    pattern = rf"## {re.escape(heading)}\n\n(.+?)(?:\n---\n|\n## |\Z)"
+    match = re.search(pattern, markdown, re.S)
+    if not match:
+        return ""
+    return "\n\n".join(chunk.strip() for chunk in match.group(1).strip().split("\n\n") if chunk.strip())
+
+
+def extract_snapshot_title(markdown: str) -> str:
+    match = re.search(r"\*\*(.+?)\*\*", markdown)
+    return match.group(1) if match else "Power Posing"
+
+
+def extract_state_block(markdown: str, label: str) -> tuple[str, str]:
+    pattern = rf"### {re.escape(label)}\n\*\*Current state:\*\* (.+?)\n\n(.+?)(?:\n### |\n---\n|\Z)"
+    match = re.search(pattern, markdown, re.S)
+    if not match:
+        fallback = re.search(rf"### {re.escape(label)}\n\*\*Status:\*\* (.+?)\n\n(.+?)(?:\n### |\n---\n|\Z)", markdown, re.S)
+        if fallback:
+            return fallback.group(1).strip(), " ".join(fallback.group(2).strip().splitlines())
+        return "", ""
+    status = match.group(1).strip()
+    summary = " ".join(match.group(2).strip().splitlines())
+    return status, summary
+
+
+def parse_references(markdown: str) -> list[dict[str, str]]:
+    entries: list[dict[str, str]] = []
+    parts = re.split(r"\n### `([^`]+)`\n", markdown)
+    for i in range(1, len(parts), 2):
+        source_id = parts[i]
+        block = parts[i + 1]
+        role_match = re.search(r"- Role in case: (.+)", block)
+        usage_match = re.search(r"- Object usage: (.+)", block)
+        entries.append(
+            {
+                "id": source_id,
+                "role": role_match.group(1).strip() if role_match else "",
+                "usage": usage_match.group(1).strip() if usage_match else "",
+            }
+        )
+    return entries
+
+
+def parse_timeline(markdown: str) -> list[dict[str, str]]:
+    items: list[dict[str, str]] = []
+    pattern = re.compile(r"### (.+?) — (.+?)\n((?:- .+\n?)*)", re.M)
+    for match in pattern.finditer(markdown):
+        year = match.group(1).strip()
+        title = match.group(2).strip()
+        bullets = [b[2:].strip() for b in match.group(3).splitlines() if b.startswith("- ")]
+        body = " ".join(bullets)
+        items.append({"year": year, "title": title, "body": body})
+    return items
+
+
+def make_link(label: str, href: str) -> dict[str, str]:
+    return {"label": label, "href": href}
+
+
+def build_status_cards(objects: dict[str, dict[str, Any]], snapshot_text: str) -> list[dict[str, Any]]:
+    original_status, original_summary = extract_state_block(snapshot_text, "Original claim")
+    descendant_status, descendant_summary = extract_state_block(snapshot_text, "Descendant claim")
+
+    c1 = objects["C-0001"]
+    v1 = objects["V-0001"]
+    e1 = objects["E-0001"]
+    c2 = objects["C-0002"]
+    v2 = objects["V-0002"]
+
+    return [
+        {
+            "title": "Original claim",
+            "status": original_status,
+            "summary": original_summary,
+            "badges": ["claim", c1["id"], v1["id"]],
+            "links": [
+                make_link(f"View claim {c1['id']}", c1["href"]),
+                make_link(f"View verdict {v1['id']}", v1["href"]),
+                make_link(f"View evidence {e1['id']}", e1["href"]),
+            ],
+        },
+        {
+            "title": "Descendant claim",
+            "status": descendant_status,
+            "summary": descendant_summary,
+            "badges": ["claim", c2["id"], v2["id"]],
+            "links": [
+                make_link(f"View claim {c2['id']}", c2["href"]),
+                make_link(f"View verdict {v2['id']}", v2["href"]),
+            ],
+        },
+    ]
+
+
+def build_neighborhood_cards(objects: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    ids = ["E-0001", "D-0001", "D-0002", "D-0003", "C-0002", "V-0001", "V-0002"]
+    cards: list[dict[str, Any]] = []
+    for object_id in ids:
+        obj = objects[object_id]
+        kind = "dissent" if obj["object_type"] == "dissent" else "status"
+        if obj["object_type"] == "evidence":
+            kind = "support"
+        badges = [obj["id"]]
+        if "source_refs" in obj:
+            badges.extend(obj["source_refs"][:2])
+        cards.append(
+            {
+                "title": obj["title"],
+                "kind": kind,
+                "body": obj["summary"],
+                "badges": badges,
+                "links": [make_link(f"Open {obj['id']}", obj["href"])],
+            }
+        )
+    return cards
+
+
+def build_page_data() -> dict[str, Any]:
+    snapshot_text = read_text(SNAPSHOT_PATH)
+    references_text = read_text(REFERENCES_PATH)
+    timeline_text = read_text(TIMELINE_PATH)
+    objects = load_objects()
+
+    title = extract_snapshot_title(snapshot_text)
+    what_this_page_is = section_text(snapshot_text, "What this page is")
+    why_case_matters = section_text(snapshot_text, "Why this case matters")
+
+    data = {
+        "title": "Power Posing",
+        "subtitle": title,
+        "description": " ".join(what_this_page_is.splitlines()),
+        "links": [
+            make_link("Snapshot v2", "../snapshots/snapshot-v2.md"),
+            make_link("Case overview", "../case.md"),
+            make_link("References", "../references.md"),
+            make_link("Timeline", "../timeline/events.md"),
+        ],
+        "statusCards": build_status_cards(objects, snapshot_text),
+        "sections": [
+            {
+                "title": "Why this case matters",
+                "intro": " ".join(why_case_matters.splitlines()),
+                "cards": [
+                    {
+                        "title": "The structural problem",
+                        "kind": "status",
+                        "body": "The publication persists, but the knowledge status changed. A living knowledge system should keep those changes attached to the claim lineage itself.",
+                    },
+                    {
+                        "title": "Object neighborhoods",
+                        "kind": "support",
+                        "body": "This page keeps the object model visible instead of flattening the case into anonymous prose.",
+                    },
+                ],
+            },
+            {
+                "title": "Current object neighborhoods",
+                "intro": "These cards are derived from current object frontmatter plus each object's summary section.",
+                "cards": build_neighborhood_cards(objects),
+            },
+        ],
+        "timeline": parse_timeline(timeline_text),
+        "sources": parse_references(references_text),
+        "readingPath": [
+            make_link("Snapshot v2", "../snapshots/snapshot-v2.md"),
+            make_link("Verdict V-0001", objects["V-0001"]["href"]),
+            make_link("Verdict V-0002", objects["V-0002"]["href"]),
+            make_link("Claim C-0001", objects["C-0001"]["href"]),
+            make_link("Claim C-0002", objects["C-0002"]["href"]),
+            make_link("Timeline", "../timeline/events.md"),
+            make_link("References", "../references.md"),
+        ],
+    }
+    return data
+
+
+def write_output(data: dict[str, Any]) -> None:
+    payload = json.dumps(data, ensure_ascii=False, indent=2)
+    content = (
+        "// This file is generated by generate_page_data.py.\n"
+        "// Edit object files, snapshot-v2.md, or references.md, then re-run the generator.\n\n"
+        f"window.POWER_POSING_PAGE_DATA = {payload};\n"
+    )
+    OUTPUT_PATH.write_text(content, encoding="utf-8")
+
+
+def main() -> None:
+    data = build_page_data()
+    write_output(data)
+    print(f"Wrote {OUTPUT_PATH}")
+
+
+if __name__ == "__main__":
+    main()
