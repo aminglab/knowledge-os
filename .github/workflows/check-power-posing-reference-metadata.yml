@@ -1,0 +1,33 @@
+name: Check power-posing reference metadata
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/**"
+      - "scripts/check_power_posing_reference_metadata.py"
+      - ".github/workflows/check-power-posing-reference-metadata.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/**"
+      - "scripts/check_power_posing_reference_metadata.py"
+      - ".github/workflows/check-power-posing-reference-metadata.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-reference-metadata:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run reference metadata consistency check
+        run: python scripts/check_power_posing_reference_metadata.py
