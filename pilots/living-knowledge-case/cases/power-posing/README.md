@@ -38,7 +38,8 @@ Earlier snapshot:
 ## Folder guide
 
 - [`case.md`](./case.md) — human-readable case overview
-- [`references.md`](./references.md) — source reference mapping
+- [`references.md`](./references.md) — reader-facing reference entrypoint
+- [`references-metadata-v1.md`](./references-metadata-v1.md) — stable source metadata layer
 - [`objects/claims/`](./objects/claims/) — claim objects
 - [`objects/evidence/`](./objects/evidence/) — evidence objects
 - [`objects/dissents/`](./objects/dissents/) — dissent objects
