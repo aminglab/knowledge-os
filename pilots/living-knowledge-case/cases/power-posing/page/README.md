@@ -22,7 +22,7 @@ That is enough for the current stage.
 
 - `index.html` — the page shell
 - `styles.css` — the current visual layer
-- `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer, validates the release surface, and prints a small release summary
+- `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer, validates the release surface, prints a small release summary, and supports `--check`
 - `page-data.js` — generated page data consumed by the browser renderer
 - `render.js` — the script that turns the generated data into a page
 
@@ -51,6 +51,14 @@ The current intended flow is:
 5. open `index.html`
 
 That means `page-data.js` should now be treated as a **generated artifact**, not as the canonical place to edit case content.
+
+If you want to validate the release surface without rewriting `page-data.js`, run:
+
+```bash
+python generate_page_data.py --check
+```
+
+That mode performs the same parsing and validation pass, builds the release data in memory, prints the summary, and exits without writing the output file.
 
 ---
 
@@ -107,6 +115,7 @@ For now, the renderer is intentionally simple and honest:
 - the generator creates a thin browser-ready data bridge,
 - validates a small set of high-value invariants,
 - prints a readable release summary,
+- supports a non-writing `--check` mode,
 - and the page is a presentation surface over that bridge.
 
 ---

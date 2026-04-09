@@ -14,6 +14,7 @@ rather than written entirely by hand.
 
 Usage:
     python generate_page_data.py
+    python generate_page_data.py --check
 
 It rewrites:
     ./page-data.js
@@ -21,6 +22,7 @@ It rewrites:
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import sys
@@ -52,6 +54,18 @@ REQUIRED_FIELDS = {
 
 class ValidationError(Exception):
     """Raised when the current case layer fails generator validation."""
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Generate or validate page-data.js for the power-posing page prototype."
+    )
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Validate and summarize the current release surface without writing page-data.js.",
+    )
+    return parser.parse_args()
 
 
 def read_text(path: Path) -> str:
@@ -463,15 +477,22 @@ def print_release_summary(objects: dict[str, dict[str, Any]], reference_entries:
 
 
 def main() -> None:
+    args = parse_args()
+
     try:
         data, objects, reference_entries = build_page_data()
-        write_output(data)
+        if not args.check:
+            write_output(data)
     except ValidationError as exc:
         print("Validation failed before page-data generation:\n", file=sys.stderr)
         print(str(exc), file=sys.stderr)
         raise SystemExit(1) from exc
 
-    print(f"Wrote {OUTPUT_PATH}")
+    if args.check:
+        print("Check mode passed: release surface validated; page-data.js was not written.")
+    else:
+        print(f"Wrote {OUTPUT_PATH}")
+
     print_release_summary(objects, reference_entries, data)
 
 
