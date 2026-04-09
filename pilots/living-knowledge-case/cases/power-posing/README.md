@@ -34,8 +34,9 @@ A new reader should start with:
 7. [`check-merge-assessment-v1.md`](./check-merge-assessment-v1.md) — the current ruling on whether adjacent checks should stay separate or be partially merged later
 8. [`case-template-boundary-v1.md`](./case-template-boundary-v1.md) — the current boundary ruling on what is already reusable shell versus what remains case-specific
 9. [`case-template-extraction-checklist-v1.md`](./case-template-extraction-checklist-v1.md) — the current operational copy discipline for what a future second case may copy, rewrite, or not yet assume generic
-10. [`case.md`](./case.md) — the case overview and thesis
-11. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
+10. [`template-seam-summary-v1.md`](./template-seam-summary-v1.md) — the short consolidated ruling that compresses stage judgment, boundary judgment, and extraction judgment into one seam-level anchor
+11. [`case.md`](./case.md) — the case overview and thesis
+12. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
 
 Earlier snapshot:
 
@@ -52,6 +53,7 @@ Earlier snapshot:
 - [`check-merge-assessment-v1.md`](./check-merge-assessment-v1.md) — developer-facing merge ruling for adjacent validation checks
 - [`case-template-boundary-v1.md`](./case-template-boundary-v1.md) — developer-facing boundary ruling for the first small reusable template seam
 - [`case-template-extraction-checklist-v1.md`](./case-template-extraction-checklist-v1.md) — developer-facing copy discipline for extracting and reusing the first template seam
+- [`template-seam-summary-v1.md`](./template-seam-summary-v1.md) — developer-facing consolidated seam ruling across phase decision, boundary ruling, and extraction checklist
 - [`objects/claims/`](./objects/claims/) — claim objects
 - [`objects/evidence/`](./objects/evidence/) — evidence objects
 - [`objects/dissents/`](./objects/dissents/) — dissent objects
