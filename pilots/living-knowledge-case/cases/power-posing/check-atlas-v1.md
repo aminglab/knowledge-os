@@ -24,7 +24,7 @@ It now has a small but real validation network.
 Without an atlas, two bad things become likely:
 
 1. later work starts to confuse neighboring checks with duplicate checks,
-2. future refactors lose the distinction between object consistency, narrative consistency, and reader-facing surface consistency.
+2. future refactors lose the distinction between object consistency, narrative consistency, reader-facing surface consistency, and template-seam governance exposure.
 
 This file exists to prevent that drift.
 
@@ -32,7 +32,7 @@ This file exists to prevent that drift.
 
 ## Current layer map
 
-The current case can be read as six adjacent layers:
+The current case can be read as seven adjacent layers:
 
 1. **Object layer**
    - claim, evidence, dissent, and verdict objects under `objects/`
@@ -46,6 +46,8 @@ The current case can be read as six adjacent layers:
    - `snapshots/snapshot-v2.md`
 6. **Reader-facing surface layer**
    - `references.md`, `README.md`, snapshot reading paths, and page prototype entrypoints
+7. **Template-seam governance surface layer**
+   - `case-template-boundary-v1.md`, `case-template-extraction-checklist-v1.md`, `template-seam-summary-v1.md` as exposed through README developer-facing paths
 
 The checks below are distributed across these layers rather than collapsed into one monolithic validator.
 
@@ -68,6 +70,7 @@ These call the page generator in validation mode rather than write mode.
 - `check-power-posing-verdict-grammar.yml`
 - `check-power-posing-status-legend.yml`
 - `check-power-posing-public-surface.yml`
+- `check-power-posing-template-seam-readme.yml`
 
 These workflows together form the current CI surface for the case.
 
@@ -124,6 +127,14 @@ These workflows together form the current CI surface for the case.
 - **Failure meaning:** the public-facing navigation surface no longer exposes the governance layers that now support the snapshot
 - **Why it stays distinct:** it checks what the reader can visibly navigate, not whether the underlying semantics are true
 
+### 7. README template seam audit
+- **Primary script:** `scripts/check_power_posing_template_seam_readme.py`
+- **Protected layer:** template-seam governance surface as exposed through README paths
+- **Reads:** `README.md`
+- **Checks:** required README exposure of `case-template-boundary-v1.md`, `case-template-extraction-checklist-v1.md`, and `template-seam-summary-v1.md` in both `Reader path` and `Folder guide`
+- **Failure meaning:** the README no longer exposes the documents that govern template-seam boundary, extraction discipline, and consolidated seam judgment
+- **Why it stays distinct:** it does not validate general public navigation; it validates continued exposure of the case’s reusable-seam governance documents
+
 ---
 
 ## Adjacency and boundary notes
@@ -135,6 +146,17 @@ These two are adjacent but not identical.
 - **Public surface consistency** asks whether the reader-facing navigation path still exposes the layers the reader now needs.
 
 A future refactor might merge them, but they should not be treated as already redundant.
+
+### Public surface consistency vs README template seam audit
+These two are also adjacent but not identical.
+
+- **Public surface consistency** checks whether the reader-facing surface still exposes the layers needed to read the current snapshot responsibly.
+- **README template seam audit** checks whether the README still exposes the documents that govern seam reuse discipline.
+
+One protects public reading navigation.
+The other protects developer-facing seam governance exposure.
+
+They should not be treated as duplicate merely because both read `README.md`.
 
 ### Verdict grammar vs status legend
 These two are also adjacent but not identical.
@@ -163,6 +185,7 @@ When a check fails, the safest first interpretation is:
 - **verdict grammar failed** → judgment wording drifted from claim/verdict semantics
 - **status legend failed** → reader-facing explanation drifted from governing grammar
 - **public surface failed** → reader path no longer exposes the layers the pilot now depends on
+- **README template seam audit failed** → README no longer exposes the documents that govern seam boundary and seam reuse discipline
 
 The point of the network is not only to reject bad states.
 It is also to localize what kind of bad state has appeared.
@@ -189,8 +212,9 @@ Those are future design questions, not current facts.
 Once this atlas exists, the next moves become clearer:
 
 1. decide whether `snapshot consistency` and `public surface consistency` should remain adjacent or later be partially merged,
-2. decide whether `verdict grammar` and `status legend` should remain separate artifacts or later be represented as one layered document with two validation views,
-3. and decide whether the current power-posing validation network is mature enough to be used as the template for a second case.
+2. decide whether `public surface consistency` and `README template seam audit` should remain separate or later share a small utility layer while preserving distinct failure meanings,
+3. decide whether `verdict grammar` and `status legend` should remain separate artifacts or later be represented as one layered document with two validation views,
+4. and decide whether the current power-posing validation network is mature enough to be used as the template for a second case.
 
 Until then, the safest discipline is simple:
 
