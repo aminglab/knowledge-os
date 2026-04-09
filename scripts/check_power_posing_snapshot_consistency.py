@@ -19,7 +19,7 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CASE_ROOT = REPO_ROOT / "pilots" / "living-knowledge-case" / "cases" / "power-posing"
 SNAPSHOT_PATH = CASE_ROOT / "snapshots" / "snapshot-v2.md"
-REFERENCES_PATH = CASE_ROOT / "references.md"
+REFERENCES_PATH = CASE_ROOT / "references-metadata-v1.md"
 OBJECTS_ROOT = CASE_ROOT / "objects"
 
 OBJECT_DIRS = {
