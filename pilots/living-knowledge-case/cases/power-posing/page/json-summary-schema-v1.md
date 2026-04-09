@@ -235,7 +235,15 @@ Do not rely on only one of them.
 
 ---
 
-## Current success example
+## Current reproducible success sample
+
+The following output was verified from this command path:
+
+```bash
+python generate_page_data.py --check --json-summary
+```
+
+It is the current reference success payload for the `power_posing_json_summary / v1` contract.
 
 ```json
 {
