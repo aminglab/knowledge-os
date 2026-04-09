@@ -1,0 +1,40 @@
+name: Check power-posing page
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/**"
+      - "scripts/check_power_posing_page.sh"
+      - "scripts/check_power_posing_page_json.sh"
+      - "Makefile"
+      - ".github/workflows/check-power-posing-page.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/**"
+      - "scripts/check_power_posing_page.sh"
+      - "scripts/check_power_posing_page_json.sh"
+      - "Makefile"
+      - ".github/workflows/check-power-posing-page.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-page:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run human-readable validation entrypoint
+        run: make check-page
+
+      - name: Run machine-readable validation entrypoint
+        run: make check-page-json
