@@ -28,8 +28,10 @@ A new reader should start with:
 1. [`snapshots/snapshot-v2.md`](./snapshots/snapshot-v2.md) — the current public-facing living snapshot
 2. [`references.md`](./references.md) — the thin reader-facing reference entrypoint
 3. [`references-metadata-v1.md`](./references-metadata-v1.md) — the stable source metadata layer
-4. [`case.md`](./case.md) — the case overview and thesis
-5. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
+4. [`status-legend-v1.md`](./status-legend-v1.md) — the public wording note for current status phrases
+5. [`verdict-grammar-v1.md`](./verdict-grammar-v1.md) — the case-scoped bridge between snapshot wording and object-layer judgment
+6. [`case.md`](./case.md) — the case overview and thesis
+7. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
 
 Earlier snapshot:
 
@@ -40,6 +42,8 @@ Earlier snapshot:
 - [`case.md`](./case.md) — human-readable case overview
 - [`references.md`](./references.md) — reader-facing reference entrypoint
 - [`references-metadata-v1.md`](./references-metadata-v1.md) — stable source metadata layer
+- [`status-legend-v1.md`](./status-legend-v1.md) — public wording note for current status phrases
+- [`verdict-grammar-v1.md`](./verdict-grammar-v1.md) — case-scoped verdict grammar bridge
 - [`objects/claims/`](./objects/claims/) — claim objects
 - [`objects/evidence/`](./objects/evidence/) — evidence objects
 - [`objects/dissents/`](./objects/dissents/) — dissent objects
