@@ -247,6 +247,14 @@ def canonical_source_ids(reference_entries: list[dict[str, str]]) -> set[str]:
     return {entry["id"] for entry in reference_entries if entry.get("id")}
 
 
+def count_objects_by_type(objects: dict[str, dict[str, Any]]) -> dict[str, int]:
+    counts = {"claim": 0, "evidence": 0, "dissent": 0, "verdict": 0}
+    for obj in objects.values():
+        object_type = str(obj.get("object_type", "unknown"))
+        counts[object_type] = counts.get(object_type, 0) + 1
+    return counts
+
+
 def validate_objects(objects: dict[str, dict[str, Any]], source_ids: set[str]) -> None:
     errors: list[str] = []
 
@@ -358,7 +366,7 @@ def build_neighborhood_cards(objects: dict[str, dict[str, Any]]) -> list[dict[st
     return cards
 
 
-def build_page_data() -> dict[str, Any]:
+def build_page_data() -> tuple[dict[str, Any], dict[str, dict[str, Any]], list[dict[str, str]]]:
     snapshot_text = read_text(SNAPSHOT_PATH)
     references_text = read_text(REFERENCES_PATH)
     timeline_text = read_text(TIMELINE_PATH)
@@ -419,7 +427,7 @@ def build_page_data() -> dict[str, Any]:
             make_link("References", "../references.md"),
         ],
     }
-    return data
+    return data, objects, reference_entries
 
 
 def write_output(data: dict[str, Any]) -> None:
@@ -433,9 +441,30 @@ def write_output(data: dict[str, Any]) -> None:
     OUTPUT_PATH.write_text(content, encoding="utf-8")
 
 
+def print_release_summary(objects: dict[str, dict[str, Any]], reference_entries: list[dict[str, str]], data: dict[str, Any]) -> None:
+    counts = count_objects_by_type(objects)
+    neighborhood_cards = 0
+    for section in data.get("sections", []):
+        if section.get("title") == "Current object neighborhoods":
+            neighborhood_cards = len(section.get("cards", []))
+            break
+
+    print("Release summary:")
+    print(f"- objects: {len(objects)} total")
+    print(f"- claims: {counts.get('claim', 0)}")
+    print(f"- evidence objects: {counts.get('evidence', 0)}")
+    print(f"- dissents: {counts.get('dissent', 0)}")
+    print(f"- verdicts: {counts.get('verdict', 0)}")
+    print(f"- canonical source ids: {len(reference_entries)}")
+    print(f"- status cards: {len(data.get('statusCards', []))}")
+    print(f"- neighborhood cards: {neighborhood_cards}")
+    print(f"- timeline entries: {len(data.get('timeline', []))}")
+    print(f"- reading-path links: {len(data.get('readingPath', []))}")
+
+
 def main() -> None:
     try:
-        data = build_page_data()
+        data, objects, reference_entries = build_page_data()
         write_output(data)
     except ValidationError as exc:
         print("Validation failed before page-data generation:\n", file=sys.stderr)
@@ -443,6 +472,7 @@ def main() -> None:
         raise SystemExit(1) from exc
 
     print(f"Wrote {OUTPUT_PATH}")
+    print_release_summary(objects, reference_entries, data)
 
 
 if __name__ == "__main__":

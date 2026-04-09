@@ -22,7 +22,7 @@ That is enough for the current stage.
 
 - `index.html` — the page shell
 - `styles.css` — the current visual layer
-- `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer and performs minimal validation
+- `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer, validates the release surface, and prints a small release summary
 - `page-data.js` — generated page data consumed by the browser renderer
 - `render.js` — the script that turns the generated data into a page
 
@@ -47,7 +47,7 @@ The current intended flow is:
 1. edit object files, `snapshot-v2.md`, `references.md`, or `timeline/events.md`
 2. run `generate_page_data.py`
 3. let the generator validate the current case layer
-4. regenerate `page-data.js`
+4. review the printed release summary
 5. open `index.html`
 
 That means `page-data.js` should now be treated as a **generated artifact**, not as the canonical place to edit case content.
@@ -65,6 +65,22 @@ It currently checks for:
 
 This is not yet a full protocol validator.
 But it gives the publishing pipeline its first real teeth.
+
+---
+
+## Current release feedback
+
+When generation succeeds, the script now prints a compact release summary including:
+
+- total object count,
+- object counts by family,
+- canonical source id count,
+- neighborhood card count,
+- timeline entry count,
+- and reading-path link count.
+
+This is still lightweight.
+But it means the pipeline now tells you what it just published instead of only saying that it wrote a file.
 
 ---
 
@@ -90,6 +106,7 @@ For now, the renderer is intentionally simple and honest:
 - the snapshot still acts as a public release layer,
 - the generator creates a thin browser-ready data bridge,
 - validates a small set of high-value invariants,
+- prints a readable release summary,
 - and the page is a presentation surface over that bridge.
 
 ---
