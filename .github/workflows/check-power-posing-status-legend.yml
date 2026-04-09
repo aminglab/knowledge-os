@@ -1,0 +1,33 @@
+name: Check power-posing status legend
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/**"
+      - "scripts/check_power_posing_status_legend.py"
+      - ".github/workflows/check-power-posing-status-legend.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/**"
+      - "scripts/check_power_posing_status_legend.py"
+      - ".github/workflows/check-power-posing-status-legend.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-status-legend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run status legend consistency check
+        run: python scripts/check_power_posing_status_legend.py
