@@ -123,6 +123,10 @@ def extract_snapshot_state(snapshot_text: str, label: str) -> str:
 def parse_anchor_list(value: str) -> list[str]:
     return [part.strip().strip('`') for part in value.split(",") if part.strip()]
 
+def unwrap_inline_code(value: str) -> str:
+    value = value.strip()
+    match = re.fullmatch(r"`([^`]+)`", value)
+    return match.group(1) if match else value
 
 def validate() -> dict[str, int]:
     grammar_text = read_text(GRAMMAR_PATH)
@@ -141,13 +145,13 @@ def validate() -> dict[str, int]:
 
         claim_id = re.search(r"`([A-Z]-\d{4})`", fields.get("Claim id", "") or "")
         verdict_id = re.search(r"`([A-Z]-\d{4})`", fields.get("Verdict id", "") or "")
-        snapshot_label = fields.get("Snapshot label", "")
-        snapshot_state = fields.get("Snapshot current state", "")
-        required_claim_status = re.search(r"`([^`]+)`", fields.get("Required claim epistemic status", "") or "")
-        required_verdict_level = re.search(r"`([^`]+)`", fields.get("Required verdict level", "") or "")
+        snapshot_label = unwrap_inline_code(fields.get("Snapshot label", "") or "")
+        snapshot_state = unwrap_inline_code(fields.get("Snapshot current state", "") or "")
+        required_claim_status = unwrap_inline_code(fields.get("Required claim epistemic status", "") or "")
+        required_verdict_level = unwrap_inline_code(fields.get("Required verdict level", "") or "")
         anchors = parse_anchor_list(fields.get("Required verdict anchors", ""))
 
-        if not claim_id or not verdict_id or not required_claim_status or not required_verdict_level:
+        if not claim_id or not verdict_id or not snapshot_label or not snapshot_state or not required_claim_status or not required_verdict_level:
             continue
 
         claim_path = CASE_ROOT / "objects" / "claims" / f"{claim_id.group(1)}.md"
@@ -168,14 +172,14 @@ def validate() -> dict[str, int]:
                 f"{entry_id}: snapshot state mismatch for `{snapshot_label}`; found `{actual_snapshot_state}` but expected `{snapshot_state}`"
             )
 
-        if claim_meta.get("epistemic_status") != required_claim_status.group(1):
+        if claim_meta.get("epistemic_status") != required_claim_status:
             errors.append(
-                f"{entry_id}: claim `{claim_id.group(1)}` has epistemic_status `{claim_meta.get('epistemic_status')}` but expected `{required_claim_status.group(1)}`"
+                f"{entry_id}: claim `{claim_id.group(1)}` has epistemic_status `{claim_meta.get('epistemic_status')}` but expected `{required_claim_status}`"
             )
 
-        if verdict_meta.get("verdict_level") != required_verdict_level.group(1):
+        if verdict_meta.get("verdict_level") != required_verdict_level:
             errors.append(
-                f"{entry_id}: verdict `{verdict_id.group(1)}` has verdict_level `{verdict_meta.get('verdict_level')}` but expected `{required_verdict_level.group(1)}`"
+                f"{entry_id}: verdict `{verdict_id.group(1)}` has verdict_level `{verdict_meta.get('verdict_level')}` but expected `{required_verdict_level}`"
             )
 
         verdict_text_lower = verdict_body.lower()
