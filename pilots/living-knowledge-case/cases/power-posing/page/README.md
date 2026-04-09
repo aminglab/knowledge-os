@@ -22,7 +22,7 @@ That is enough for the current stage.
 
 - `index.html` — the page shell
 - `styles.css` — the current visual layer
-- `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer, validates the release surface, prints a small release summary, and supports `--check`
+- `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer, validates the release surface, prints a small release summary, supports `--check`, and can emit machine-readable summaries with `--json-summary`
 - `page-data.js` — generated page data consumed by the browser renderer
 - `render.js` — the script that turns the generated data into a page
 
@@ -47,7 +47,7 @@ The current intended flow is:
 1. edit object files, `snapshot-v2.md`, `references.md`, or `timeline/events.md`
 2. run `generate_page_data.py`
 3. let the generator validate the current case layer
-4. review the printed release summary
+4. review the printed release summary or emitted JSON summary
 5. open `index.html`
 
 That means `page-data.js` should now be treated as a **generated artifact**, not as the canonical place to edit case content.
@@ -58,7 +58,19 @@ If you want to validate the release surface without rewriting `page-data.js`, ru
 python generate_page_data.py --check
 ```
 
-That mode performs the same parsing and validation pass, builds the release data in memory, prints the summary, and exits without writing the output file.
+If you want a machine-readable summary for automation, run:
+
+```bash
+python generate_page_data.py --json-summary
+```
+
+You can also combine both modes:
+
+```bash
+python generate_page_data.py --check --json-summary
+```
+
+That combined mode performs the same parsing and validation pass, builds the release data in memory, emits JSON, and exits without writing the output file.
 
 ---
 
@@ -78,7 +90,7 @@ But it gives the publishing pipeline its first real teeth.
 
 ## Current release feedback
 
-When generation succeeds, the script now reports its result in three layers:
+When generation succeeds, the script now reports its result in three layers in human-readable mode:
 
 1. `Validation passed.`
 2. `Release summary:`
@@ -93,8 +105,28 @@ The release summary itself currently includes:
 - timeline entry count,
 - and reading-path link count.
 
+When `--json-summary` is used, the script instead emits a machine-readable JSON object containing:
+
+- validation status,
+- write status,
+- whether `--check` was active,
+- output path when relevant,
+- and the same release-summary counts.
+
 This is still lightweight.
-But it means the pipeline now sounds more like a real tool and less like a script muttering to itself.
+But it means the pipeline can now speak to humans and to later automation.
+
+---
+
+## Exit-code discipline
+
+The generator now follows a simple exit-code rule:
+
+- `0` — validation passed and the requested action completed
+- `1` — validation failed
+- `2` — command-line usage error from `argparse`
+
+That gives downstream automation a minimal but clear contract.
 
 ---
 
@@ -122,6 +154,7 @@ For now, the renderer is intentionally simple and honest:
 - validates a small set of high-value invariants,
 - prints a readable release summary,
 - supports a non-writing `--check` mode,
+- can emit machine-readable JSON,
 - and the page is a presentation surface over that bridge.
 
 ---

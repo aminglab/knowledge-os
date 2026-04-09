@@ -15,6 +15,8 @@ rather than written entirely by hand.
 Usage:
     python generate_page_data.py
     python generate_page_data.py --check
+    python generate_page_data.py --json-summary
+    python generate_page_data.py --check --json-summary
 
 It rewrites:
     ./page-data.js
@@ -64,6 +66,11 @@ def parse_args() -> argparse.Namespace:
         "--check",
         action="store_true",
         help="Validate and summarize the current release surface without writing page-data.js.",
+    )
+    parser.add_argument(
+        "--json-summary",
+        action="store_true",
+        help="Emit a machine-readable JSON summary instead of human-readable terminal output.",
     )
     return parser.parse_args()
 
@@ -455,11 +462,7 @@ def write_output(data: dict[str, Any]) -> None:
     OUTPUT_PATH.write_text(content, encoding="utf-8")
 
 
-def print_validation_passed() -> None:
-    print("Validation passed.")
-
-
-def print_release_summary(objects: dict[str, dict[str, Any]], reference_entries: list[dict[str, str]], data: dict[str, Any]) -> None:
+def build_release_summary(objects: dict[str, dict[str, Any]], reference_entries: list[dict[str, str]], data: dict[str, Any]) -> dict[str, Any]:
     counts = count_objects_by_type(objects)
     neighborhood_cards = 0
     for section in data.get("sections", []):
@@ -467,17 +470,36 @@ def print_release_summary(objects: dict[str, dict[str, Any]], reference_entries:
             neighborhood_cards = len(section.get("cards", []))
             break
 
+    return {
+        "objects_total": len(objects),
+        "claims": counts.get("claim", 0),
+        "evidence_objects": counts.get("evidence", 0),
+        "dissents": counts.get("dissent", 0),
+        "verdicts": counts.get("verdict", 0),
+        "canonical_source_ids": len(reference_entries),
+        "status_cards": len(data.get("statusCards", [])),
+        "neighborhood_cards": neighborhood_cards,
+        "timeline_entries": len(data.get("timeline", [])),
+        "reading_path_links": len(data.get("readingPath", [])),
+    }
+
+
+def print_validation_passed() -> None:
+    print("Validation passed.")
+
+
+def print_release_summary(summary: dict[str, Any]) -> None:
     print("Release summary:")
-    print(f"- objects: {len(objects)} total")
-    print(f"- claims: {counts.get('claim', 0)}")
-    print(f"- evidence objects: {counts.get('evidence', 0)}")
-    print(f"- dissents: {counts.get('dissent', 0)}")
-    print(f"- verdicts: {counts.get('verdict', 0)}")
-    print(f"- canonical source ids: {len(reference_entries)}")
-    print(f"- status cards: {len(data.get('statusCards', []))}")
-    print(f"- neighborhood cards: {neighborhood_cards}")
-    print(f"- timeline entries: {len(data.get('timeline', []))}")
-    print(f"- reading-path links: {len(data.get('readingPath', []))}")
+    print(f"- objects: {summary['objects_total']} total")
+    print(f"- claims: {summary['claims']}")
+    print(f"- evidence objects: {summary['evidence_objects']}")
+    print(f"- dissents: {summary['dissents']}")
+    print(f"- verdicts: {summary['verdicts']}")
+    print(f"- canonical source ids: {summary['canonical_source_ids']}")
+    print(f"- status cards: {summary['status_cards']}")
+    print(f"- neighborhood cards: {summary['neighborhood_cards']}")
+    print(f"- timeline entries: {summary['timeline_entries']}")
+    print(f"- reading-path links: {summary['reading_path_links']}")
 
 
 def print_write_status(check_mode: bool) -> None:
@@ -485,6 +507,10 @@ def print_write_status(check_mode: bool) -> None:
         print("Write skipped (--check).")
     else:
         print(f"Write completed: {OUTPUT_PATH}")
+
+
+def emit_json_summary(payload: dict[str, Any]) -> None:
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
 
 
 def main() -> None:
@@ -495,18 +521,43 @@ def main() -> None:
         if not args.check:
             write_output(data)
     except ValidationError as exc:
-        print("Validation failed.", file=sys.stderr)
-        print(file=sys.stderr)
-        print(str(exc), file=sys.stderr)
-        print(file=sys.stderr)
-        print("Write skipped due to validation failure.", file=sys.stderr)
+        errors = [line for line in str(exc).splitlines() if line.strip()]
+        failure_payload = {
+            "validation_status": "failed",
+            "check_mode": args.check,
+            "write_status": "skipped_due_to_validation_failure",
+            "output_path": None,
+            "errors": errors,
+        }
+        if args.json_summary:
+            emit_json_summary(failure_payload)
+        else:
+            print("Validation failed.", file=sys.stderr)
+            print(file=sys.stderr)
+            for line in errors:
+                print(line, file=sys.stderr)
+            print(file=sys.stderr)
+            print("Write skipped due to validation failure.", file=sys.stderr)
         raise SystemExit(1) from exc
 
-    print_validation_passed()
-    print()
-    print_release_summary(objects, reference_entries, data)
-    print()
-    print_write_status(args.check)
+    release_summary = build_release_summary(objects, reference_entries, data)
+    output_path = None if args.check else str(OUTPUT_PATH)
+    success_payload = {
+        "validation_status": "passed",
+        "check_mode": args.check,
+        "write_status": "skipped" if args.check else "completed",
+        "output_path": output_path,
+        "release_summary": release_summary,
+    }
+
+    if args.json_summary:
+        emit_json_summary(success_payload)
+    else:
+        print_validation_passed()
+        print()
+        print_release_summary(release_summary)
+        print()
+        print_write_status(args.check)
 
 
 if __name__ == "__main__":
