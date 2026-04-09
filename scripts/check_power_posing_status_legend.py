@@ -42,6 +42,12 @@ def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
+def unwrap_inline_code(value: str) -> str:
+    value = value.strip()
+    match = re.fullmatch(r"`([^`]+)`", value)
+    return match.group(1) if match else value
+
+
 def parse_entries(markdown: str, required_fields: list[str]) -> dict[str, dict[str, str]]:
     parts = ENTRY_RE.split("\n" + markdown)
     entries: dict[str, dict[str, str]] = {}
@@ -63,7 +69,9 @@ def extract_snapshot_state(snapshot_text: str, label: str) -> str:
     return match.group(1).strip() if match else ""
 
 
-def lookup_grammar_entry(grammar_entries: dict[str, dict[str, str]], label: str) -> tuple[str, dict[str, str]] | tuple[None, None]:
+def lookup_grammar_entry(
+    grammar_entries: dict[str, dict[str, str]], label: str
+) -> tuple[str, dict[str, str]] | tuple[None, None]:
     for entry_id, fields in grammar_entries.items():
         if unwrap_inline_code(fields.get("Snapshot label", "") or "") == label:
             return entry_id, fields
@@ -93,47 +101,72 @@ def validate() -> dict[str, int]:
         claim_id = re.search(r"`([A-Z]-\d{4})`", fields.get("Claim id", "") or "")
         verdict_id = re.search(r"`([A-Z]-\d{4})`", fields.get("Verdict id", "") or "")
         verdict_level = unwrap_inline_code(fields.get("Governing verdict level", "") or "")
-        claim_status = unwrap_inline_code(fields.get("Governing claim epistemic status", "") or "")
+        claim_status = unwrap_inline_code(
+            fields.get("Governing claim epistemic status", "") or ""
+        )
 
-        if not public_wording or not snapshot_label or not claim_id or not verdict_id or not verdict_level or not claim_status:
+        if (
+            not public_wording
+            or not snapshot_label
+            or not claim_id
+            or not verdict_id
+            or not verdict_level
+            or not claim_status
+        ):
             continue
 
-        actual_snapshot_state = extract_snapshot_state(snapshot_text, snapshot_label.group(1))
-        if actual_snapshot_state != public_wording.group(1):
+        actual_snapshot_state = extract_snapshot_state(snapshot_text, snapshot_label)
+        if actual_snapshot_state != public_wording:
             errors.append(
-                f"{entry_id}: snapshot wording mismatch for `{snapshot_label.group(1)}`; found `{actual_snapshot_state}` but expected `{public_wording.group(1)}`"
+                f"{entry_id}: snapshot wording mismatch for `{snapshot_label}`; "
+                f"found `{actual_snapshot_state}` but expected `{public_wording}`"
             )
 
-        grammar_entry_id, grammar_fields = lookup_grammar_entry(grammar_entries, snapshot_label.group(1))
+        grammar_entry_id, grammar_fields = lookup_grammar_entry(grammar_entries, snapshot_label)
         if not grammar_fields:
-            errors.append(f"{entry_id}: no grammar entry found for snapshot label `{snapshot_label.group(1)}`")
+            errors.append(f"{entry_id}: no grammar entry found for snapshot label `{snapshot_label}`")
             continue
 
-        expected_snapshot_state = re.search(r"`([^`]+)`", grammar_fields.get("Snapshot current state", "") or "")
-        expected_claim_id = re.search(r"`([A-Z]-\d{4})`", grammar_fields.get("Claim id", "") or "")
-        expected_verdict_id = re.search(r"`([A-Z]-\d{4})`", grammar_fields.get("Verdict id", "") or "")
-        expected_claim_status = re.search(r"`([^`]+)`", grammar_fields.get("Required claim epistemic status", "") or "")
-        expected_verdict_level = re.search(r"`([^`]+)`", grammar_fields.get("Required verdict level", "") or "")
+        expected_snapshot_state = unwrap_inline_code(
+            grammar_fields.get("Snapshot current state", "") or ""
+        )
+        expected_claim_id = re.search(
+            r"`([A-Z]-\d{4})`", grammar_fields.get("Claim id", "") or ""
+        )
+        expected_verdict_id = re.search(
+            r"`([A-Z]-\d{4})`", grammar_fields.get("Verdict id", "") or ""
+        )
+        expected_claim_status = unwrap_inline_code(
+            grammar_fields.get("Required claim epistemic status", "") or ""
+        )
+        expected_verdict_level = unwrap_inline_code(
+            grammar_fields.get("Required verdict level", "") or ""
+        )
 
-        if expected_snapshot_state and expected_snapshot_state.group(1) != public_wording.group(1):
+        if expected_snapshot_state and expected_snapshot_state != public_wording:
             errors.append(
-                f"{entry_id}: public wording `{public_wording.group(1)}` does not match grammar entry `{grammar_entry_id}` snapshot state `{expected_snapshot_state.group(1)}`"
+                f"{entry_id}: public wording `{public_wording}` does not match "
+                f"grammar entry `{grammar_entry_id}` snapshot state `{expected_snapshot_state}`"
             )
         if expected_claim_id and expected_claim_id.group(1) != claim_id.group(1):
             errors.append(
-                f"{entry_id}: claim id `{claim_id.group(1)}` does not match grammar entry `{grammar_entry_id}` claim id `{expected_claim_id.group(1)}`"
+                f"{entry_id}: claim id `{claim_id.group(1)}` does not match "
+                f"grammar entry `{grammar_entry_id}` claim id `{expected_claim_id.group(1)}`"
             )
         if expected_verdict_id and expected_verdict_id.group(1) != verdict_id.group(1):
             errors.append(
-                f"{entry_id}: verdict id `{verdict_id.group(1)}` does not match grammar entry `{grammar_entry_id}` verdict id `{expected_verdict_id.group(1)}`"
+                f"{entry_id}: verdict id `{verdict_id.group(1)}` does not match "
+                f"grammar entry `{grammar_entry_id}` verdict id `{expected_verdict_id.group(1)}`"
             )
-        if expected_claim_status and expected_claim_status.group(1) != claim_status.group(1):
+        if expected_claim_status and expected_claim_status != claim_status:
             errors.append(
-                f"{entry_id}: claim status `{claim_status.group(1)}` does not match grammar entry `{grammar_entry_id}` claim status `{expected_claim_status.group(1)}`"
+                f"{entry_id}: claim status `{claim_status}` does not match "
+                f"grammar entry `{grammar_entry_id}` claim status `{expected_claim_status}`"
             )
-        if expected_verdict_level and expected_verdict_level.group(1) != verdict_level.group(1):
+        if expected_verdict_level and expected_verdict_level != verdict_level:
             errors.append(
-                f"{entry_id}: verdict level `{verdict_level.group(1)}` does not match grammar entry `{grammar_entry_id}` verdict level `{expected_verdict_level.group(1)}`"
+                f"{entry_id}: verdict level `{verdict_level}` does not match "
+                f"grammar entry `{grammar_entry_id}` verdict level `{expected_verdict_level}`"
             )
 
     if errors:
