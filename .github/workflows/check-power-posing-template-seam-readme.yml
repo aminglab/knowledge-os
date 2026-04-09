@@ -1,0 +1,33 @@
+name: Check power-posing README template seam
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/**"
+      - "scripts/check_power_posing_template_seam_readme.py"
+      - ".github/workflows/check-power-posing-template-seam-readme.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/**"
+      - "scripts/check_power_posing_template_seam_readme.py"
+      - ".github/workflows/check-power-posing-template-seam-readme.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-template-seam-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run README template seam audit
+        run: python scripts/check_power_posing_template_seam_readme.py
