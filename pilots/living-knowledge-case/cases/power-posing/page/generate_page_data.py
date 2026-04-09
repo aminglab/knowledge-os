@@ -455,6 +455,10 @@ def write_output(data: dict[str, Any]) -> None:
     OUTPUT_PATH.write_text(content, encoding="utf-8")
 
 
+def print_validation_passed() -> None:
+    print("Validation passed.")
+
+
 def print_release_summary(objects: dict[str, dict[str, Any]], reference_entries: list[dict[str, str]], data: dict[str, Any]) -> None:
     counts = count_objects_by_type(objects)
     neighborhood_cards = 0
@@ -476,6 +480,13 @@ def print_release_summary(objects: dict[str, dict[str, Any]], reference_entries:
     print(f"- reading-path links: {len(data.get('readingPath', []))}")
 
 
+def print_write_status(check_mode: bool) -> None:
+    if check_mode:
+        print("Write skipped (--check).")
+    else:
+        print(f"Write completed: {OUTPUT_PATH}")
+
+
 def main() -> None:
     args = parse_args()
 
@@ -484,16 +495,18 @@ def main() -> None:
         if not args.check:
             write_output(data)
     except ValidationError as exc:
-        print("Validation failed before page-data generation:\n", file=sys.stderr)
+        print("Validation failed.", file=sys.stderr)
+        print(file=sys.stderr)
         print(str(exc), file=sys.stderr)
+        print(file=sys.stderr)
+        print("Write skipped due to validation failure.", file=sys.stderr)
         raise SystemExit(1) from exc
 
-    if args.check:
-        print("Check mode passed: release surface validated; page-data.js was not written.")
-    else:
-        print(f"Wrote {OUTPUT_PATH}")
-
+    print_validation_passed()
+    print()
     print_release_summary(objects, reference_entries, data)
+    print()
+    print_write_status(args.check)
 
 
 if __name__ == "__main__":

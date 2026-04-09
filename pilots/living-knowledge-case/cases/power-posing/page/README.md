@@ -78,7 +78,13 @@ But it gives the publishing pipeline its first real teeth.
 
 ## Current release feedback
 
-When generation succeeds, the script now prints a compact release summary including:
+When generation succeeds, the script now reports its result in three layers:
+
+1. `Validation passed.`
+2. `Release summary:`
+3. `Write completed: ...` or `Write skipped (--check).`
+
+The release summary itself currently includes:
 
 - total object count,
 - object counts by family,
@@ -88,7 +94,7 @@ When generation succeeds, the script now prints a compact release summary includ
 - and reading-path link count.
 
 This is still lightweight.
-But it means the pipeline now tells you what it just published instead of only saying that it wrote a file.
+But it means the pipeline now sounds more like a real tool and less like a script muttering to itself.
 
 ---
 
