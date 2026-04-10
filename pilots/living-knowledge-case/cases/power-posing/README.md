@@ -21,22 +21,27 @@ That makes it a good demonstration of:
 - claim splitting,
 - and public snapshotting.
 
-## Reader path
+## Public reading path
 
 A new reader should start with:
 
 1. [`snapshots/snapshot-v2.md`](./snapshots/snapshot-v2.md) — the current public-facing living snapshot
 2. [`references.md`](./references.md) — the thin reader-facing reference entrypoint
-3. [`references-metadata-v1.md`](./references-metadata-v1.md) — the stable source metadata layer
-4. [`status-legend-v1.md`](./status-legend-v1.md) — the public wording note for current status phrases
-5. [`verdict-grammar-v1.md`](./verdict-grammar-v1.md) — the case-scoped bridge between snapshot wording and object-layer judgment
-6. [`check-atlas-v1.md`](./check-atlas-v1.md) — the developer-facing map of the current validation network
-7. [`check-merge-assessment-v1.md`](./check-merge-assessment-v1.md) — the current ruling on whether adjacent checks should stay separate or be partially merged later
-8. [`case-template-boundary-v1.md`](./case-template-boundary-v1.md) — the current boundary ruling on what is already reusable shell versus what remains case-specific
-9. [`case-template-extraction-checklist-v1.md`](./case-template-extraction-checklist-v1.md) — the current operational copy discipline for what a future second case may copy, rewrite, or not yet assume generic
-10. [`template-seam-summary-v1.md`](./template-seam-summary-v1.md) — the short consolidated ruling that compresses stage judgment, boundary judgment, and extraction judgment into one seam-level anchor
-11. [`case.md`](./case.md) — the case overview and thesis
-12. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
+3. [`case.md`](./case.md) — the case overview and thesis
+4. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
+
+## Developer / governance path
+
+For protocol, validation, and seam-governance context, continue with:
+
+1. [`references-metadata-v1.md`](./references-metadata-v1.md) — the stable source metadata layer
+2. [`status-legend-v1.md`](./status-legend-v1.md) — the public wording note for current status phrases
+3. [`verdict-grammar-v1.md`](./verdict-grammar-v1.md) — the case-scoped bridge between snapshot wording and object-layer judgment
+4. [`check-atlas-v1.md`](./check-atlas-v1.md) — the developer-facing map of the current validation network
+5. [`check-merge-assessment-v1.md`](./check-merge-assessment-v1.md) — the current ruling on whether adjacent checks should stay separate or be partially merged later
+6. [`case-template-boundary-v1.md`](./case-template-boundary-v1.md) — the current boundary ruling on what is already reusable shell versus what remains case-specific
+7. [`case-template-extraction-checklist-v1.md`](./case-template-extraction-checklist-v1.md) — the current operational copy discipline for what a future second case may copy, rewrite, or not yet assume generic
+8. [`template-seam-summary-v1.md`](./template-seam-summary-v1.md) — the short consolidated ruling that compresses stage judgment, boundary judgment, and extraction judgment into one seam-level anchor
 
 Earlier snapshot:
 

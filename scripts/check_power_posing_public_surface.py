@@ -14,7 +14,7 @@ README_PATH = CASE_ROOT / "README.md"
 
 REQUIRED_SNAPSHOT_CURRENT_VISIBLE_JUDGMENT_LINKS = {
     "../status-legend-v1.md": "public wording note for current status phrases",
-    "../verdict-grammar-v1.md": "case-scoped bridge between snapshot wording and object-layer judgment fields",
+    "../verdict-grammar-v1.md": "case-scoped bridge between snapshot wording and object-layer judgment",
 }
 
 REQUIRED_SNAPSHOT_READING_PATH_LINKS = [
@@ -24,11 +24,11 @@ REQUIRED_SNAPSHOT_READING_PATH_LINKS = [
     "../references-metadata-v1.md",
 ]
 
-REQUIRED_README_READER_PATH_LINKS = [
+REQUIRED_README_PUBLIC_READING_PATH_LINKS = [
+    "./snapshots/snapshot-v2.md",
     "./references.md",
-    "./references-metadata-v1.md",
-    "./status-legend-v1.md",
-    "./verdict-grammar-v1.md",
+    "./case.md",
+    "./timeline/events.md",
 ]
 
 
@@ -64,7 +64,7 @@ def validate() -> dict[str, int]:
 
     snapshot_judgment_section = extract_section(snapshot_text, "Current visible judgment")
     snapshot_reading_path = extract_section(snapshot_text, "Snapshot reading path")
-    readme_reader_path = extract_section(readme_text, "Reader path")
+    readme_public_reading_path = extract_section(readme_text, "Public reading path")
 
     errors: list[str] = []
 
@@ -86,10 +86,10 @@ def validate() -> dict[str, int]:
         if target not in snapshot_reading_path_targets:
             errors.append(f"snapshot reading path is missing required link `{target}`")
 
-    readme_reader_path_targets = [target for _, target in find_markdown_links(readme_reader_path)]
-    for target in REQUIRED_README_READER_PATH_LINKS:
-        if target not in readme_reader_path_targets:
-            errors.append(f"README reader path is missing required link `{target}`")
+    readme_public_reading_path_targets = [target for _, target in find_markdown_links(readme_public_reading_path)]
+    for target in REQUIRED_README_PUBLIC_READING_PATH_LINKS:
+        if target not in readme_public_reading_path_targets:
+            errors.append(f"README public reading path is missing required link `{target}`")
 
     if errors:
         raise PublicSurfaceError("\n".join(errors))
@@ -97,7 +97,7 @@ def validate() -> dict[str, int]:
     return {
         "snapshot_current_visible_judgment_links": len(judgment_links),
         "snapshot_reading_path_links": len(snapshot_reading_path_targets),
-        "readme_reader_path_links": len(readme_reader_path_targets),
+        "readme_public_reading_path_links": len(readme_public_reading_path_targets),
     }
 
 
@@ -116,7 +116,7 @@ def main() -> None:
     print()
     print(f"- snapshot current visible judgment links: {summary['snapshot_current_visible_judgment_links']}")
     print(f"- snapshot reading path links: {summary['snapshot_reading_path_links']}")
-    print(f"- README reader path links: {summary['readme_reader_path_links']}")
+    print(f"- README public reading path links: {summary['readme_public_reading_path_links']}")
 
 
 if __name__ == "__main__":

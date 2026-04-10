@@ -43,17 +43,17 @@ def find_markdown_links_with_lines(markdown: str) -> list[tuple[str, str, str]]:
 def validate() -> dict[str, int]:
     readme_text = read_text(README_PATH)
 
-    reader_path = extract_section(readme_text, "Reader path")
+    developer_governance_path = extract_section(readme_text, "Developer / governance path")
     folder_guide = extract_section(readme_text, "Folder guide")
 
     errors: list[str] = []
 
-    reader_links = {target: (label, line) for label, target, line in find_markdown_links_with_lines(reader_path)}
+    developer_links = {target: (label, line) for label, target, line in find_markdown_links_with_lines(developer_governance_path)}
     folder_links = {target: (label, line) for label, target, line in find_markdown_links_with_lines(folder_guide)}
 
     for target, meaning in REQUIRED_TEMPLATE_SEAM_LINKS.items():
-        if target not in reader_links:
-            errors.append(f"README reader path is missing required template seam link `{target}` ({meaning})")
+        if target not in developer_links:
+            errors.append(f"README developer / governance path is missing required template seam link `{target}` ({meaning})")
         if target not in folder_links:
             errors.append(f"README folder guide is missing required template seam link `{target}` ({meaning})")
 
@@ -61,7 +61,7 @@ def validate() -> dict[str, int]:
         raise TemplateSeamReadmeError("\n".join(errors))
 
     return {
-        "reader_path_links": len(reader_links),
+        "developer_governance_path_links": len(developer_links),
         "folder_guide_links": len(folder_links),
         "required_template_seam_links": len(REQUIRED_TEMPLATE_SEAM_LINKS),
     }
@@ -80,7 +80,7 @@ def main() -> None:
 
     print("README template seam audit passed.")
     print()
-    print(f"- reader path links: {summary['reader_path_links']}")
+    print(f"- developer / governance path links: {summary['developer_governance_path_links']}")
     print(f"- folder guide links: {summary['folder_guide_links']}")
     print(f"- required template seam links: {summary['required_template_seam_links']}")
 

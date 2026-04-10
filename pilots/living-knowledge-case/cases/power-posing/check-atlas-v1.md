@@ -45,9 +45,9 @@ The current case can be read as seven adjacent layers:
 5. **Snapshot layer**
    - `snapshots/snapshot-v2.md`
 6. **Reader-facing surface layer**
-   - `references.md`, `README.md`, snapshot reading paths, and page prototype entrypoints
+   - `references.md`, `README.md` public reading paths, snapshot reading paths, and page prototype entrypoints
 7. **Template-seam governance surface layer**
-   - `case-template-boundary-v1.md`, `case-template-extraction-checklist-v1.md`, `template-seam-summary-v1.md` as exposed through README developer-facing paths
+   - `case-template-boundary-v1.md`, `case-template-extraction-checklist-v1.md`, `template-seam-summary-v1.md` as exposed through README developer / governance paths
 
 The checks below are distributed across these layers rather than collapsed into one monolithic validator.
 
@@ -123,15 +123,15 @@ These workflows together form the current CI surface for the case.
 - **Primary script:** `scripts/check_power_posing_public_surface.py`
 - **Protected layer:** reader-facing path and link surface
 - **Reads:** `snapshot-v2.md`, `README.md`
-- **Checks:** required reader-facing links to `status-legend-v1.md`, `verdict-grammar-v1.md`, `references.md`, and `references-metadata-v1.md`
-- **Failure meaning:** the public-facing navigation surface no longer exposes the governance layers that now support the snapshot
-- **Why it stays distinct:** it checks what the reader can visibly navigate, not whether the underlying semantics are true
+- **Checks:** required reader-facing links in `Public reading path` to `snapshot-v2.md`, `references.md`, `case.md`, and `timeline/events.md`, plus required governance links in the snapshot itself
+- **Failure meaning:** the public-facing navigation surface no longer exposes the minimum path needed to read the case as a public artifact
+- **Why it stays distinct:** it checks what the outside reader can visibly navigate first, not whether the underlying semantics are true
 
 ### 7. README template seam audit
 - **Primary script:** `scripts/check_power_posing_template_seam_readme.py`
 - **Protected layer:** template-seam governance surface as exposed through README paths
 - **Reads:** `README.md`
-- **Checks:** required README exposure of `case-template-boundary-v1.md`, `case-template-extraction-checklist-v1.md`, and `template-seam-summary-v1.md` in both `Reader path` and `Folder guide`
+- **Checks:** required README exposure of `case-template-boundary-v1.md`, `case-template-extraction-checklist-v1.md`, and `template-seam-summary-v1.md` in both `Developer / governance path` and `Folder guide`
 - **Failure meaning:** the README no longer exposes the documents that govern template-seam boundary, extraction discipline, and consolidated seam judgment
 - **Why it stays distinct:** it does not validate general public navigation; it validates continued exposure of the case’s reusable-seam governance documents
 
@@ -143,14 +143,14 @@ These workflows together form the current CI surface for the case.
 These two are adjacent but not identical.
 
 - **Snapshot consistency** asks whether the snapshot still truthfully points to the current object/reference world.
-- **Public surface consistency** asks whether the reader-facing navigation path still exposes the layers the reader now needs.
+- **Public surface consistency** asks whether the reader-facing navigation path still exposes the minimum path a public reader now needs.
 
 A future refactor might merge them, but they should not be treated as already redundant.
 
 ### Public surface consistency vs README template seam audit
 These two are also adjacent but not identical.
 
-- **Public surface consistency** checks whether the reader-facing surface still exposes the layers needed to read the current snapshot responsibly.
+- **Public surface consistency** checks whether the public reading surface still exposes the minimum entry path for reading the case.
 - **README template seam audit** checks whether the README still exposes the documents that govern seam reuse discipline.
 
 One protects public reading navigation.
@@ -184,7 +184,7 @@ When a check fails, the safest first interpretation is:
 - **reference metadata failed** → source layer drifted from object grounding
 - **verdict grammar failed** → judgment wording drifted from claim/verdict semantics
 - **status legend failed** → reader-facing explanation drifted from governing grammar
-- **public surface failed** → reader path no longer exposes the layers the pilot now depends on
+- **public surface failed** → public reading path no longer exposes the minimum reader-facing path the pilot now depends on
 - **README template seam audit failed** → README no longer exposes the documents that govern seam boundary and seam reuse discipline
 
 The point of the network is not only to reject bad states.
