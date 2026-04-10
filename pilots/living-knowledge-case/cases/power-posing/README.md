@@ -29,9 +29,11 @@ If you only read one file, start here:
 
 If you want to keep reading after the homepage, continue with:
 
-1. [`references.md`](./references.md) — the thin reader-facing reference entrypoint
-2. [`case.md`](./case.md) — the case overview and thesis
-3. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
+1. [`claims/README.md`](./claims/README.md) — public claim-page index
+2. [`sources/README.md`](./sources/README.md) — public source-page index
+3. [`references.md`](./references.md) — the thin reader-facing reference entrypoint
+4. [`case.md`](./case.md) — the case overview and thesis
+5. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
 
 ## Developer / governance path
 
@@ -63,6 +65,8 @@ Earlier snapshot:
 - [`case.md`](./case.md) — human-readable case overview
 - [`references.md`](./references.md) — reader-facing reference entrypoint
 - [`references-metadata-v1.md`](./references-metadata-v1.md) — stable source metadata layer
+- [`claims/README.md`](./claims/README.md) — public claim-page index
+- [`sources/README.md`](./sources/README.md) — public source-page index
 - [`status-legend-v1.md`](./status-legend-v1.md) — public wording note for current status phrases
 - [`verdict-grammar-v1.md`](./verdict-grammar-v1.md) — case-scoped verdict grammar bridge
 - [`check-atlas-v1.md`](./check-atlas-v1.md) — developer-facing validation map and checker boundary guide
