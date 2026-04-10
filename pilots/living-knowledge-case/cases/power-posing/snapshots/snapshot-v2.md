@@ -15,6 +15,7 @@ At a glance, the case now reads like this:
 - a narrower descendant claim is **contested but still surviving**
 
 If you want the raw governed objects behind this page, follow the object links below.
+If you want the newer public claim-page layer, use the claim-page links now exposed in the sections below.
 
 ---
 
@@ -36,6 +37,7 @@ The original headline claim says that brief expansive posture can change hormone
 In this pilot, that strong-form package is no longer treated as intact.
 
 - Object: [`C-0001`](../objects/claims/C-0001.md)
+- Public claim page: [`claims/C-0001`](../claims/C-0001.md)
 - Current verdict: [`V-0001`](../objects/verdicts/V-0001.md)
 - Main support context: [`E-0001`](../objects/evidence/E-0001.md)
 
@@ -45,6 +47,7 @@ In this pilot, that strong-form package is no longer treated as intact.
 A weaker descendant claim remains in play: expansive posture may affect subjective feelings of power or confidence even if the stronger hormone-and-risk-taking claim does not hold.
 
 - Object: [`C-0002`](../objects/claims/C-0002.md)
+- Public claim page: [`claims/C-0002`](../claims/C-0002.md)
 - Current verdict: [`V-0002`](../objects/verdicts/V-0002.md)
 
 ---
@@ -74,6 +77,7 @@ The original 2010 paper reported that high-power posing produced:
 In this pilot, the original claim neighborhood is represented by:
 
 - [`C-0001`](../objects/claims/C-0001.md) — original strong-form claim
+- [`../claims/C-0001.md`](../claims/C-0001.md) — public claim page for the original claim
 - [`E-0001`](../objects/evidence/E-0001.md) — initial publication and early amplification context
 
 Canonical source ids used here:
@@ -82,6 +86,7 @@ Canonical source ids used here:
 - `Early_public_amplification_context`
 
 See [`../references.md`](../references.md) for the current source map.
+See [`../sources/README.md`](../sources/README.md) for the current public source-page layer.
 
 ---
 
@@ -113,6 +118,7 @@ The case did not end cleanly.
 Instead, the pilot models a weaker descendant path.
 
 - Object: [`C-0002`](../objects/claims/C-0002.md)
+- Public claim page: [`../claims/C-0002.md`](../claims/C-0002.md)
 - Canonical source ids: `Dana_Carney_2016_statement`, `TED_Corrections_2017`
 
 ---
@@ -135,16 +141,18 @@ A reader who wants to go one layer deeper should follow this order:
 
 1. [`../status-legend-v1.md`](../status-legend-v1.md)
 2. [`../verdict-grammar-v1.md`](../verdict-grammar-v1.md)
-3. [`V-0001`](../objects/verdicts/V-0001.md)
-4. [`V-0002`](../objects/verdicts/V-0002.md)
-5. [`C-0001`](../objects/claims/C-0001.md)
-6. [`C-0002`](../objects/claims/C-0002.md)
-7. [`D-0001`](../objects/dissents/D-0001.md)
-8. [`D-0002`](../objects/dissents/D-0002.md)
-9. [`D-0003`](../objects/dissents/D-0003.md)
-10. [`../timeline/events.md`](../timeline/events.md)
-11. [`../references.md`](../references.md)
-12. [`../references-metadata-v1.md`](../references-metadata-v1.md)
+3. [`../claims/README.md`](../claims/README.md)
+4. [`../claims/C-0001.md`](../claims/C-0001.md)
+5. [`../claims/C-0002.md`](../claims/C-0002.md)
+6. [`V-0001`](../objects/verdicts/V-0001.md)
+7. [`V-0002`](../objects/verdicts/V-0002.md)
+8. [`D-0001`](../objects/dissents/D-0001.md)
+9. [`D-0002`](../objects/dissents/D-0002.md)
+10. [`D-0003`](../objects/dissents/D-0003.md)
+11. [`../timeline/events.md`](../timeline/events.md)
+12. [`../references.md`](../references.md)
+13. [`../sources/README.md`](../sources/README.md)
+14. [`../references-metadata-v1.md`](../references-metadata-v1.md)
 
 ---
 
@@ -169,4 +177,5 @@ But it is closer to a true public living knowledge homepage than the earlier sna
 - object references are explicit,
 - source ids are canonicalized against `references-metadata-v1.md`,
 - status wording is now backed by `status-legend-v1.md` and `verdict-grammar-v1.md`,
-- and the reader can move from narrative view into governed objects without guessing where to click.
+- the reader can move from narrative view into governed objects without guessing where to click,
+- and the new public claim-page and source-page layers now give the case a more legible public ecology beyond the snapshot alone.
