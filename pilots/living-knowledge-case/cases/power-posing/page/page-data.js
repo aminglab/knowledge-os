@@ -279,6 +279,7 @@ window.POWER_POSING_PAGE_DATA = {
       "usage": "`C-0002`"
     }
   ],
+  "readingPathIntro": "This page keeps a deliberately thinner downstream reading path than snapshot-v2. Start with Snapshot v2 if you want the fuller governance-backed route; use the links below for the shortest path back into verdicts, claims, timeline, and references.",
   "readingPath": [
     {
       "label": "Snapshot v2",

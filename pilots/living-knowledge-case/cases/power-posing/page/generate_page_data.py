@@ -463,6 +463,7 @@ def build_page_data() -> tuple[dict[str, Any], dict[str, dict[str, Any]], list[d
         ],
         "timeline": parse_timeline(timeline_text),
         "sources": reference_entries,
+        "readingPathIntro": "This page keeps a deliberately thinner downstream reading path than snapshot-v2. Start with Snapshot v2 if you want the fuller governance-backed route; use the links below for the shortest path back into verdicts, claims, timeline, and references.",
         "readingPath": [
             make_link("Snapshot v2", "../snapshots/snapshot-v2.md"),
             make_link("Verdict V-0001", objects["V-0001"]["href"]),

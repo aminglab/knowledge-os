@@ -56,6 +56,11 @@ More concretely:
 This means the page layer is **downstream** of the snapshot release layer, not a competing editorial surface.
 It should not invent a second public storyline that diverges from `snapshot-v2.md`.
 
+The same rule applies to the page reading path.
+It is intentionally **thinner** than the fuller reading path exposed in `snapshot-v2.md`.
+The page should provide the shortest downstream route back into verdicts, claims, timeline, and references,
+while the snapshot remains the fuller governance-backed release path.
+
 ---
 
 ## How it works now
@@ -190,6 +195,7 @@ For now, the renderer is intentionally simple and honest:
 - the knowledge model still lives in the case objects,
 - `snapshot-v2.md` acts as the current public homepage and release layer,
 - the generator creates a thin browser-ready data bridge downstream of that release layer,
+- the page reading path is intentionally thinner than the snapshot reading path,
 - validates a small set of high-value invariants,
 - prints a readable release summary,
 - supports a non-writing `--check` mode,

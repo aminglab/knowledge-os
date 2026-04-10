@@ -138,7 +138,10 @@
   };
 
   const renderReadingPath = () => {
-    const node = section('Reading path', 'The page is a release surface, but it still points back to the governed object layer.');
+    const node = section(
+      'Reading path',
+      data.readingPathIntro || 'The page is a release surface, but it still points back to the governed object layer.'
+    );
     const links = el('div', 'object-links');
     data.readingPath.forEach((item) => links.appendChild(link(item)));
     node.appendChild(links);
