@@ -9,7 +9,8 @@ This layer is expected to stay consistent with:
 
 - the governed object layer,
 - the public snapshot layer,
-- and future release tooling.
+- future release tooling,
+- and the first public-facing source page seed layer now exposed under [`sources/`](./sources/README.md).
 
 ---
 
@@ -22,7 +23,8 @@ What it does claim is narrower and more concrete:
 
 - every canonical source id used by current objects is declared here,
 - every declared source carries a stable minimum metadata surface,
-- and exact object usage is recorded in a machine-checkable way.
+- exact object usage is recorded in a machine-checkable way,
+- and the first public-facing Source Page seed layer can now grow out of this metadata floor.
 
 ---
 
@@ -36,6 +38,25 @@ The current case objects use these canonical ids in frontmatter:
 - `Simmons_Simonsohn_2016`
 - `Early_public_amplification_context`
 - `TED_Corrections_2017`
+
+---
+
+## Public source page seed layer
+
+The current public-facing Source Page seed layer now lives here:
+
+- [`sources/README.md`](./sources/README.md)
+
+That layer does not replace this metadata file.
+It grows out of it.
+
+At the current stage, the rough division of labor is:
+
+- `references.md` — thin reader-facing source entrypoint
+- `references-metadata-v1.md` — stable metadata layer
+- `sources/` — first public-facing source pages
+
+This is the current source-surface structure of the pilot.
 
 ---
 
@@ -144,3 +165,9 @@ A later repository-wide source doctrine may standardize additional fields such a
 - publication / update timestamps
 - snapshot section usage
 - evidence weight or role subtype
+
+But at the current stage, the source surface is now more clearly layered:
+
+- entry,
+- metadata,
+- and public-facing source pages.
