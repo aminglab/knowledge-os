@@ -6,20 +6,25 @@
 
 ## What this page is
 
-This page is a reader-facing release view over a small governed object set.
-It is not a complete archive and it is not the full live graph.
-It is a public snapshot of the current pilot reading.
+This page is the public homepage for the current `power-posing` case.
+It is a reader-facing release view over a small governed object set, not a complete archive and not the full live graph.
 
-If you want the raw objects behind this page, follow the object links below.
+At a glance, the case now reads like this:
+
+- the original strong-form claim is **contested and significantly weakened**
+- a narrower descendant claim is **contested but still surviving**
+
+If you want the raw governed objects behind this page, follow the object links below.
 
 ---
 
 ## Current visible judgment
 
-The public status phrases used below are not just narrative decoration.
-They are reader-facing renderings of the current governed judgment surface.
+The status phrases used below are not just narrative decoration.
+They are the current public renderings of the governed judgment surface.
 
-See:
+You do not need to read the full governance layer first to understand the page.
+But if you want to see how these phrases map back to the object layer, start here:
 
 - [`../status-legend-v1.md`](../status-legend-v1.md) — public wording note for current status phrases
 - [`../verdict-grammar-v1.md`](../verdict-grammar-v1.md) — case-scoped bridge between snapshot wording and object-layer judgment fields
@@ -27,7 +32,8 @@ See:
 ### Original claim
 **Current state:** contested and significantly weakened
 
-The original strong-form claim says that brief expansive posture can change hormone levels and affect risk-taking behavior.
+The original headline claim says that brief expansive posture can change hormone levels and affect risk-taking behavior.
+In this pilot, that strong-form package is no longer treated as intact.
 
 - Object: [`C-0001`](../objects/claims/C-0001.md)
 - Current verdict: [`V-0001`](../objects/verdicts/V-0001.md)
@@ -81,6 +87,9 @@ See [`../references.md`](../references.md) for the current source map.
 
 ## What changed later
 
+The case did not collapse in one step.
+It was hit by empirical challenge, internal withdrawal of support, broader methodological attack, and then a split into a weaker descendant route.
+
 ### 1. Empirical challenge
 A larger replication challenge appeared and directly targeted the core effect.
 
@@ -113,7 +122,7 @@ Instead, the pilot models a weaker descendant path.
 The weaker path is not treated here as a casual rewording of the original claim.
 It is treated as a different claim in the same lineage.
 
-That matters because real knowledge does not always behave like a binary switch.
+That distinction matters because real knowledge does not always behave like a binary switch.
 A claim can weaken, split, retreat, and survive in narrower descendant form.
 
 This is exactly the sort of history that static publication artifacts hide badly.
@@ -155,7 +164,7 @@ A reader who wants to go one layer deeper should follow this order:
 ## Snapshot note
 
 This is still a pilot page, not a final product renderer.
-But it is closer to a true public living knowledge page than the earlier snapshot draft:
+But it is closer to a true public living knowledge homepage than the earlier snapshot draft:
 
 - object references are explicit,
 - source ids are canonicalized against `references-metadata-v1.md`,
