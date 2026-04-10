@@ -30,13 +30,14 @@ That is enough for the current stage.
 
 ## Current scope
 
-This renderer prototype is designed to prove five things:
+This renderer prototype is designed to prove six things:
 
 1. the case can be rendered as a page rather than only as a markdown tree,
 2. object ids can remain visible at the UI layer,
 3. the page can point back to source objects and the reference map,
 4. the snapshot can become a navigable public reading surface,
-5. and the page layer can now grow from the governed object layer through a minimal generation step.
+5. the page layer can grow from the governed object layer through a minimal generation step,
+6. and the page can now begin to expose the seeded `claims/` and `sources/` layers without replacing the snapshot as the fuller release view.
 
 ---
 
@@ -60,6 +61,8 @@ The same rule applies to the page reading path.
 It is intentionally **thinner** than the fuller reading path exposed in `snapshot-v2.md`.
 The page should provide the shortest downstream route back into verdicts, claims, timeline, and references,
 while the snapshot remains the fuller governance-backed release path.
+
+As of the current integration pass, that thinner route now acknowledges not only raw object links and references, but also the seeded public `claims/` and `sources/` layers that have grown around the case.
 
 ---
 
@@ -196,6 +199,7 @@ For now, the renderer is intentionally simple and honest:
 - `snapshot-v2.md` acts as the current public homepage and release layer,
 - the generator creates a thin browser-ready data bridge downstream of that release layer,
 - the page reading path is intentionally thinner than the snapshot reading path,
+- the page can now acknowledge the seeded public `claims/` and `sources/` layers without pretending to be a full object browser,
 - validates a small set of high-value invariants,
 - prints a readable release summary,
 - supports a non-writing `--check` mode,
@@ -212,11 +216,9 @@ The first renderer prototype proved that the case could begin to look like a pro
 
 This step proves the next thing:
 
-> the public page no longer depends entirely on hand-written page data.
+> the public page no longer depends entirely on one flat case surface.
 
-And the pipeline can now fail early when the case layer drifts in obvious ways.
-
-That is the beginning of a real publishing pipeline.
+It can now begin to route readers into a richer seeded ecology of claims and sources without abandoning the thinner downstream role of the current page.
 
 ---
 
@@ -228,4 +230,5 @@ Later iterations may:
 - derive richer cards from object fields and body sections,
 - validate more protocol constraints,
 - support multiple snapshots,
+- teach the renderer to surface claim and source routes more explicitly at the component level,
 - and eventually merge into a broader public layer renderer.

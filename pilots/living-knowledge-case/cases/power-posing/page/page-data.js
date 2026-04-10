@@ -8,6 +8,8 @@ window.POWER_POSING_PAGE_DATA = {
   "description": "This page is the public homepage for the current `power-posing` case. It is a reader-facing release view over a small governed object set, not a complete archive and not the full live graph.",
   "links": [
     {"label": "Snapshot v2", "href": "../snapshots/snapshot-v2.md"},
+    {"label": "Claim pages", "href": "../claims/README.md"},
+    {"label": "Source pages", "href": "../sources/README.md"},
     {"label": "Case overview", "href": "../case.md"},
     {"label": "References", "href": "../references.md"},
     {"label": "Timeline", "href": "../timeline/events.md"}
@@ -24,9 +26,9 @@ window.POWER_POSING_PAGE_DATA = {
       "summary": "The original headline claim says that brief expansive posture can change hormone levels and affect risk-taking behavior. In this pilot, that strong-form package is no longer treated as intact.",
       "badges": ["claim", "C-0001", "V-0001"],
       "links": [
-        {"label": "View claim C-0001", "href": "../objects/claims/C-0001.md"},
-        {"label": "View verdict V-0001", "href": "../objects/verdicts/V-0001.md"},
-        {"label": "View evidence E-0001", "href": "../objects/evidence/E-0001.md"}
+        {"label": "Open claim page C-0001", "href": "../claims/C-0001.md"},
+        {"label": "Open verdict V-0001", "href": "../objects/verdicts/V-0001.md"},
+        {"label": "Open evidence E-0001", "href": "../objects/evidence/E-0001.md"}
       ]
     },
     {
@@ -35,8 +37,8 @@ window.POWER_POSING_PAGE_DATA = {
       "summary": "A weaker descendant claim remains in play: expansive posture may affect subjective feelings of power or confidence even if the stronger hormone-and-risk-taking claim does not hold.",
       "badges": ["claim", "C-0002", "V-0002"],
       "links": [
-        {"label": "View claim C-0002", "href": "../objects/claims/C-0002.md"},
-        {"label": "View verdict V-0002", "href": "../objects/verdicts/V-0002.md"}
+        {"label": "Open claim page C-0002", "href": "../claims/C-0002.md"},
+        {"label": "Open verdict V-0002", "href": "../objects/verdicts/V-0002.md"}
       ]
     }
   ],
@@ -57,9 +59,37 @@ window.POWER_POSING_PAGE_DATA = {
         {"title": "Large-sample replication failure targets the core effect", "kind": "dissent", "body": "This dissent object represents the later large-sample replication failure led by Ranehill et al. in **2015**. It directly attacked the core empirical claim associated with the original power-posing result.", "badges": ["D-0001", "Ranehill_et_al_2015"], "links": [{"label": "Open D-0001", "href": "../objects/dissents/D-0001.md"}]},
         {"title": "Internal withdrawal of support weakens the original claim from within", "kind": "dissent", "body": "This dissent object represents the **2016** public withdrawal of support by **Dana Carney**, the first author of the original paper.", "badges": ["D-0002", "Dana_Carney_2016_statement"], "links": [{"label": "Open D-0002", "href": "../objects/dissents/D-0002.md"}]},
         {"title": "P-curve analysis attacks the evidentiary profile of the literature", "kind": "dissent", "body": "This dissent object represents the later **2016** methodological attack associated with p-curve analysis of the power-posing literature.", "badges": ["D-0003", "Simmons_Simonsohn_2016"], "links": [{"label": "Open D-0003", "href": "../objects/dissents/D-0003.md"}]},
-        {"title": "Power posing may affect subjective feelings of power even if the original hormone claim does not hold", "kind": "status", "body": "This object represents the weaker descendant claim that survives after the original strong-form claim loses credibility.", "badges": ["C-0002", "Dana_Carney_2016_statement", "TED_Corrections_2017"], "links": [{"label": "Open C-0002", "href": "../objects/claims/C-0002.md"}]},
+        {"title": "Power posing may affect subjective feelings of power even if the original hormone claim does not hold", "kind": "status", "body": "This object represents the weaker descendant claim that survives after the original strong-form claim loses credibility.", "badges": ["C-0002", "Dana_Carney_2016_statement", "TED_Corrections_2017"], "links": [{"label": "Open claim page C-0002", "href": "../claims/C-0002.md"}]},
         {"title": "Working verdict on the original strong-form claim", "kind": "status", "body": "This verdict records the current pilot judgment on the **original strong-form claim** represented by C-0001.", "badges": ["V-0001"], "links": [{"label": "Open V-0001", "href": "../objects/verdicts/V-0001.md"}]},
         {"title": "Working verdict on the weaker descendant claim", "kind": "status", "body": "This verdict records the current pilot judgment on the weaker descendant claim represented by C-0002.", "badges": ["V-0002"], "links": [{"label": "Open V-0002", "href": "../objects/verdicts/V-0002.md"}]}
+      ]
+    },
+    {
+      "title": "Public claim and source routes",
+      "intro": "The page now sits inside a richer public-layer ecology. These cards route into the seeded claim-page and source-page layers without replacing Snapshot v2 as the fuller release view.",
+      "cards": [
+        {
+          "title": "Claim pages",
+          "kind": "status",
+          "body": "The case now has public claim pages for both the original strong-form claim and the weaker descendant claim. These pages localize standing, support, challenge, and lineage without turning the case page into a full graph browser.",
+          "badges": ["claims", "2 public claim pages"],
+          "links": [
+            {"label": "Open claim index", "href": "../claims/README.md"},
+            {"label": "Open claim C-0001", "href": "../claims/C-0001.md"},
+            {"label": "Open claim C-0002", "href": "../claims/C-0002.md"}
+          ]
+        },
+        {
+          "title": "Source pages",
+          "kind": "support",
+          "body": "The case now has a first public source-page layer. It makes canonical sources readable as participants in the living case rather than leaving source grounding trapped inside metadata and case cards.",
+          "badges": ["sources", "6 public source pages"],
+          "links": [
+            {"label": "Open source index", "href": "../sources/README.md"},
+            {"label": "Open source Carney_Cuddy_Yap_2010", "href": "../sources/Carney_Cuddy_Yap_2010.md"},
+            {"label": "Open source Dana_Carney_2016_statement", "href": "../sources/Dana_Carney_2016_statement.md"}
+          ]
+        }
       ]
     }
   ],
@@ -73,32 +103,34 @@ window.POWER_POSING_PAGE_DATA = {
     {"year": "", "title": "Current pilot verdict state", "body": "**V-0001** records the working judgment on the original strong-form claim. **V-0002** records the working judgment on the weaker descendant claim."}
   ],
   "sources": [
-    {"id": "Carney_Cuddy_Yap_2010", "title": "Power Posing: Brief Nonverbal Displays Affect Neuroendocrine Levels and Risk Tolerance", "role": "source for the original strong-form claim", "locator": "DOI 10.1177/0956797610383437", "usage": "C-0001, E-0001", "badges": ["Carney_Cuddy_Yap_2010", "journal_article", "2010"], "links": [{"label": "Open source entry", "href": "../references-metadata-v1.md#carney_cuddy_yap_2010"}, {"label": "Open C-0001", "href": "../objects/claims/C-0001.md"}, {"label": "Open E-0001", "href": "../objects/evidence/E-0001.md"}]},
-    {"id": "Ranehill_et_al_2015", "title": "Assessing the Robustness of Power Posing", "role": "major empirical replication challenge to the original claim", "locator": "DOI 10.1177/0956797614553946", "usage": "D-0001", "badges": ["Ranehill_et_al_2015", "journal_article", "2015"], "links": [{"label": "Open source entry", "href": "../references-metadata-v1.md#ranehill_et_al_2015"}, {"label": "Open D-0001", "href": "../objects/dissents/D-0001.md"}]},
-    {"id": "Dana_Carney_2016_statement", "title": "My position on “Power Poses”", "role": "internal withdrawal of support by the original first author", "locator": "Berkeley faculty-hosted statement PDF", "usage": "C-0002, D-0002", "badges": ["Dana_Carney_2016_statement", "public_statement", "2016"], "links": [{"label": "Open source entry", "href": "../references-metadata-v1.md#dana_carney_2016_statement"}, {"label": "Open C-0002", "href": "../objects/claims/C-0002.md"}, {"label": "Open D-0002", "href": "../objects/dissents/D-0002.md"}]},
-    {"id": "Simmons_Simonsohn_2016", "title": "Power Posing: P-Curving the Evidence", "role": "methodological / meta-evidential attack on the literature profile", "locator": "SSRN posting dated June 10, 2016", "usage": "D-0003", "badges": ["Simmons_Simonsohn_2016", "methodological_preprint_then_publication", "2016"], "links": [{"label": "Open source entry", "href": "../references-metadata-v1.md#simmons_simonsohn_2016"}, {"label": "Open D-0003", "href": "../objects/dissents/D-0003.md"}]},
-    {"id": "Early_public_amplification_context", "title": "Your body language may shape who you are", "role": "public amplification context", "locator": "TED talk page, posted October 2012", "usage": "E-0001", "badges": ["Early_public_amplification_context", "public_talk", "2012"], "links": [{"label": "Open source entry", "href": "../references-metadata-v1.md#early_public_amplification_context"}, {"label": "Open E-0001", "href": "../objects/evidence/E-0001.md"}]},
-    {"id": "TED_Corrections_2017", "title": "Amy Cuddy's “Your body language may shape who you are”: Corrections & Updates", "role": "public-facing acknowledgement that the talk entered an ongoing robustness and reproducibility debate", "locator": "TED corrections page, updated August 2017", "usage": "C-0002", "badges": ["TED_Corrections_2017", "public_corrections_page", "2017"], "links": [{"label": "Open source entry", "href": "../references-metadata-v1.md#ted_corrections_2017"}, {"label": "Open C-0002", "href": "../objects/claims/C-0002.md"}]}
+    {"id": "Carney_Cuddy_Yap_2010", "title": "Power Posing: Brief Nonverbal Displays Affect Neuroendocrine Levels and Risk Tolerance", "role": "source for the original strong-form claim", "locator": "DOI 10.1177/0956797610383437", "usage": "C-0001, E-0001", "badges": ["Carney_Cuddy_Yap_2010", "journal_article", "2010"], "links": [{"label": "Open source page", "href": "../sources/Carney_Cuddy_Yap_2010.md"}, {"label": "Open source metadata", "href": "../references-metadata-v1.md#carney_cuddy_yap_2010"}, {"label": "Open claim page C-0001", "href": "../claims/C-0001.md"}, {"label": "Open E-0001", "href": "../objects/evidence/E-0001.md"}]},
+    {"id": "Ranehill_et_al_2015", "title": "Assessing the Robustness of Power Posing", "role": "major empirical replication challenge to the original claim", "locator": "DOI 10.1177/0956797614553946", "usage": "D-0001", "badges": ["Ranehill_et_al_2015", "journal_article", "2015"], "links": [{"label": "Open source page", "href": "../sources/Ranehill_et_al_2015.md"}, {"label": "Open source metadata", "href": "../references-metadata-v1.md#ranehill_et_al_2015"}, {"label": "Open D-0001", "href": "../objects/dissents/D-0001.md"}]},
+    {"id": "Dana_Carney_2016_statement", "title": "My position on “Power Poses”", "role": "internal withdrawal of support by the original first author", "locator": "Berkeley faculty-hosted statement PDF", "usage": "C-0002, D-0002", "badges": ["Dana_Carney_2016_statement", "public_statement", "2016"], "links": [{"label": "Open source page", "href": "../sources/Dana_Carney_2016_statement.md"}, {"label": "Open source metadata", "href": "../references-metadata-v1.md#dana_carney_2016_statement"}, {"label": "Open claim page C-0002", "href": "../claims/C-0002.md"}, {"label": "Open D-0002", "href": "../objects/dissents/D-0002.md"}]},
+    {"id": "Simmons_Simonsohn_2016", "title": "Power Posing: P-Curving the Evidence", "role": "methodological / meta-evidential attack on the literature profile", "locator": "SSRN posting dated June 10, 2016", "usage": "D-0003", "badges": ["Simmons_Simonsohn_2016", "methodological_preprint_then_publication", "2016"], "links": [{"label": "Open source page", "href": "../sources/Simmons_Simonsohn_2016.md"}, {"label": "Open source metadata", "href": "../references-metadata-v1.md#simmons_simonsohn_2016"}, {"label": "Open D-0003", "href": "../objects/dissents/D-0003.md"}]},
+    {"id": "Early_public_amplification_context", "title": "Your body language may shape who you are", "role": "public amplification context", "locator": "TED talk page, posted October 2012", "usage": "E-0001", "badges": ["Early_public_amplification_context", "public_talk", "2012"], "links": [{"label": "Open source page", "href": "../sources/Early_public_amplification_context.md"}, {"label": "Open source metadata", "href": "../references-metadata-v1.md#early_public_amplification_context"}, {"label": "Open E-0001", "href": "../objects/evidence/E-0001.md"}]},
+    {"id": "TED_Corrections_2017", "title": "Amy Cuddy's “Your body language may shape who you are”: Corrections & Updates", "role": "public-facing acknowledgement that the talk entered an ongoing robustness and reproducibility debate", "locator": "TED corrections page, updated August 2017", "usage": "C-0002", "badges": ["TED_Corrections_2017", "public_corrections_page", "2017"], "links": [{"label": "Open source page", "href": "../sources/TED_Corrections_2017.md"}, {"label": "Open source metadata", "href": "../references-metadata-v1.md#ted_corrections_2017"}, {"label": "Open claim page C-0002", "href": "../claims/C-0002.md"}]}
   ],
-  "readingPathIntro": "This page keeps a deliberately thinner downstream reading path than snapshot-v2. Start with Snapshot v2 if you want the fuller governance-backed route; use the links below for the shortest path back into verdicts, claims, timeline, and references.",
+  "readingPathIntro": "This page keeps a deliberately thinner downstream reading path than snapshot-v2. Start with Snapshot v2 if you want the fuller governance-backed route; use the links below for the shortest path into the seeded claim-page and source-page layers, verdicts, timeline, and references.",
   "readingPath": [
     {"label": "Snapshot v2", "href": "../snapshots/snapshot-v2.md"},
+    {"label": "Claim pages", "href": "../claims/README.md"},
+    {"label": "Claim C-0001", "href": "../claims/C-0001.md"},
+    {"label": "Claim C-0002", "href": "../claims/C-0002.md"},
+    {"label": "Source pages", "href": "../sources/README.md"},
     {"label": "Verdict V-0001", "href": "../objects/verdicts/V-0001.md"},
     {"label": "Verdict V-0002", "href": "../objects/verdicts/V-0002.md"},
-    {"label": "Claim C-0001", "href": "../objects/claims/C-0001.md"},
-    {"label": "Claim C-0002", "href": "../objects/claims/C-0002.md"},
     {"label": "Timeline", "href": "../timeline/events.md"},
     {"label": "References", "href": "../references.md"}
   ],
   "footer": {
     "eyebrow": "Knowledge OS · First live case page",
     "title": "A governed public case page carried in main",
-    "body": "This page is the first live public case page currently carried in the repository main line. It stays downstream of Snapshot v2 and points back into governed objects rather than replacing them with a second editorial story.",
-    "badges": ["first live case page", "snapshot-v2 upstream", "downstream release surface"],
+    "body": "This page is the first live public case page currently carried in the repository main line. It stays downstream of Snapshot v2, and it now acknowledges the seeded claim-page and source-page layers growing around the case rather than treating the case as one flat surface.",
+    "badges": ["first live case page", "snapshot-v2 upstream", "downstream release surface", "claims+sources integrated"],
     "links": [
       {"label": "Open Snapshot v2", "href": "../snapshots/snapshot-v2.md"},
-      {"label": "Open claim C-0001", "href": "../objects/claims/C-0001.md"},
-      {"label": "Open claim C-0002", "href": "../objects/claims/C-0002.md"},
+      {"label": "Open claim pages", "href": "../claims/README.md"},
+      {"label": "Open source pages", "href": "../sources/README.md"},
       {"label": "Open references", "href": "../references.md"}
     ]
   }
