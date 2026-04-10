@@ -73,7 +73,7 @@ The current intended flow is:
 1. edit object files, `snapshot-v2.md`, `references.md`, or `timeline/events.md`
 2. treat `snapshot-v2.md` as the current public homepage and release source for the case
 3. run `generate_page_data.py`
-4. let the generator validate the current case layer
+4. let the generator validate the current case layer and seeded public page surfaces
 5. review the printed release summary or emitted JSON summary
 6. open `index.html`
 
@@ -108,10 +108,12 @@ It currently checks for:
 
 - undefined `source_refs`,
 - missing required frontmatter fields,
-- and links or internal references that point to missing objects.
+- links or internal references that point to missing objects,
+- missing public claim pages for current claim objects,
+- and missing public source pages for current canonical source ids.
 
 This is not yet a full protocol validator.
-But it gives the publishing pipeline its first real teeth.
+But it gives the publishing pipeline real teeth around the current richer page contract.
 
 Adjacent to that generator-level floor, the repository now also carries a small README template seam audit:
 
@@ -129,7 +131,7 @@ In practical terms, it protects continued README exposure of:
 - `case-template-extraction-checklist-v1.md`
 - `template-seam-summary-v1.md`
 
-So the current page/publishing line is no longer guarded only by generator validation.
+So the current page/publishing line is no longer guarded only by object validation.
 It is also guarded by a small adjacent README template seam audit that keeps seam-governance documents visible to later developers.
 
 ---
@@ -147,7 +149,10 @@ The release summary itself currently includes:
 - total object count,
 - object counts by family,
 - canonical source id count,
+- claim page count,
+- source page count,
 - neighborhood card count,
+- public-route card count,
 - timeline entry count,
 - and reading-path link count.
 
@@ -200,7 +205,7 @@ For now, the renderer is intentionally simple and honest:
 - the generator creates a thin browser-ready data bridge downstream of that release layer,
 - the page reading path is intentionally thinner than the snapshot reading path,
 - the page can now acknowledge the seeded public `claims/` and `sources/` layers without pretending to be a full object browser,
-- validates a small set of high-value invariants,
+- the generator now validates that those seeded public layers actually exist for the current case,
 - prints a readable release summary,
 - supports a non-writing `--check` mode,
 - can emit machine-readable JSON,
@@ -213,12 +218,13 @@ For now, the renderer is intentionally simple and honest:
 
 The repository already proved that the case can exist as governed files.
 The first renderer prototype proved that the case could begin to look like a product surface.
+The page-layer integration pass proved that the visible page could acknowledge a richer public ecology around the case.
 
 This step proves the next thing:
 
-> the public page no longer depends entirely on one flat case surface.
+> the generator itself can now uphold that richer contract instead of leaving `page-data.js` ahead of its own publishing pipeline.
 
-It can now begin to route readers into a richer seeded ecology of claims and sources without abandoning the thinner downstream role of the current page.
+That is what turns the recent page integration work from a surface-only move into a more honest publishing chain.
 
 ---
 
