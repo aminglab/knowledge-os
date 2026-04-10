@@ -239,19 +239,45 @@ def extract_state_block(markdown: str, label: str) -> tuple[str, str]:
     return status, summary
 
 
-def parse_references(markdown: str) -> list[dict[str, str]]:
-    entries: list[dict[str, str]] = []
+def source_anchor(source_id: str) -> str:
+    anchor = source_id.strip().lower()
+    anchor = anchor.replace("`", "")
+    anchor = re.sub(r"\s+", "-", anchor)
+    anchor = re.sub(r"[^a-z0-9_\-]", "", anchor)
+    return anchor
+
+
+def clean_inline_markdown(text: str) -> str:
+    text = text.strip()
+    text = re.sub(r"`([^`]+)`", r"\1", text)
+    text = re.sub(r"_([^_]+)_", r"\1", text)
+    return text
+
+
+def extract_metadata_value(block: str, label: str) -> str:
+    match = re.search(rf"- {re.escape(label)}: (.+)", block)
+    return clean_inline_markdown(match.group(1)) if match else ""
+
+
+def parse_references(markdown: str) -> list[dict[str, Any]]:
+    entries: list[dict[str, Any]] = []
     parts = re.split(r"\n### `([^`]+)`\n", markdown)
     for i in range(1, len(parts), 2):
         source_id = parts[i]
         block = parts[i + 1]
-        role_match = re.search(r"- Role in case: (.+)", block)
-        usage_match = re.search(r"- Object usage: (.+)", block)
+        usage = extract_metadata_value(block, "Object usage")
+        usage_ids = re.findall(r"`([^`]+)`", block)
         entries.append(
             {
                 "id": source_id,
-                "role": role_match.group(1).strip() if role_match else "",
-                "usage": usage_match.group(1).strip() if usage_match else "",
+                "source_type": extract_metadata_value(block, "Source type"),
+                "title": extract_metadata_value(block, "Title"),
+                "year": extract_metadata_value(block, "Year"),
+                "locator": extract_metadata_value(block, "Canonical locator"),
+                "role": extract_metadata_value(block, "Role in case"),
+                "usage": usage,
+                "usage_ids": usage_ids,
+                "href": f"../references-metadata-v1.md#{source_anchor(source_id)}",
             }
         )
     return entries
@@ -283,7 +309,7 @@ def make_link(label: str, href: str) -> dict[str, str]:
     return {"label": label, "href": href}
 
 
-def canonical_source_ids(reference_entries: list[dict[str, str]]) -> set[str]:
+def canonical_source_ids(reference_entries: list[dict[str, Any]]) -> set[str]:
     return {entry["id"] for entry in reference_entries if entry.get("id")}
 
 
@@ -374,7 +400,7 @@ def build_status_cards(objects: dict[str, dict[str, Any]], snapshot_text: str) -
             "title": "Descendant claim",
             "status": descendant_status,
             "summary": descendant_summary,
-            "badges": ["claim", c2["id"] , v2["id"]],
+            "badges": ["claim", c2["id"], v2["id"]],
             "links": [
                 make_link(f"View claim {c2['id']}", c2["href"]),
                 make_link(f"View verdict {v2['id']}", v2["href"]),
@@ -406,7 +432,37 @@ def build_neighborhood_cards(objects: dict[str, dict[str, Any]]) -> list[dict[st
     return cards
 
 
-def build_page_data() -> tuple[dict[str, Any], dict[str, dict[str, Any]], list[dict[str, str]]]:
+def build_source_cards(reference_entries: list[dict[str, Any]], objects: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    cards: list[dict[str, Any]] = []
+    for entry in reference_entries:
+        usage_links = []
+        for object_id in entry.get("usage_ids", []):
+            if object_id in objects:
+                usage_links.append(make_link(f"Open {object_id}", objects[object_id]["href"]))
+
+        links = [make_link("Open source entry", entry["href"])]
+        links.extend(usage_links)
+        badges = [entry["id"]]
+        if entry.get("source_type"):
+            badges.append(entry["source_type"])
+        if entry.get("year"):
+            badges.append(entry["year"])
+
+        cards.append(
+            {
+                "id": entry["id"],
+                "title": entry.get("title", ""),
+                "role": entry.get("role", ""),
+                "locator": entry.get("locator", ""),
+                "usage": entry.get("usage", ""),
+                "badges": badges,
+                "links": links,
+            }
+        )
+    return cards
+
+
+def build_page_data() -> tuple[dict[str, Any], dict[str, dict[str, Any]], list[dict[str, Any]]]:
     snapshot_text = read_text(SNAPSHOT_PATH)
     references_text = read_text(REFERENCES_PATH)
     timeline_text = read_text(TIMELINE_PATH)
@@ -462,7 +518,7 @@ def build_page_data() -> tuple[dict[str, Any], dict[str, dict[str, Any]], list[d
             },
         ],
         "timeline": parse_timeline(timeline_text),
-        "sources": reference_entries,
+        "sources": build_source_cards(reference_entries, objects),
         "readingPathIntro": "This page keeps a deliberately thinner downstream reading path than snapshot-v2. Start with Snapshot v2 if you want the fuller governance-backed route; use the links below for the shortest path back into verdicts, claims, timeline, and references.",
         "readingPath": [
             make_link("Snapshot v2", "../snapshots/snapshot-v2.md"),
@@ -504,7 +560,7 @@ def write_output(data: dict[str, Any]) -> None:
     OUTPUT_PATH.write_text(content, encoding="utf-8")
 
 
-def build_release_summary(objects: dict[str, dict[str, Any]], reference_entries: list[dict[str, str]], data: dict[str, Any]) -> dict[str, Any]:
+def build_release_summary(objects: dict[str, dict[str, Any]], reference_entries: list[dict[str, Any]], data: dict[str, Any]) -> dict[str, Any]:
     counts = count_objects_by_type(objects)
     neighborhood_cards = 0
     for section in data.get("sections", []):

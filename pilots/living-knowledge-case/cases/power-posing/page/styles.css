@@ -242,6 +242,11 @@ a:hover {
   border-radius: 16px;
 }
 
+.source-item h3 {
+  margin: 8px 0 10px;
+  font-size: 18px;
+}
+
 .source-id {
   color: var(--accent);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;

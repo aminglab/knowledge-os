@@ -120,17 +120,37 @@
   };
 
   const renderSources = () => {
-    const node = section('Canonical source ids', 'The page keeps the source layer visible. These ids match the current case-level reference map.');
+    const node = section(
+      'Canonical source ids',
+      'The page keeps the source layer visible and now routes each source card back to its own metadata entry and the objects that use it.'
+    );
     const list = el('div', 'source-list');
 
     data.sources.forEach((item) => {
       const source = el('article', 'source-item');
       source.appendChild(el('div', 'source-id', item.id));
-      source.appendChild(el('p', '', item.role));
-      source.appendChild(el('p', '', `Object usage: ${item.usage}`));
-      const links = el('div', 'inline-links');
-      links.appendChild(link({ label: 'Open references.md', href: '../references.md' }));
-      source.appendChild(links);
+      if (item.title) {
+        source.appendChild(el('h3', '', item.title));
+      }
+      if (item.badges && item.badges.length) {
+        const meta = el('div', 'meta-row');
+        item.badges.forEach((badge) => meta.appendChild(el('span', 'badge badge-status', badge)));
+        source.appendChild(meta);
+      }
+      if (item.role) {
+        source.appendChild(el('p', '', item.role));
+      }
+      if (item.locator) {
+        source.appendChild(el('p', '', `Canonical locator: ${item.locator}`));
+      }
+      if (item.usage) {
+        source.appendChild(el('p', '', `Object usage: ${item.usage}`));
+      }
+      if (item.links && item.links.length) {
+        const links = el('div', 'object-links');
+        item.links.forEach((entry) => links.appendChild(link(entry)));
+        source.appendChild(links);
+      }
       list.appendChild(source);
     });
 

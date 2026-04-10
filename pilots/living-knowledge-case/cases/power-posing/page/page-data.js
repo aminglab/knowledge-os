@@ -7,77 +7,36 @@ window.POWER_POSING_PAGE_DATA = {
   "shortTitle": "Power Posing",
   "description": "This page is the public homepage for the current `power-posing` case. It is a reader-facing release view over a small governed object set, not a complete archive and not the full live graph.",
   "links": [
-    {
-      "label": "Snapshot v2",
-      "href": "../snapshots/snapshot-v2.md"
-    },
-    {
-      "label": "Case overview",
-      "href": "../case.md"
-    },
-    {
-      "label": "References",
-      "href": "../references.md"
-    },
-    {
-      "label": "Timeline",
-      "href": "../timeline/events.md"
-    }
+    {"label": "Snapshot v2", "href": "../snapshots/snapshot-v2.md"},
+    {"label": "Case overview", "href": "../case.md"},
+    {"label": "References", "href": "../references.md"},
+    {"label": "Timeline", "href": "../timeline/events.md"}
   ],
   "judgmentIntro": "The status phrases used below are not just narrative decoration. They are the current public renderings of the governed judgment surface. You do not need to read the full governance layer first to understand the page. But if you want to see how these phrases map back to the object layer, start here:",
   "judgmentLinks": [
-    {
-      "label": "Status legend",
-      "href": "../status-legend-v1.md"
-    },
-    {
-      "label": "Verdict grammar",
-      "href": "../verdict-grammar-v1.md"
-    }
+    {"label": "Status legend", "href": "../status-legend-v1.md"},
+    {"label": "Verdict grammar", "href": "../verdict-grammar-v1.md"}
   ],
   "statusCards": [
     {
       "title": "Original claim",
       "status": "contested and significantly weakened",
       "summary": "The original headline claim says that brief expansive posture can change hormone levels and affect risk-taking behavior. In this pilot, that strong-form package is no longer treated as intact.",
-      "badges": [
-        "claim",
-        "C-0001",
-        "V-0001"
-      ],
+      "badges": ["claim", "C-0001", "V-0001"],
       "links": [
-        {
-          "label": "View claim C-0001",
-          "href": "../objects/claims/C-0001.md"
-        },
-        {
-          "label": "View verdict V-0001",
-          "href": "../objects/verdicts/V-0001.md"
-        },
-        {
-          "label": "View evidence E-0001",
-          "href": "../objects/evidence/E-0001.md"
-        }
+        {"label": "View claim C-0001", "href": "../objects/claims/C-0001.md"},
+        {"label": "View verdict V-0001", "href": "../objects/verdicts/V-0001.md"},
+        {"label": "View evidence E-0001", "href": "../objects/evidence/E-0001.md"}
       ]
     },
     {
       "title": "Descendant claim",
       "status": "contested but still surviving",
       "summary": "A weaker descendant claim remains in play: expansive posture may affect subjective feelings of power or confidence even if the stronger hormone-and-risk-taking claim does not hold.",
-      "badges": [
-        "claim",
-        "C-0002",
-        "V-0002"
-      ],
+      "badges": ["claim", "C-0002", "V-0002"],
       "links": [
-        {
-          "label": "View claim C-0002",
-          "href": "../objects/claims/C-0002.md"
-        },
-        {
-          "label": "View verdict V-0002",
-          "href": "../objects/verdicts/V-0002.md"
-        }
+        {"label": "View claim C-0002", "href": "../objects/claims/C-0002.md"},
+        {"label": "View verdict V-0002", "href": "../objects/verdicts/V-0002.md"}
       ]
     }
   ],
@@ -86,256 +45,61 @@ window.POWER_POSING_PAGE_DATA = {
       "title": "Why this case matters",
       "intro": "This case makes a structural problem easy to see. The original paper still exists as a stable publication artifact. But the knowledge status of its core claim did not stay still. It was amplified, challenged, weakened, and then partially re-read through a narrower descendant path. In a static publication system, those later changes are scattered across papers, statements, corrections, and memory. In a living knowledge system, they should remain attached to the claim lineage itself.",
       "cards": [
-        {
-          "title": "The structural problem",
-          "kind": "status",
-          "body": "The publication persists, but the knowledge status changed. A living knowledge system should keep those changes attached to the claim lineage itself."
-        },
-        {
-          "title": "Object neighborhoods",
-          "kind": "support",
-          "body": "This page keeps the object model visible instead of flattening the case into anonymous prose."
-        }
+        {"title": "The structural problem", "kind": "status", "body": "The publication persists, but the knowledge status changed. A living knowledge system should keep those changes attached to the claim lineage itself."},
+        {"title": "Object neighborhoods", "kind": "support", "body": "This page keeps the object model visible instead of flattening the case into anonymous prose."}
       ]
     },
     {
       "title": "Current object neighborhoods",
       "intro": "These cards are derived from current object frontmatter plus each object's summary section.",
       "cards": [
-        {
-          "title": "Initial publication and early support context",
-          "kind": "support",
-          "body": "This evidence object represents the initial publication and early support context for the original power-posing claim.",
-          "badges": [
-            "E-0001",
-            "Carney_Cuddy_Yap_2010",
-            "Early_public_amplification_context"
-          ],
-          "links": [
-            {
-              "label": "Open E-0001",
-              "href": "../objects/evidence/E-0001.md"
-            }
-          ]
-        },
-        {
-          "title": "Large-sample replication failure targets the core effect",
-          "kind": "dissent",
-          "body": "This dissent object represents the later large-sample replication failure led by Ranehill et al. in **2015**. It directly attacked the core empirical claim associated with the original power-posing result.",
-          "badges": [
-            "D-0001",
-            "Ranehill_et_al_2015"
-          ],
-          "links": [
-            {
-              "label": "Open D-0001",
-              "href": "../objects/dissents/D-0001.md"
-            }
-          ]
-        },
-        {
-          "title": "Internal withdrawal of support weakens the original claim from within",
-          "kind": "dissent",
-          "body": "This dissent object represents the **2016** public withdrawal of support by **Dana Carney**, the first author of the original paper.",
-          "badges": [
-            "D-0002",
-            "Dana_Carney_2016_statement"
-          ],
-          "links": [
-            {
-              "label": "Open D-0002",
-              "href": "../objects/dissents/D-0002.md"
-            }
-          ]
-        },
-        {
-          "title": "P-curve analysis attacks the evidentiary profile of the literature",
-          "kind": "dissent",
-          "body": "This dissent object represents the later **2016** methodological attack associated with p-curve analysis of the power-posing literature.",
-          "badges": [
-            "D-0003",
-            "Simmons_Simonsohn_2016"
-          ],
-          "links": [
-            {
-              "label": "Open D-0003",
-              "href": "../objects/dissents/D-0003.md"
-            }
-          ]
-        },
-        {
-          "title": "Power posing may affect subjective feelings of power even if the original hormone claim does not hold",
-          "kind": "status",
-          "body": "This object represents the weaker descendant claim that survives after the original strong-form claim loses credibility.",
-          "badges": [
-            "C-0002",
-            "Dana_Carney_2016_statement",
-            "TED_Corrections_2017"
-          ],
-          "links": [
-            {
-              "label": "Open C-0002",
-              "href": "../objects/claims/C-0002.md"
-            }
-          ]
-        },
-        {
-          "title": "Working verdict on the original strong-form claim",
-          "kind": "status",
-          "body": "This verdict records the current pilot judgment on the **original strong-form claim** represented by C-0001.",
-          "badges": [
-            "V-0001"
-          ],
-          "links": [
-            {
-              "label": "Open V-0001",
-              "href": "../objects/verdicts/V-0001.md"
-            }
-          ]
-        },
-        {
-          "title": "Working verdict on the weaker descendant claim",
-          "kind": "status",
-          "body": "This verdict records the current pilot judgment on the weaker descendant claim represented by C-0002.",
-          "badges": [
-            "V-0002"
-          ],
-          "links": [
-            {
-              "label": "Open V-0002",
-              "href": "../objects/verdicts/V-0002.md"
-            }
-          ]
-        }
+        {"title": "Initial publication and early support context", "kind": "support", "body": "This evidence object represents the initial publication and early support context for the original power-posing claim.", "badges": ["E-0001", "Carney_Cuddy_Yap_2010", "Early_public_amplification_context"], "links": [{"label": "Open E-0001", "href": "../objects/evidence/E-0001.md"}]},
+        {"title": "Large-sample replication failure targets the core effect", "kind": "dissent", "body": "This dissent object represents the later large-sample replication failure led by Ranehill et al. in **2015**. It directly attacked the core empirical claim associated with the original power-posing result.", "badges": ["D-0001", "Ranehill_et_al_2015"], "links": [{"label": "Open D-0001", "href": "../objects/dissents/D-0001.md"}]},
+        {"title": "Internal withdrawal of support weakens the original claim from within", "kind": "dissent", "body": "This dissent object represents the **2016** public withdrawal of support by **Dana Carney**, the first author of the original paper.", "badges": ["D-0002", "Dana_Carney_2016_statement"], "links": [{"label": "Open D-0002", "href": "../objects/dissents/D-0002.md"}]},
+        {"title": "P-curve analysis attacks the evidentiary profile of the literature", "kind": "dissent", "body": "This dissent object represents the later **2016** methodological attack associated with p-curve analysis of the power-posing literature.", "badges": ["D-0003", "Simmons_Simonsohn_2016"], "links": [{"label": "Open D-0003", "href": "../objects/dissents/D-0003.md"}]},
+        {"title": "Power posing may affect subjective feelings of power even if the original hormone claim does not hold", "kind": "status", "body": "This object represents the weaker descendant claim that survives after the original strong-form claim loses credibility.", "badges": ["C-0002", "Dana_Carney_2016_statement", "TED_Corrections_2017"], "links": [{"label": "Open C-0002", "href": "../objects/claims/C-0002.md"}]},
+        {"title": "Working verdict on the original strong-form claim", "kind": "status", "body": "This verdict records the current pilot judgment on the **original strong-form claim** represented by C-0001.", "badges": ["V-0001"], "links": [{"label": "Open V-0001", "href": "../objects/verdicts/V-0001.md"}]},
+        {"title": "Working verdict on the weaker descendant claim", "kind": "status", "body": "This verdict records the current pilot judgment on the weaker descendant claim represented by C-0002.", "badges": ["V-0002"], "links": [{"label": "Open V-0002", "href": "../objects/verdicts/V-0002.md"}]}
       ]
     }
   ],
   "timeline": [
-    {
-      "year": "2010",
-      "title": "Original claim and publication context",
-      "body": "**C-0001** represents the original strong-form claim. **E-0001** represents the original study context and early support phase. In the current pilot reading, the original paper is associated with **42 participants** and an originally reported significance context of **p < 0.05**."
-    },
-    {
-      "year": "2010–2012",
-      "title": "Amplification phase",
-      "body": "The claim moves from publication into wide public circulation. This amplification remains part of the case because it shaped the claim's public authority."
-    },
-    {
-      "year": "2015",
-      "title": "Large-sample empirical challenge",
-      "body": "**D-0001** records the later replication challenge associated with **Ranehill et al.** In the current pilot reading, this challenge is associated with **200 participants** and no significant effect on the core outcomes."
-    },
-    {
-      "year": "2016",
-      "title": "Internal collapse of support",
-      "body": "**D-0002** records the public withdrawal of support by **Dana Carney**. This marks a break in the original support structure itself."
-    },
-    {
-      "year": "2016",
-      "title": "Methodological attack on the literature profile",
-      "body": "**D-0003** records the p-curve / methodological challenge associated with **Simmons & Simonsohn**. This attack does not only challenge one result; it challenges the evidentiary profile of the surrounding literature."
-    },
-    {
-      "year": "Later",
-      "title": "Claim splitting",
-      "body": "**C-0002** represents the weaker descendant claim about subjective feeling. The case no longer behaves like a simple live-or-die dispute. It becomes a split lineage."
-    },
-    {
-      "year": "",
-      "title": "Current pilot verdict state",
-      "body": "**V-0001** records the working judgment on the original strong-form claim. **V-0002** records the working judgment on the weaker descendant claim."
-    }
+    {"year": "2010", "title": "Original claim and publication context", "body": "**C-0001** represents the original strong-form claim. **E-0001** represents the original study context and early support phase. In the current pilot reading, the original paper is associated with **42 participants** and an originally reported significance context of **p < 0.05**."},
+    {"year": "2010–2012", "title": "Amplification phase", "body": "The claim moves from publication into wide public circulation. This amplification remains part of the case because it shaped the claim's public authority."},
+    {"year": "2015", "title": "Large-sample empirical challenge", "body": "**D-0001** records the later replication challenge associated with **Ranehill et al.** In the current pilot reading, this challenge is associated with **200 participants** and no significant effect on the core outcomes."},
+    {"year": "2016", "title": "Internal collapse of support", "body": "**D-0002** records the public withdrawal of support by **Dana Carney**. This marks a break in the original support structure itself."},
+    {"year": "2016", "title": "Methodological attack on the literature profile", "body": "**D-0003** records the p-curve / methodological challenge associated with **Simmons & Simonsohn**. This attack does not only challenge one result; it challenges the evidentiary profile of the surrounding literature."},
+    {"year": "Later", "title": "Claim splitting", "body": "**C-0002** represents the weaker descendant claim about subjective feeling. The case no longer behaves like a simple live-or-die dispute. It becomes a split lineage."},
+    {"year": "", "title": "Current pilot verdict state", "body": "**V-0001** records the working judgment on the original strong-form claim. **V-0002** records the working judgment on the weaker descendant claim."}
   ],
   "sources": [
-    {
-      "id": "Carney_Cuddy_Yap_2010",
-      "role": "source for the original strong-form claim",
-      "usage": "`C-0001`, `E-0001`"
-    },
-    {
-      "id": "Ranehill_et_al_2015",
-      "role": "major empirical replication challenge to the original claim",
-      "usage": "`D-0001`"
-    },
-    {
-      "id": "Dana_Carney_2016_statement",
-      "role": "internal withdrawal of support by the original first author",
-      "usage": "`C-0002`, `D-0002`"
-    },
-    {
-      "id": "Simmons_Simonsohn_2016",
-      "role": "methodological / meta-evidential attack on the literature profile",
-      "usage": "`D-0003`"
-    },
-    {
-      "id": "Early_public_amplification_context",
-      "role": "public amplification context",
-      "usage": "`E-0001`"
-    },
-    {
-      "id": "TED_Corrections_2017",
-      "role": "public-facing acknowledgement that the talk entered an ongoing robustness and reproducibility debate",
-      "usage": "`C-0002`"
-    }
+    {"id": "Carney_Cuddy_Yap_2010", "title": "Power Posing: Brief Nonverbal Displays Affect Neuroendocrine Levels and Risk Tolerance", "role": "source for the original strong-form claim", "locator": "DOI 10.1177/0956797610383437", "usage": "C-0001, E-0001", "badges": ["Carney_Cuddy_Yap_2010", "journal_article", "2010"], "links": [{"label": "Open source entry", "href": "../references-metadata-v1.md#carney_cuddy_yap_2010"}, {"label": "Open C-0001", "href": "../objects/claims/C-0001.md"}, {"label": "Open E-0001", "href": "../objects/evidence/E-0001.md"}]},
+    {"id": "Ranehill_et_al_2015", "title": "Assessing the Robustness of Power Posing", "role": "major empirical replication challenge to the original claim", "locator": "DOI 10.1177/0956797614553946", "usage": "D-0001", "badges": ["Ranehill_et_al_2015", "journal_article", "2015"], "links": [{"label": "Open source entry", "href": "../references-metadata-v1.md#ranehill_et_al_2015"}, {"label": "Open D-0001", "href": "../objects/dissents/D-0001.md"}]},
+    {"id": "Dana_Carney_2016_statement", "title": "My position on “Power Poses”", "role": "internal withdrawal of support by the original first author", "locator": "Berkeley faculty-hosted statement PDF", "usage": "C-0002, D-0002", "badges": ["Dana_Carney_2016_statement", "public_statement", "2016"], "links": [{"label": "Open source entry", "href": "../references-metadata-v1.md#dana_carney_2016_statement"}, {"label": "Open C-0002", "href": "../objects/claims/C-0002.md"}, {"label": "Open D-0002", "href": "../objects/dissents/D-0002.md"}]},
+    {"id": "Simmons_Simonsohn_2016", "title": "Power Posing: P-Curving the Evidence", "role": "methodological / meta-evidential attack on the literature profile", "locator": "SSRN posting dated June 10, 2016", "usage": "D-0003", "badges": ["Simmons_Simonsohn_2016", "methodological_preprint_then_publication", "2016"], "links": [{"label": "Open source entry", "href": "../references-metadata-v1.md#simmons_simonsohn_2016"}, {"label": "Open D-0003", "href": "../objects/dissents/D-0003.md"}]},
+    {"id": "Early_public_amplification_context", "title": "Your body language may shape who you are", "role": "public amplification context", "locator": "TED talk page, posted October 2012", "usage": "E-0001", "badges": ["Early_public_amplification_context", "public_talk", "2012"], "links": [{"label": "Open source entry", "href": "../references-metadata-v1.md#early_public_amplification_context"}, {"label": "Open E-0001", "href": "../objects/evidence/E-0001.md"}]},
+    {"id": "TED_Corrections_2017", "title": "Amy Cuddy's “Your body language may shape who you are”: Corrections & Updates", "role": "public-facing acknowledgement that the talk entered an ongoing robustness and reproducibility debate", "locator": "TED corrections page, updated August 2017", "usage": "C-0002", "badges": ["TED_Corrections_2017", "public_corrections_page", "2017"], "links": [{"label": "Open source entry", "href": "../references-metadata-v1.md#ted_corrections_2017"}, {"label": "Open C-0002", "href": "../objects/claims/C-0002.md"}]}
   ],
   "readingPathIntro": "This page keeps a deliberately thinner downstream reading path than snapshot-v2. Start with Snapshot v2 if you want the fuller governance-backed route; use the links below for the shortest path back into verdicts, claims, timeline, and references.",
   "readingPath": [
-    {
-      "label": "Snapshot v2",
-      "href": "../snapshots/snapshot-v2.md"
-    },
-    {
-      "label": "Verdict V-0001",
-      "href": "../objects/verdicts/V-0001.md"
-    },
-    {
-      "label": "Verdict V-0002",
-      "href": "../objects/verdicts/V-0002.md"
-    },
-    {
-      "label": "Claim C-0001",
-      "href": "../objects/claims/C-0001.md"
-    },
-    {
-      "label": "Claim C-0002",
-      "href": "../objects/claims/C-0002.md"
-    },
-    {
-      "label": "Timeline",
-      "href": "../timeline/events.md"
-    },
-    {
-      "label": "References",
-      "href": "../references.md"
-    }
+    {"label": "Snapshot v2", "href": "../snapshots/snapshot-v2.md"},
+    {"label": "Verdict V-0001", "href": "../objects/verdicts/V-0001.md"},
+    {"label": "Verdict V-0002", "href": "../objects/verdicts/V-0002.md"},
+    {"label": "Claim C-0001", "href": "../objects/claims/C-0001.md"},
+    {"label": "Claim C-0002", "href": "../objects/claims/C-0002.md"},
+    {"label": "Timeline", "href": "../timeline/events.md"},
+    {"label": "References", "href": "../references.md"}
   ],
   "footer": {
     "eyebrow": "Knowledge OS · First live case page",
     "title": "A governed public case page carried in main",
     "body": "This page is the first live public case page currently carried in the repository main line. It stays downstream of Snapshot v2 and points back into governed objects rather than replacing them with a second editorial story.",
-    "badges": [
-      "first live case page",
-      "snapshot-v2 upstream",
-      "downstream release surface"
-    ],
+    "badges": ["first live case page", "snapshot-v2 upstream", "downstream release surface"],
     "links": [
-      {
-        "label": "Open Snapshot v2",
-        "href": "../snapshots/snapshot-v2.md"
-      },
-      {
-        "label": "Open claim C-0001",
-        "href": "../objects/claims/C-0001.md"
-      },
-      {
-        "label": "Open claim C-0002",
-        "href": "../objects/claims/C-0002.md"
-      },
-      {
-        "label": "Open references",
-        "href": "../references.md"
-      }
+      {"label": "Open Snapshot v2", "href": "../snapshots/snapshot-v2.md"},
+      {"label": "Open claim C-0001", "href": "../objects/claims/C-0001.md"},
+      {"label": "Open claim C-0002", "href": "../objects/claims/C-0002.md"},
+      {"label": "Open references", "href": "../references.md"}
     ]
   }
 };
