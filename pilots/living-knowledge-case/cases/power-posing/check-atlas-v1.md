@@ -24,7 +24,7 @@ It now has a small but real validation network.
 Without an atlas, two bad things become likely:
 
 1. later work starts to confuse neighboring checks with duplicate checks,
-2. future refactors lose the distinction between object consistency, narrative consistency, reader-facing surface consistency, and template-seam governance exposure.
+2. future refactors lose the distinction between object-envelope consistency, narrative consistency, reader-facing surface consistency, and template-seam governance exposure.
 
 This file exists to prevent that drift.
 
@@ -65,6 +65,7 @@ These call the page generator in validation mode rather than write mode.
 
 ### GitHub Actions workflows
 - `check-power-posing-page.yml`
+- `check-power-posing-object-envelope.yml`
 - `check-power-posing-snapshot-consistency.yml`
 - `check-power-posing-reference-metadata.yml`
 - `check-power-posing-verdict-grammar.yml`
@@ -87,7 +88,15 @@ These workflows together form the current CI surface for the case.
 - **Failure meaning:** the current case layer can no longer be safely emitted into the page prototype contract
 - **Why it stays distinct:** it is the only checker that validates the page-data generation contract itself rather than only the markdown surface
 
-### 2. Snapshot consistency
+### 2. Object envelope conformance
+- **Primary script:** `scripts/check_power_posing_object_envelope.py`
+- **Protected layer:** object frontmatter conformance to the current working protocol envelope
+- **Reads:** all object files, `protocol/object-envelope.md`, `protocol/enums.md`, `protocol/link-types.md`, `references-metadata-v1.md`
+- **Checks:** object family ↔ file path agreement, required frontmatter fields, enum conformance, allowed top-level fields, source ref coverage, basis ref coverage, and link structure / target validity
+- **Failure meaning:** object frontmatter has drifted away from the working envelope strongly enough that the pilot can no longer treat the object layer as a stable protocol floor
+- **Why it stays distinct:** it protects the protocol floor of the object layer itself, rather than the snapshot, source metadata, or public wording built on top of it
+
+### 3. Snapshot consistency
 - **Primary script:** `scripts/check_power_posing_snapshot_consistency.py`
 - **Protected layer:** snapshot narrative consistency
 - **Reads:** `snapshot-v2.md`, `references-metadata-v1.md`, all object files
@@ -95,7 +104,7 @@ These workflows together form the current CI surface for the case.
 - **Failure meaning:** the public snapshot has drifted away from the current object / reference reality
 - **Why it stays distinct:** it protects the snapshot as a governed narrative object, not the broader public reading surface
 
-### 3. Reference metadata consistency
+### 4. Reference metadata consistency
 - **Primary script:** `scripts/check_power_posing_reference_metadata.py`
 - **Protected layer:** source metadata layer
 - **Reads:** `references-metadata-v1.md`, all object files
@@ -103,7 +112,7 @@ These workflows together form the current CI surface for the case.
 - **Failure meaning:** the stable source metadata layer no longer faithfully describes current object grounding
 - **Why it stays distinct:** it governs the source layer, not the snapshot or verdict language
 
-### 4. Verdict grammar consistency
+### 5. Verdict grammar consistency
 - **Primary script:** `scripts/check_power_posing_verdict_grammar.py`
 - **Protected layer:** bridge between snapshot status wording and verdict / claim judgment fields
 - **Reads:** `verdict-grammar-v1.md`, `snapshot-v2.md`, claim objects, verdict objects
@@ -111,7 +120,7 @@ These workflows together form the current CI surface for the case.
 - **Failure meaning:** public-facing judgment wording and object-layer verdict semantics have drifted apart
 - **Why it stays distinct:** it is the canonical bridge between human-readable status wording and object-layer judgment fields
 
-### 5. Status legend consistency
+### 6. Status legend consistency
 - **Primary script:** `scripts/check_power_posing_status_legend.py`
 - **Protected layer:** reader-facing explanation of status wording
 - **Reads:** `status-legend-v1.md`, `verdict-grammar-v1.md`, `snapshot-v2.md`
@@ -119,7 +128,7 @@ These workflows together form the current CI surface for the case.
 - **Failure meaning:** the reader-facing explanation of status language is no longer synchronized with the grammar that governs it
 - **Why it stays distinct:** it validates the explanatory legend layer rather than the underlying grammar layer itself
 
-### 6. Public surface consistency
+### 7. Public surface consistency
 - **Primary script:** `scripts/check_power_posing_public_surface.py`
 - **Protected layer:** reader-facing path and link surface
 - **Reads:** `snapshot-v2.md`, `README.md`
@@ -127,7 +136,7 @@ These workflows together form the current CI surface for the case.
 - **Failure meaning:** the public-facing navigation surface no longer exposes the minimum path needed to read the case as a public artifact
 - **Why it stays distinct:** it checks what the outside reader can visibly navigate first, not whether the underlying semantics are true
 
-### 7. README template seam audit
+### 8. README template seam audit
 - **Primary script:** `scripts/check_power_posing_template_seam_readme.py`
 - **Protected layer:** template-seam governance surface as exposed through README paths
 - **Reads:** `README.md`
@@ -138,6 +147,17 @@ These workflows together form the current CI surface for the case.
 ---
 
 ## Adjacency and boundary notes
+
+### Object envelope conformance vs reference metadata consistency
+These two are adjacent but not identical.
+
+- **Object envelope conformance** asks whether the object files still satisfy the current protocol floor.
+- **Reference metadata consistency** asks whether the stable metadata layer still truthfully reflects current object grounding.
+
+One protects object structure.
+The other protects source-layer description.
+
+They should not be treated as duplicate merely because both touch `source_refs`.
 
 ### Snapshot consistency vs public surface consistency
 These two are adjacent but not identical.
@@ -180,6 +200,7 @@ That is why it should remain explicit even if other markdown-layer checks are la
 When a check fails, the safest first interpretation is:
 
 - **page validation failed** → release emission contract broken
+- **object envelope failed** → object frontmatter drifted from the current protocol floor
 - **snapshot consistency failed** → snapshot narrative drifted from governed objects/references
 - **reference metadata failed** → source layer drifted from object grounding
 - **verdict grammar failed** → judgment wording drifted from claim/verdict semantics
@@ -211,10 +232,11 @@ Those are future design questions, not current facts.
 
 Once this atlas exists, the next moves become clearer:
 
-1. decide whether `snapshot consistency` and `public surface consistency` should remain adjacent or later be partially merged,
-2. decide whether `public surface consistency` and `README template seam audit` should remain separate or later share a small utility layer while preserving distinct failure meanings,
-3. decide whether `verdict grammar` and `status legend` should remain separate artifacts or later be represented as one layered document with two validation views,
-4. and decide whether the current power-posing validation network is mature enough to be used as the template for a second case.
+1. decide whether object-envelope conformance should remain case-scoped or later lift into a broader pilot-level envelope checker,
+2. decide whether `snapshot consistency` and `public surface consistency` should remain adjacent or later be partially merged,
+3. decide whether `public surface consistency` and `README template seam audit` should remain separate or later share a small utility layer while preserving distinct failure meanings,
+4. decide whether `verdict grammar` and `status legend` should remain separate artifacts or later be represented as one layered document with two validation views,
+5. and decide whether the current power-posing validation network is mature enough to be used as the template for a second case.
 
 Until then, the safest discipline is simple:
 

@@ -1,0 +1,39 @@
+name: Check power-posing object envelope
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/**"
+      - "protocol/object-envelope.md"
+      - "protocol/enums.md"
+      - "protocol/link-types.md"
+      - "scripts/check_power_posing_object_envelope.py"
+      - ".github/workflows/check-power-posing-object-envelope.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/**"
+      - "protocol/object-envelope.md"
+      - "protocol/enums.md"
+      - "protocol/link-types.md"
+      - "scripts/check_power_posing_object_envelope.py"
+      - ".github/workflows/check-power-posing-object-envelope.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-object-envelope:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run object envelope conformance check
+        run: python scripts/check_power_posing_object_envelope.py
