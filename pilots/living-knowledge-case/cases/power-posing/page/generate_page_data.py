@@ -374,7 +374,7 @@ def build_status_cards(objects: dict[str, dict[str, Any]], snapshot_text: str) -
             "title": "Descendant claim",
             "status": descendant_status,
             "summary": descendant_summary,
-            "badges": ["claim", c2["id"], v2["id"]],
+            "badges": ["claim", c2["id"] , v2["id"]],
             "links": [
                 make_link(f"View claim {c2['id']}", c2["href"]),
                 make_link(f"View verdict {v2['id']}", v2["href"]),
@@ -473,6 +473,22 @@ def build_page_data() -> tuple[dict[str, Any], dict[str, dict[str, Any]], list[d
             make_link("Timeline", "../timeline/events.md"),
             make_link("References", "../references.md"),
         ],
+        "footer": {
+            "eyebrow": "Knowledge OS · First live case page",
+            "title": "A governed public case page carried in main",
+            "body": "This page is the first live public case page currently carried in the repository main line. It stays downstream of Snapshot v2 and points back into governed objects rather than replacing them with a second editorial story.",
+            "badges": [
+                "first live case page",
+                "snapshot-v2 upstream",
+                "downstream release surface"
+            ],
+            "links": [
+                make_link("Open Snapshot v2", "../snapshots/snapshot-v2.md"),
+                make_link("Open claim C-0001", objects["C-0001"]["href"]),
+                make_link("Open claim C-0002", objects["C-0002"]["href"]),
+                make_link("Open references", "../references.md"),
+            ],
+        },
     }
     return data, objects, reference_entries
 

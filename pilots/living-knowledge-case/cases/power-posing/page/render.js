@@ -2,6 +2,7 @@
   const data = window.POWER_POSING_PAGE_DATA;
   const hero = document.getElementById('hero');
   const app = document.getElementById('app');
+  const footer = document.getElementById('footer');
 
   if (!data || !hero || !app) {
     return;
@@ -148,10 +149,37 @@
     app.appendChild(node);
   };
 
+  const renderFooter = () => {
+    if (!footer || !data.footer) return;
+
+    const card = el('div', 'footer-card');
+    if (data.footer.eyebrow) {
+      card.appendChild(el('div', 'footer-eyebrow', data.footer.eyebrow));
+    }
+    if (data.footer.title) {
+      card.appendChild(el('h2', 'footer-title', data.footer.title));
+    }
+    if (data.footer.body) {
+      card.appendChild(el('p', 'footer-copy', data.footer.body));
+    }
+    if (data.footer.badges && data.footer.badges.length) {
+      const meta = el('div', 'meta-row');
+      data.footer.badges.forEach((item) => meta.appendChild(el('span', 'badge badge-status', item)));
+      card.appendChild(meta);
+    }
+    if (data.footer.links && data.footer.links.length) {
+      const links = el('div', 'object-links');
+      data.footer.links.forEach((item) => links.appendChild(link(item)));
+      card.appendChild(links);
+    }
+    footer.appendChild(card);
+  };
+
   renderHero();
   renderStatusCards();
   renderSections();
   renderTimeline();
   renderSources();
   renderReadingPath();
+  renderFooter();
 })();

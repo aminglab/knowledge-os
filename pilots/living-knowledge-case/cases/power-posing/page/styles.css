@@ -250,8 +250,37 @@ a:hover {
 
 .footer {
   padding: 0 0 48px;
+}
+
+.footer-card {
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.footer-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--muted);
-  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.footer-title {
+  margin: 0 0 10px;
+  font-size: 22px;
+}
+
+.footer-copy {
+  margin: 0;
+  max-width: 780px;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 @media (max-width: 900px) {
@@ -261,7 +290,8 @@ a:hover {
   }
 
   .hero-card,
-  .section {
+  .section,
+  .footer-card {
     padding: 20px;
   }
 }

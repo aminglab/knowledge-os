@@ -309,5 +309,33 @@ window.POWER_POSING_PAGE_DATA = {
       "label": "References",
       "href": "../references.md"
     }
-  ]
+  ],
+  "footer": {
+    "eyebrow": "Knowledge OS · First live case page",
+    "title": "A governed public case page carried in main",
+    "body": "This page is the first live public case page currently carried in the repository main line. It stays downstream of Snapshot v2 and points back into governed objects rather than replacing them with a second editorial story.",
+    "badges": [
+      "first live case page",
+      "snapshot-v2 upstream",
+      "downstream release surface"
+    ],
+    "links": [
+      {
+        "label": "Open Snapshot v2",
+        "href": "../snapshots/snapshot-v2.md"
+      },
+      {
+        "label": "Open claim C-0001",
+        "href": "../objects/claims/C-0001.md"
+      },
+      {
+        "label": "Open claim C-0002",
+        "href": "../objects/claims/C-0002.md"
+      },
+      {
+        "label": "Open references",
+        "href": "../references.md"
+      }
+    ]
+  }
 };
