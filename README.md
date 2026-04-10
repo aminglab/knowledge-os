@@ -44,6 +44,16 @@ A collaboration layer for review, assignment, permissions, audit, and shared res
 ### 3. Public Layer
 A release layer for publishing selected snapshots, living knowledge pages, and public cases.
 
+## Public entry
+
+The repository now has a small but explicit public-layer entry chain.
+
+Start here if you want the public-facing surface first rather than the repository documentation first:
+
+- [`PUBLIC-ENTRY.md`](./PUBLIC-ENTRY.md) — the current system-level public entry seed
+- [`PUBLIC-CASES.md`](./PUBLIC-CASES.md) — the current public case listing seed
+- [`Power Posing`](./pilots/living-knowledge-case/cases/power-posing/snapshots/snapshot-v2.md) — the first public case homepage
+
 ## Current stance
 
 This repository is building toward a system that is:
