@@ -40,15 +40,34 @@ This renderer prototype is designed to prove five things:
 
 ---
 
+## Current publication chain
+
+The current public release chain should be read in one direction:
+
+> object layer → `snapshot-v2.md` → page layer
+
+More concretely:
+
+1. the governed objects remain the deepest source of truth,
+2. `snapshots/snapshot-v2.md` acts as the current **public homepage** for the case,
+3. the generator derives `page-data.js` from that governed case layer,
+4. and the browser renderer turns that generated data into the current page surface.
+
+This means the page layer is **downstream** of the snapshot release layer, not a competing editorial surface.
+It should not invent a second public storyline that diverges from `snapshot-v2.md`.
+
+---
+
 ## How it works now
 
 The current intended flow is:
 
 1. edit object files, `snapshot-v2.md`, `references.md`, or `timeline/events.md`
-2. run `generate_page_data.py`
-3. let the generator validate the current case layer
-4. review the printed release summary or emitted JSON summary
-5. open `index.html`
+2. treat `snapshot-v2.md` as the current public homepage and release source for the case
+3. run `generate_page_data.py`
+4. let the generator validate the current case layer
+5. review the printed release summary or emitted JSON summary
+6. open `index.html`
 
 That means `page-data.js` should now be treated as a **generated artifact**, not as the canonical place to edit case content.
 
@@ -169,8 +188,8 @@ Those should come later.
 For now, the renderer is intentionally simple and honest:
 
 - the knowledge model still lives in the case objects,
-- the snapshot still acts as a public release layer,
-- the generator creates a thin browser-ready data bridge,
+- `snapshot-v2.md` acts as the current public homepage and release layer,
+- the generator creates a thin browser-ready data bridge downstream of that release layer,
 - validates a small set of high-value invariants,
 - prints a readable release summary,
 - supports a non-writing `--check` mode,
