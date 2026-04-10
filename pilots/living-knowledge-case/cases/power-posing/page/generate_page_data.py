@@ -204,6 +204,23 @@ def section_text(markdown: str, heading: str) -> str:
     return "\n\n".join(chunk.strip() for chunk in match.group(1).strip().split("\n\n") if chunk.strip())
 
 
+def section_intro(markdown: str, heading: str) -> str:
+    pattern = rf"## {re.escape(heading)}\n\n(.+?)(?:\n### |\n---\n|\n## |\Z)"
+    match = re.search(pattern, markdown, re.S)
+    if not match:
+        return ""
+    block = match.group(1).strip()
+    paragraphs = []
+    for chunk in block.split("\n\n"):
+        chunk = chunk.strip()
+        if not chunk or chunk.startswith("- "):
+            break
+        if "\n- " in chunk:
+            chunk = chunk.split("\n- ", 1)[0].strip()
+        paragraphs.append(" ".join(chunk.splitlines()))
+    return " ".join(paragraphs).strip()
+
+
 def extract_snapshot_title(markdown: str) -> str:
     match = re.search(r"\*\*(.+?)\*\*", markdown)
     return match.group(1) if match else "Power Posing"
@@ -401,18 +418,24 @@ def build_page_data() -> tuple[dict[str, Any], dict[str, dict[str, Any]], list[d
     validate_objects(objects, source_ids)
 
     title = extract_snapshot_title(snapshot_text)
-    what_this_page_is = section_text(snapshot_text, "What this page is")
+    what_this_page_is_intro = section_intro(snapshot_text, "What this page is")
     why_case_matters = section_text(snapshot_text, "Why this case matters")
+    current_visible_judgment_intro = section_intro(snapshot_text, "Current visible judgment")
 
     data = {
-        "title": "Power Posing",
-        "subtitle": title,
-        "description": " ".join(what_this_page_is.splitlines()),
+        "title": title,
+        "shortTitle": "Power Posing",
+        "description": what_this_page_is_intro,
         "links": [
             make_link("Snapshot v2", "../snapshots/snapshot-v2.md"),
             make_link("Case overview", "../case.md"),
             make_link("References", "../references.md"),
             make_link("Timeline", "../timeline/events.md"),
+        ],
+        "judgmentIntro": current_visible_judgment_intro,
+        "judgmentLinks": [
+            make_link("Status legend", "../status-legend-v1.md"),
+            make_link("Verdict grammar", "../verdict-grammar-v1.md"),
         ],
         "statusCards": build_status_cards(objects, snapshot_text),
         "sections": [

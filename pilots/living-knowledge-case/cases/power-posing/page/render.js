@@ -36,6 +36,9 @@
   const renderHero = () => {
     const card = el('div', 'hero-card');
     card.appendChild(el('div', 'eyebrow', 'Knowledge OS · Living Knowledge Case'));
+    if (data.shortTitle) {
+      card.appendChild(el('div', 'eyebrow', data.shortTitle));
+    }
     card.appendChild(el('h1', '', data.title));
     card.appendChild(el('p', '', data.description));
 
@@ -46,7 +49,12 @@
   };
 
   const renderStatusCards = () => {
-    const node = section('Current visible judgment', data.subtitle);
+    const node = section('Current visible judgment', data.judgmentIntro || '');
+    if (data.judgmentLinks && data.judgmentLinks.length) {
+      const links = el('div', 'object-links');
+      data.judgmentLinks.forEach((item) => links.appendChild(link(item)));
+      node.appendChild(links);
+    }
     const grid = el('div', 'grid grid-2');
 
     data.statusCards.forEach((cardData) => {
