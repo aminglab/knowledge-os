@@ -86,7 +86,7 @@ It currently checks for:
 This is not yet a full protocol validator.
 But it gives the publishing pipeline its first real teeth.
 
-Adjacent to that generator-level floor, the repository now also carries a small README seam audit:
+Adjacent to that generator-level floor, the repository now also carries a small README template seam audit:
 
 - script: `scripts/check_power_posing_template_seam_readme.py`
 - workflow: `.github/workflows/check-power-posing-template-seam-readme.yml`
@@ -103,7 +103,7 @@ In practical terms, it protects continued README exposure of:
 - `template-seam-summary-v1.md`
 
 So the current page/publishing line is no longer guarded only by generator validation.
-It is also guarded by a small adjacent README audit that keeps seam-governance documents visible to later developers.
+It is also guarded by a small adjacent README template seam audit that keeps seam-governance documents visible to later developers.
 
 ---
 
@@ -175,7 +175,7 @@ For now, the renderer is intentionally simple and honest:
 - prints a readable release summary,
 - supports a non-writing `--check` mode,
 - can emit machine-readable JSON,
-- the README seam audit keeps template-governance documents visibly attached to the case entry surface,
+- the README template seam audit keeps template-governance documents visibly attached to the case entry surface,
 - and the page is a presentation surface over that bridge.
 
 ---
