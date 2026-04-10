@@ -34,12 +34,14 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent
 CASE_ROOT = ROOT.parent
 OBJECTS_ROOT = CASE_ROOT / "objects"
+CLAIMS_ROOT = CASE_ROOT / "claims"
+SOURCES_ROOT = CASE_ROOT / "sources"
 SNAPSHOT_PATH = CASE_ROOT / "snapshots" / "snapshot-v2.md"
 TIMELINE_PATH = CASE_ROOT / "timeline" / "events.md"
 REFERENCES_PATH = CASE_ROOT / "references-metadata-v1.md"
 OUTPUT_PATH = ROOT / "page-data.js"
 SCHEMA_NAME = "power_posing_json_summary"
-SCHEMA_VERSION = "v1"
+SCHEMA_VERSION = "v2"
 
 OBJECT_DIRS = {
     "claim": OBJECTS_ROOT / "claims",
@@ -259,6 +261,22 @@ def extract_metadata_value(block: str, label: str) -> str:
     return clean_inline_markdown(match.group(1)) if match else ""
 
 
+def claim_page_path(claim_id: str) -> Path:
+    return CLAIMS_ROOT / f"{claim_id}.md"
+
+
+def claim_page_href(claim_id: str) -> str:
+    return f"../claims/{claim_id}.md"
+
+
+def source_page_path(source_id: str) -> Path:
+    return SOURCES_ROOT / f"{source_id}.md"
+
+
+def source_page_href(source_id: str) -> str:
+    return f"../sources/{source_id}.md"
+
+
 def parse_references(markdown: str) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
     parts = re.split(r"\n### `([^`]+)`\n", markdown)
@@ -278,6 +296,7 @@ def parse_references(markdown: str) -> list[dict[str, Any]]:
                 "usage": usage,
                 "usage_ids": usage_ids,
                 "href": f"../references-metadata-v1.md#{source_anchor(source_id)}",
+                "page_href": source_page_href(source_id),
             }
         )
     return entries
@@ -374,6 +393,30 @@ def validate_snapshot_contract(snapshot_text: str) -> None:
         raise ValidationError(f"snapshot-v2.md is missing required section(s): {formatted}")
 
 
+def validate_public_seed_layers(objects: dict[str, dict[str, Any]], reference_entries: list[dict[str, Any]]) -> None:
+    errors: list[str] = []
+
+    if not (CLAIMS_ROOT / "README.md").exists():
+        errors.append("claims/README.md is missing")
+    if not (SOURCES_ROOT / "README.md").exists():
+        errors.append("sources/README.md is missing")
+
+    for object_id, obj in sorted(objects.items()):
+        if obj.get("object_type") == "claim":
+            path = claim_page_path(object_id)
+            if not path.exists():
+                errors.append(f"{object_id}: missing public claim page `{path.relative_to(CASE_ROOT).as_posix()}`")
+
+    for entry in reference_entries:
+        source_id = entry["id"]
+        path = source_page_path(source_id)
+        if not path.exists():
+            errors.append(f"{source_id}: missing public source page `{path.relative_to(CASE_ROOT).as_posix()}`")
+
+    if errors:
+        raise ValidationError("\n".join(errors))
+
+
 def build_status_cards(objects: dict[str, dict[str, Any]], snapshot_text: str) -> list[dict[str, Any]]:
     original_status, original_summary = extract_state_block(snapshot_text, "Original claim")
     descendant_status, descendant_summary = extract_state_block(snapshot_text, "Descendant claim")
@@ -391,9 +434,9 @@ def build_status_cards(objects: dict[str, dict[str, Any]], snapshot_text: str) -
             "summary": original_summary,
             "badges": ["claim", c1["id"], v1["id"]],
             "links": [
-                make_link(f"View claim {c1['id']}", c1["href"]),
-                make_link(f"View verdict {v1['id']}", v1["href"]),
-                make_link(f"View evidence {e1['id']}", e1["href"]),
+                make_link(f"Open claim page {c1['id']}", claim_page_href(c1["id"])),
+                make_link(f"Open verdict {v1['id']}", v1["href"]),
+                make_link(f"Open evidence {e1['id']}", e1["href"]),
             ],
         },
         {
@@ -402,8 +445,8 @@ def build_status_cards(objects: dict[str, dict[str, Any]], snapshot_text: str) -
             "summary": descendant_summary,
             "badges": ["claim", c2["id"], v2["id"]],
             "links": [
-                make_link(f"View claim {c2['id']}", c2["href"]),
-                make_link(f"View verdict {v2['id']}", v2["href"]),
+                make_link(f"Open claim page {c2['id']}", claim_page_href(c2["id"])),
+                make_link(f"Open verdict {v2['id']}", v2["href"]),
             ],
         },
     ]
@@ -420,16 +463,49 @@ def build_neighborhood_cards(objects: dict[str, dict[str, Any]]) -> list[dict[st
         badges = [obj["id"]]
         if "source_refs" in obj:
             badges.extend(obj["source_refs"][:2])
+
+        object_link_href = claim_page_href(object_id) if obj["object_type"] == "claim" else obj["href"]
+        label_prefix = "Open claim page" if obj["object_type"] == "claim" else "Open"
+
         cards.append(
             {
                 "title": obj["title"],
                 "kind": kind,
                 "body": obj["summary"],
                 "badges": badges,
-                "links": [make_link(f"Open {obj['id']}", obj["href"])],
+                "links": [make_link(f"{label_prefix} {obj['id']}", object_link_href)],
             }
         )
     return cards
+
+
+def build_public_route_cards(objects: dict[str, dict[str, Any]], reference_entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    claim_count = sum(1 for obj in objects.values() if obj.get("object_type") == "claim")
+    source_count = len(reference_entries)
+    return [
+        {
+            "title": "Claim pages",
+            "kind": "status",
+            "body": "The case now has public claim pages for both the original strong-form claim and the weaker descendant claim. These pages localize standing, support, challenge, and lineage without turning the case page into a full graph browser.",
+            "badges": ["claims", f"{claim_count} public claim pages"],
+            "links": [
+                make_link("Open claim index", "../claims/README.md"),
+                make_link("Open claim C-0001", claim_page_href("C-0001")),
+                make_link("Open claim C-0002", claim_page_href("C-0002")),
+            ],
+        },
+        {
+            "title": "Source pages",
+            "kind": "support",
+            "body": "The case now has a first public source-page layer. It makes canonical sources readable as participants in the living case rather than leaving source grounding trapped inside metadata and case cards.",
+            "badges": ["sources", f"{source_count} public source pages"],
+            "links": [
+                make_link("Open source index", "../sources/README.md"),
+                make_link("Open source Carney_Cuddy_Yap_2010", source_page_href("Carney_Cuddy_Yap_2010")),
+                make_link("Open source Dana_Carney_2016_statement", source_page_href("Dana_Carney_2016_statement")),
+            ],
+        },
+    ]
 
 
 def build_source_cards(reference_entries: list[dict[str, Any]], objects: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
@@ -437,10 +513,17 @@ def build_source_cards(reference_entries: list[dict[str, Any]], objects: dict[st
     for entry in reference_entries:
         usage_links = []
         for object_id in entry.get("usage_ids", []):
-            if object_id in objects:
-                usage_links.append(make_link(f"Open {object_id}", objects[object_id]["href"]))
+            if object_id not in objects:
+                continue
+            obj = objects[object_id]
+            href = claim_page_href(object_id) if obj.get("object_type") == "claim" else obj["href"]
+            label = f"Open claim page {object_id}" if obj.get("object_type") == "claim" else f"Open {object_id}"
+            usage_links.append(make_link(label, href))
 
-        links = [make_link("Open source entry", entry["href"])]
+        links = [
+            make_link("Open source page", entry["page_href"]),
+            make_link("Open source metadata", entry["href"]),
+        ]
         links.extend(usage_links)
         badges = [entry["id"]]
         if entry.get("source_type"):
@@ -472,6 +555,7 @@ def build_page_data() -> tuple[dict[str, Any], dict[str, dict[str, Any]], list[d
 
     validate_snapshot_contract(snapshot_text)
     validate_objects(objects, source_ids)
+    validate_public_seed_layers(objects, reference_entries)
 
     title = extract_snapshot_title(snapshot_text)
     what_this_page_is_intro = section_intro(snapshot_text, "What this page is")
@@ -484,6 +568,8 @@ def build_page_data() -> tuple[dict[str, Any], dict[str, dict[str, Any]], list[d
         "description": what_this_page_is_intro,
         "links": [
             make_link("Snapshot v2", "../snapshots/snapshot-v2.md"),
+            make_link("Claim pages", "../claims/README.md"),
+            make_link("Source pages", "../sources/README.md"),
             make_link("Case overview", "../case.md"),
             make_link("References", "../references.md"),
             make_link("Timeline", "../timeline/events.md"),
@@ -516,32 +602,40 @@ def build_page_data() -> tuple[dict[str, Any], dict[str, dict[str, Any]], list[d
                 "intro": "These cards are derived from current object frontmatter plus each object's summary section.",
                 "cards": build_neighborhood_cards(objects),
             },
+            {
+                "title": "Public claim and source routes",
+                "intro": "The page now sits inside a richer public-layer ecology. These cards route into the seeded claim-page and source-page layers without replacing Snapshot v2 as the fuller release view.",
+                "cards": build_public_route_cards(objects, reference_entries),
+            },
         ],
         "timeline": parse_timeline(timeline_text),
         "sources": build_source_cards(reference_entries, objects),
-        "readingPathIntro": "This page keeps a deliberately thinner downstream reading path than snapshot-v2. Start with Snapshot v2 if you want the fuller governance-backed route; use the links below for the shortest path back into verdicts, claims, timeline, and references.",
+        "readingPathIntro": "This page keeps a deliberately thinner downstream reading path than snapshot-v2. Start with Snapshot v2 if you want the fuller governance-backed route; use the links below for the shortest path into the seeded claim-page and source-page layers, verdicts, timeline, and references.",
         "readingPath": [
             make_link("Snapshot v2", "../snapshots/snapshot-v2.md"),
+            make_link("Claim pages", "../claims/README.md"),
+            make_link("Claim C-0001", claim_page_href("C-0001")),
+            make_link("Claim C-0002", claim_page_href("C-0002")),
+            make_link("Source pages", "../sources/README.md"),
             make_link("Verdict V-0001", objects["V-0001"]["href"]),
             make_link("Verdict V-0002", objects["V-0002"]["href"]),
-            make_link("Claim C-0001", objects["C-0001"]["href"]),
-            make_link("Claim C-0002", objects["C-0002"]["href"]),
             make_link("Timeline", "../timeline/events.md"),
             make_link("References", "../references.md"),
         ],
         "footer": {
             "eyebrow": "Knowledge OS · First live case page",
             "title": "A governed public case page carried in main",
-            "body": "This page is the first live public case page currently carried in the repository main line. It stays downstream of Snapshot v2 and points back into governed objects rather than replacing them with a second editorial story.",
+            "body": "This page is the first live public case page currently carried in the repository main line. It stays downstream of Snapshot v2, and it now acknowledges the seeded claim-page and source-page layers growing around the case rather than treating the case as one flat surface.",
             "badges": [
                 "first live case page",
                 "snapshot-v2 upstream",
-                "downstream release surface"
+                "downstream release surface",
+                "claims+sources integrated",
             ],
             "links": [
                 make_link("Open Snapshot v2", "../snapshots/snapshot-v2.md"),
-                make_link("Open claim C-0001", objects["C-0001"]["href"]),
-                make_link("Open claim C-0002", objects["C-0002"]["href"]),
+                make_link("Open claim pages", "../claims/README.md"),
+                make_link("Open source pages", "../sources/README.md"),
                 make_link("Open references", "../references.md"),
             ],
         },
@@ -563,10 +657,12 @@ def write_output(data: dict[str, Any]) -> None:
 def build_release_summary(objects: dict[str, dict[str, Any]], reference_entries: list[dict[str, Any]], data: dict[str, Any]) -> dict[str, Any]:
     counts = count_objects_by_type(objects)
     neighborhood_cards = 0
+    public_route_cards = 0
     for section in data.get("sections", []):
         if section.get("title") == "Current object neighborhoods":
             neighborhood_cards = len(section.get("cards", []))
-            break
+        if section.get("title") == "Public claim and source routes":
+            public_route_cards = len(section.get("cards", []))
 
     return {
         "objects_total": len(objects),
@@ -575,8 +671,11 @@ def build_release_summary(objects: dict[str, dict[str, Any]], reference_entries:
         "dissents": counts.get("dissent", 0),
         "verdicts": counts.get("verdict", 0),
         "canonical_source_ids": len(reference_entries),
+        "claim_page_count": counts.get("claim", 0),
+        "source_page_count": len(reference_entries),
         "status_cards": len(data.get("statusCards", [])),
         "neighborhood_cards": neighborhood_cards,
+        "public_route_cards": public_route_cards,
         "timeline_entries": len(data.get("timeline", [])),
         "reading_path_links": len(data.get("readingPath", [])),
     }
@@ -602,8 +701,11 @@ def print_release_summary(summary: dict[str, Any]) -> None:
     print(f"- dissents: {summary['dissents']}")
     print(f"- verdicts: {summary['verdicts']}")
     print(f"- canonical source ids: {summary['canonical_source_ids']}")
+    print(f"- claim pages: {summary['claim_page_count']}")
+    print(f"- source pages: {summary['source_page_count']}")
     print(f"- status cards: {summary['status_cards']}")
     print(f"- neighborhood cards: {summary['neighborhood_cards']}")
+    print(f"- public-route cards: {summary['public_route_cards']}")
     print(f"- timeline entries: {summary['timeline_entries']}")
     print(f"- reading-path links: {summary['reading_path_links']}")
 
