@@ -37,6 +37,11 @@ a:hover {
   text-decoration: underline;
 }
 
+a:focus-visible {
+  outline: 2px solid rgba(147, 197, 253, 0.85);
+  outline-offset: 3px;
+}
+
 .page-shell {
   min-height: 100vh;
 }
@@ -103,6 +108,13 @@ a:hover {
   background: var(--accent-soft);
   border: 1px solid var(--line);
   color: var(--text);
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.link-chip:hover {
+  text-decoration: none;
+  border-color: rgba(147, 197, 253, 0.35);
+  transform: translateY(-1px);
 }
 
 .page-nav {
@@ -146,11 +158,20 @@ a:hover {
   background: rgba(148, 163, 184, 0.08);
   color: var(--text);
   font-size: 14px;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .page-nav-link:hover {
   text-decoration: none;
   background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.page-nav-link.is-active,
+.page-nav-link[aria-current="true"] {
+  background: var(--accent-soft);
+  border-color: rgba(147, 197, 253, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(147, 197, 253, 0.18);
 }
 
 .app {
@@ -314,11 +335,13 @@ a:hover {
   border-radius: 999px;
   color: var(--text);
   font-size: 14px;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
 
 .object-link:hover {
   text-decoration: none;
   border-color: rgba(147, 197, 253, 0.35);
+  transform: translateY(-1px);
 }
 
 .timeline {

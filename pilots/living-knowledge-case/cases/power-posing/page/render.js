@@ -10,6 +10,7 @@
   }
 
   const sectionAnchors = [];
+  const navLinkById = new Map();
 
   const el = (tag, className, text) => {
     const node = document.createElement(tag);
@@ -35,6 +36,18 @@
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
+
+  const setActiveNav = (activeId) => {
+    navLinkById.forEach((node, id) => {
+      const isActive = id === activeId;
+      node.classList.toggle('is-active', isActive);
+      if (isActive) {
+        node.setAttribute('aria-current', 'true');
+      } else {
+        node.removeAttribute('aria-current');
+      }
+    });
+  };
 
   const section = (title, intro, options = {}) => {
     const classes = ['section'];
@@ -85,11 +98,49 @@
     const links = el('div', 'page-nav-links');
 
     sectionAnchors.forEach((item) => {
-      links.appendChild(link({ label: item.label, href: `#${item.id}` }, 'page-nav-link'));
+      const navLink = link({ label: item.label, href: `#${item.id}` }, 'page-nav-link');
+      navLink.dataset.sectionId = item.id;
+      navLink.addEventListener('click', () => setActiveNav(item.id));
+      navLinkById.set(item.id, navLink);
+      links.appendChild(navLink);
     });
 
     shell.appendChild(links);
     pageNav.appendChild(shell);
+    if (sectionAnchors.length) {
+      setActiveNav(sectionAnchors[0].id);
+    }
+  };
+
+  const setupScrollSpy = () => {
+    if (!navLinkById.size || !sectionAnchors.length) {
+      return;
+    }
+
+    const sections = sectionAnchors
+      .map((item) => document.getElementById(item.id))
+      .filter(Boolean);
+
+    if (!sections.length) {
+      return;
+    }
+
+    const update = () => {
+      const threshold = window.scrollY + 180;
+      let activeId = sections[0].id;
+
+      sections.forEach((node) => {
+        if (node.offsetTop <= threshold) {
+          activeId = node.id;
+        }
+      });
+
+      setActiveNav(activeId);
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
   };
 
   const renderStatusCards = () => {
@@ -269,5 +320,6 @@
   renderSources();
   renderReadingPath();
   renderQuickNav();
+  setupScrollSpy();
   renderFooter();
 })();
