@@ -1,12 +1,15 @@
 (function () {
   const data = window.POWER_POSING_PAGE_DATA;
   const hero = document.getElementById('hero');
+  const pageNav = document.getElementById('page-nav');
   const app = document.getElementById('app');
   const footer = document.getElementById('footer');
 
   if (!data || !hero || !app) {
     return;
   }
+
+  const sectionAnchors = [];
 
   const el = (tag, className, text) => {
     const node = document.createElement(tag);
@@ -27,10 +30,35 @@
     return 'badge badge-status';
   };
 
-  const section = (title, intro) => {
-    const node = el('section', 'section');
-    node.appendChild(el('h2', '', title));
+  const slugify = (text) =>
+    text
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+
+  const section = (title, intro, options = {}) => {
+    const classes = ['section'];
+    if (options.tone) {
+      classes.push(`section-${options.tone}`);
+    }
+    const node = el('section', classes.join(' '));
+    const id = options.id || slugify(title);
+    node.id = id;
+
+    const header = el('div', 'section-header');
+    if (options.kicker) {
+      header.appendChild(el('div', 'section-kicker', options.kicker));
+    }
+    header.appendChild(el('h2', '', title));
+    node.appendChild(header);
+
     if (intro) node.appendChild(el('p', 'section-intro', intro));
+
+    sectionAnchors.push({
+      id,
+      label: options.navLabel || title,
+    });
+
     return node;
   };
 
@@ -49,8 +77,28 @@
     hero.appendChild(card);
   };
 
+  const renderQuickNav = () => {
+    if (!pageNav || !sectionAnchors.length) return;
+
+    const shell = el('div', 'page-nav-card');
+    shell.appendChild(el('div', 'page-nav-kicker', 'On this page'));
+    const links = el('div', 'page-nav-links');
+
+    sectionAnchors.forEach((item) => {
+      links.appendChild(link({ label: item.label, href: `#${item.id}` }, 'page-nav-link'));
+    });
+
+    shell.appendChild(links);
+    pageNav.appendChild(shell);
+  };
+
   const renderStatusCards = () => {
-    const node = section('Current visible judgment', data.judgmentIntro || '');
+    const node = section('Current visible judgment', data.judgmentIntro || '', {
+      id: 'current-visible-judgment',
+      tone: 'judgment',
+      kicker: 'Public judgment',
+      navLabel: 'Judgment',
+    });
     if (data.judgmentLinks && data.judgmentLinks.length) {
       const links = el('div', 'object-links');
       data.judgmentLinks.forEach((item) => links.appendChild(link(item)));
@@ -59,13 +107,13 @@
     const grid = el('div', 'grid grid-2');
 
     data.statusCards.forEach((cardData) => {
-      const card = el('article', 'card');
+      const card = el('article', 'card card-emphasis');
       const meta = el('div', 'meta-row');
       cardData.badges.forEach((item) => meta.appendChild(el('span', 'badge badge-status', item)));
       card.appendChild(meta);
       card.appendChild(el('h3', '', cardData.title));
       card.appendChild(el('p', '', cardData.summary));
-      card.appendChild(el('p', '', `Current state: ${cardData.status}`));
+      card.appendChild(el('p', 'card-state', `Current state: ${cardData.status}`));
 
       const links = el('div', 'object-links');
       cardData.links.forEach((item) => links.appendChild(link(item)));
@@ -79,7 +127,12 @@
 
   const renderSections = () => {
     data.sections.forEach((block) => {
-      const node = section(block.title, block.intro);
+      const toneMap = {
+        'Why this case matters': { tone: 'context', kicker: 'Case frame', navLabel: 'Why it matters' },
+        'Current object neighborhoods': { tone: 'neighborhoods', kicker: 'Object layer', navLabel: 'Neighborhoods' },
+      };
+      const options = toneMap[block.title] || {};
+      const node = section(block.title, block.intro, options);
       const gridClass = block.cards.length >= 3 ? 'grid grid-3' : 'grid grid-2';
       const grid = el('div', gridClass);
 
@@ -104,7 +157,11 @@
   };
 
   const renderTimeline = () => {
-    const node = section('Timeline', 'A compact chronological reading path for the case.');
+    const node = section('Timeline', 'A compact chronological reading path for the case.', {
+      tone: 'timeline',
+      kicker: 'Case chronology',
+      navLabel: 'Timeline',
+    });
     const timeline = el('div', 'timeline');
 
     data.timeline.forEach((item) => {
@@ -122,7 +179,12 @@
   const renderSources = () => {
     const node = section(
       'Canonical source ids',
-      'The page keeps the source layer visible and now routes each source card back to its own metadata entry and the objects that use it.'
+      'The page keeps the source layer visible and now routes each source card back to its own metadata entry and the objects that use it.',
+      {
+        tone: 'sources',
+        kicker: 'Source layer',
+        navLabel: 'Sources',
+      }
     );
     const list = el('div', 'source-list');
 
@@ -141,7 +203,7 @@
         source.appendChild(el('p', '', item.role));
       }
       if (item.locator) {
-        source.appendChild(el('p', '', `Canonical locator: ${item.locator}`));
+        source.appendChild(el('p', 'source-locator', `Canonical locator: ${item.locator}`));
       }
       if (item.usage) {
         source.appendChild(el('p', '', `Object usage: ${item.usage}`));
@@ -161,7 +223,12 @@
   const renderReadingPath = () => {
     const node = section(
       'Reading path',
-      data.readingPathIntro || 'The page is a release surface, but it still points back to the governed object layer.'
+      data.readingPathIntro || 'The page is a release surface, but it still points back to the governed object layer.',
+      {
+        tone: 'reading',
+        kicker: 'Downstream route',
+        navLabel: 'Reading path',
+      }
     );
     const links = el('div', 'object-links');
     data.readingPath.forEach((item) => links.appendChild(link(item)));
@@ -201,5 +268,6 @@
   renderTimeline();
   renderSources();
   renderReadingPath();
+  renderQuickNav();
   renderFooter();
 })();
