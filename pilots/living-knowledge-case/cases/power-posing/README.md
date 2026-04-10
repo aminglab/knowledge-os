@@ -23,22 +23,33 @@ That makes it a good demonstration of:
 
 ## Public reading path
 
-A new reader should start with:
+If you only read one file, start here:
 
-1. [`snapshots/snapshot-v2.md`](./snapshots/snapshot-v2.md) — the current public-facing living snapshot
-2. [`references.md`](./references.md) — the thin reader-facing reference entrypoint
-3. [`case.md`](./case.md) — the case overview and thesis
-4. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
+- [`snapshots/snapshot-v2.md`](./snapshots/snapshot-v2.md) — the current public-facing living snapshot and public case homepage
+
+If you want to keep reading after the homepage, continue with:
+
+1. [`references.md`](./references.md) — the thin reader-facing reference entrypoint
+2. [`case.md`](./case.md) — the case overview and thesis
+3. [`timeline/events.md`](./timeline/events.md) — ordered reading aid
 
 ## Developer / governance path
 
-For protocol, validation, and seam-governance context, continue with:
+For protocol, validation, and seam-governance context, continue in this order.
+
+### Source and judgment layers
 
 1. [`references-metadata-v1.md`](./references-metadata-v1.md) — the stable source metadata layer
 2. [`status-legend-v1.md`](./status-legend-v1.md) — the public wording note for current status phrases
 3. [`verdict-grammar-v1.md`](./verdict-grammar-v1.md) — the case-scoped bridge between snapshot wording and object-layer judgment
+
+### Validation and checker topology
+
 4. [`check-atlas-v1.md`](./check-atlas-v1.md) — the developer-facing map of the current validation network
 5. [`check-merge-assessment-v1.md`](./check-merge-assessment-v1.md) — the current ruling on whether adjacent checks should stay separate or be partially merged later
+
+### Template seam governance
+
 6. [`case-template-boundary-v1.md`](./case-template-boundary-v1.md) — the current boundary ruling on what is already reusable shell versus what remains case-specific
 7. [`case-template-extraction-checklist-v1.md`](./case-template-extraction-checklist-v1.md) — the current operational copy discipline for what a future second case may copy, rewrite, or not yet assume generic
 8. [`template-seam-summary-v1.md`](./template-seam-summary-v1.md) — the short consolidated ruling that compresses stage judgment, boundary judgment, and extraction judgment into one seam-level anchor
