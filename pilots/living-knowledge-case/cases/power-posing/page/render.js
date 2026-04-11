@@ -1,41 +1,33 @@
 (function () {
   const data = window.POWER_POSING_PAGE_DATA;
+  const primitives = window.KnowledgeOSRendererPrimitives;
   const hero = document.getElementById('hero');
   const pageNav = document.getElementById('page-nav');
   const app = document.getElementById('app');
   const footer = document.getElementById('footer');
 
-  if (!data || !hero || !app) {
+  if (!data || !primitives || !hero || !app) {
     return;
   }
+
+  const {
+    el,
+    link,
+    badgeClass,
+    createSection,
+    createMetaRow,
+    createLinksBlock,
+    renderLineageRail,
+    renderRouteCard,
+    splitSourceLinks,
+    renderSourceLinksBlock,
+  } = primitives;
 
   const sectionAnchors = [];
   const navLinkById = new Map();
 
-  const el = (tag, className, text) => {
-    const node = document.createElement(tag);
-    if (className) node.className = className;
-    if (typeof text === 'string') node.textContent = text;
-    return node;
-  };
-
-  const link = ({ label, href }, className = 'object-link') => {
-    const a = el('a', className, label);
-    a.href = href;
-    return a;
-  };
-
-  const badgeClass = (kind) => {
-    if (kind === 'dissent') return 'badge badge-dissent';
-    if (kind === 'support') return 'badge badge-support';
-    return 'badge badge-status';
-  };
-
-  const slugify = (text) =>
-    text
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
+  const section = (title, intro, options = {}) =>
+    createSection({ title, intro, options, sectionAnchors });
 
   const setActiveNav = (activeId) => {
     navLinkById.forEach((node, id) => {
@@ -47,54 +39,6 @@
         node.removeAttribute('aria-current');
       }
     });
-  };
-
-  const section = (title, intro, options = {}) => {
-    const classes = ['section'];
-    if (options.tone) {
-      classes.push(`section-${options.tone}`);
-    }
-    const node = el('section', classes.join(' '));
-    const id = options.id || slugify(title);
-    node.id = id;
-
-    const header = el('div', 'section-header');
-    if (options.kicker) {
-      header.appendChild(el('div', 'section-kicker', options.kicker));
-    }
-    header.appendChild(el('h2', '', title));
-    node.appendChild(header);
-
-    if (intro) node.appendChild(el('p', 'section-intro', intro));
-
-    sectionAnchors.push({
-      id,
-      label: options.navLabel || title,
-    });
-
-    return node;
-  };
-
-  const renderLineageRail = (cards) => {
-    if (!Array.isArray(cards) || cards.length < 2) return null;
-
-    const rail = el('div', 'lineage-rail');
-
-    cards.forEach((cardData, index) => {
-      const stop = el('div', 'lineage-stop');
-      stop.appendChild(el('div', 'lineage-stop-label', cardData.title));
-      stop.appendChild(el('div', 'lineage-stop-state', cardData.status));
-      rail.appendChild(stop);
-
-      if (index < cards.length - 1) {
-        const connector = el('div', 'lineage-connector');
-        connector.appendChild(el('span', 'lineage-connector-line'));
-        connector.appendChild(el('span', 'lineage-connector-label', 'narrows into descendant path'));
-        rail.appendChild(connector);
-      }
-    });
-
-    return rail;
   };
 
   const classifySourceGroup = (item) => {
@@ -125,21 +69,6 @@
     return 'source-item-support';
   };
 
-  const splitSourceLinks = (links = []) => {
-    const sourceRoutes = [];
-    const objectTouches = [];
-
-    links.forEach((entry) => {
-      if (entry.label.startsWith('Open source')) {
-        sourceRoutes.push(entry);
-      } else {
-        objectTouches.push(entry);
-      }
-    });
-
-    return { sourceRoutes, objectTouches };
-  };
-
   const renderHero = () => {
     const card = el('div', 'hero-card');
     card.appendChild(el('div', 'eyebrow', 'Knowledge OS · Living Knowledge Case'));
@@ -149,9 +78,8 @@
     card.appendChild(el('h1', '', data.title));
     card.appendChild(el('p', '', data.description));
 
-    const links = el('div', 'hero-links');
-    data.links.forEach((item) => links.appendChild(link(item, 'link-chip')));
-    card.appendChild(links);
+    const links = createLinksBlock(data.links, { wrapperClass: 'hero-links', linkClass: 'link-chip' });
+    if (links) card.appendChild(links);
     hero.appendChild(card);
   };
 
@@ -215,11 +143,9 @@
       kicker: 'Public judgment',
       navLabel: 'Judgment',
     });
-    if (data.judgmentLinks && data.judgmentLinks.length) {
-      const links = el('div', 'object-links');
-      data.judgmentLinks.forEach((item) => links.appendChild(link(item)));
-      node.appendChild(links);
-    }
+
+    const judgmentLinks = createLinksBlock(data.judgmentLinks || []);
+    if (judgmentLinks) node.appendChild(judgmentLinks);
 
     const lineageRail = renderLineageRail(data.statusCards);
     if (lineageRail) {
@@ -230,16 +156,14 @@
 
     data.statusCards.forEach((cardData) => {
       const card = el('article', 'card card-emphasis card-claim-status');
-      const meta = el('div', 'meta-row');
-      cardData.badges.forEach((item) => meta.appendChild(el('span', 'badge badge-status', item)));
-      card.appendChild(meta);
+      const meta = createMetaRow(cardData.badges || [], 'status');
+      if (meta) card.appendChild(meta);
       card.appendChild(el('h3', '', cardData.title));
       card.appendChild(el('p', '', cardData.summary));
       card.appendChild(el('p', 'card-state', `Current state: ${cardData.status}`));
 
-      const links = el('div', 'object-links');
-      cardData.links.forEach((item) => links.appendChild(link(item)));
-      card.appendChild(links);
+      const links = createLinksBlock(cardData.links || []);
+      if (links) card.appendChild(links);
       grid.appendChild(card);
     });
 
@@ -260,27 +184,18 @@
       const grid = el('div', `${gridClass}${block.title === 'Public claim and source routes' ? ' route-grid' : ''}`);
 
       block.cards.forEach((cardData) => {
-        const cardClasses = ['card'];
         if (block.title === 'Public claim and source routes') {
-          cardClasses.push('route-card');
-          if (cardData.kind === 'support') {
-            cardClasses.push('route-card-source');
-          } else {
-            cardClasses.push('route-card-claim');
-          }
+          grid.appendChild(renderRouteCard(cardData));
+          return;
         }
 
-        const card = el('article', cardClasses.join(' '));
-        const meta = el('div', 'meta-row');
-        (cardData.badges || []).forEach((item) => meta.appendChild(el('span', badgeClass(cardData.kind), item)));
-        if (meta.childNodes.length > 0) card.appendChild(meta);
+        const card = el('article', 'card');
+        const meta = createMetaRow(cardData.badges || [], cardData.kind || 'status');
+        if (meta) card.appendChild(meta);
         card.appendChild(el('h3', '', cardData.title));
         card.appendChild(el('p', '', cardData.body));
-        if (cardData.links && cardData.links.length) {
-          const links = el('div', 'object-links');
-          cardData.links.forEach((item) => links.appendChild(link(item)));
-          card.appendChild(links);
-        }
+        const links = createLinksBlock(cardData.links || []);
+        if (links) card.appendChild(links);
         grid.appendChild(card);
       });
 
@@ -349,11 +264,8 @@
         if (item.title) {
           source.appendChild(el('h3', '', item.title));
         }
-        if (item.badges && item.badges.length) {
-          const meta = el('div', 'meta-row');
-          item.badges.forEach((badge) => meta.appendChild(el('span', 'badge badge-status', badge)));
-          source.appendChild(meta);
-        }
+        const meta = createMetaRow(item.badges || [], 'status');
+        if (meta) source.appendChild(meta);
         if (item.role) {
           source.appendChild(el('p', '', item.role));
         }
@@ -365,24 +277,10 @@
         }
 
         const { sourceRoutes, objectTouches } = splitSourceLinks(item.links || []);
-
-        if (sourceRoutes.length) {
-          const routeBlock = el('div', 'source-links-block');
-          routeBlock.appendChild(el('div', 'source-links-label', 'Source routes'));
-          const links = el('div', 'object-links');
-          sourceRoutes.forEach((entry) => links.appendChild(link(entry)));
-          routeBlock.appendChild(links);
-          source.appendChild(routeBlock);
-        }
-
-        if (objectTouches.length) {
-          const objectBlock = el('div', 'source-links-block');
-          objectBlock.appendChild(el('div', 'source-links-label', 'Touches objects'));
-          const links = el('div', 'object-links');
-          objectTouches.forEach((entry) => links.appendChild(link(entry)));
-          objectBlock.appendChild(links);
-          source.appendChild(objectBlock);
-        }
+        const sourceRoutesBlock = renderSourceLinksBlock('Source routes', sourceRoutes);
+        if (sourceRoutesBlock) source.appendChild(sourceRoutesBlock);
+        const objectTouchesBlock = renderSourceLinksBlock('Touches objects', objectTouches);
+        if (objectTouchesBlock) source.appendChild(objectTouchesBlock);
 
         list.appendChild(source);
       });
@@ -404,9 +302,8 @@
         navLabel: 'Reading path',
       }
     );
-    const links = el('div', 'object-links');
-    data.readingPath.forEach((item) => links.appendChild(link(item)));
-    node.appendChild(links);
+    const links = createLinksBlock(data.readingPath || []);
+    if (links) node.appendChild(links);
     app.appendChild(node);
   };
 
@@ -423,16 +320,10 @@
     if (data.footer.body) {
       card.appendChild(el('p', 'footer-copy', data.footer.body));
     }
-    if (data.footer.badges && data.footer.badges.length) {
-      const meta = el('div', 'meta-row');
-      data.footer.badges.forEach((item) => meta.appendChild(el('span', 'badge badge-status', item)));
-      card.appendChild(meta);
-    }
-    if (data.footer.links && data.footer.links.length) {
-      const links = el('div', 'object-links');
-      data.footer.links.forEach((item) => links.appendChild(link(item)));
-      card.appendChild(links);
-    }
+    const meta = createMetaRow(data.footer.badges || [], 'status');
+    if (meta) card.appendChild(meta);
+    const links = createLinksBlock(data.footer.links || []);
+    if (links) card.appendChild(links);
     footer.appendChild(card);
   };
 

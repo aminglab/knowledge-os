@@ -12,6 +12,7 @@ The current page stack now has a small publishing pipeline:
 - snapshot markdown,
 - a case-scoped page-data generator,
 - generated page data,
+- a small extracted renderer-primitive layer,
 - and a reader-facing page shell.
 
 That is enough for the current stage.
@@ -24,14 +25,15 @@ That is enough for the current stage.
 - `styles.css` — the current visual layer
 - `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer, validates the release surface, prints a small release summary, supports `--check`, and can emit machine-readable summaries with `--json-summary`
 - `page-data.js` — generated page data consumed by the browser renderer
-- `render.js` — the script that turns the generated data into a page
+- `renderer-primitives.js` — the first extracted renderer primitive layer
+- `render.js` — the case-scoped page composer that now assembles `power-posing` from the primitive layer rather than defining every primitive inline
 - `generic-renderer-seam-v1.md` — the first renderer-seam judgment on what now looks extractable versus what still remains case-scoped
 
 ---
 
 ## Current scope
 
-This renderer prototype is designed to prove seven things:
+This renderer prototype is designed to prove eight things:
 
 1. the case can be rendered as a page rather than only as a markdown tree,
 2. object ids can remain visible at the UI layer,
@@ -39,7 +41,8 @@ This renderer prototype is designed to prove seven things:
 4. the snapshot can become a navigable public reading surface,
 5. the page layer can grow from the governed object layer through a minimal generation step,
 6. the page can now begin to expose the seeded `claims/` and `sources/` layers without replacing the snapshot as the fuller release view,
-7. and the display layer can now make both claim lineage and grouped source participation more visible as page structure instead of leaving them implicit inside links alone.
+7. the display layer can now make both claim lineage and grouped source participation more visible as page structure instead of leaving them implicit inside links alone,
+8. and the first lawful renderer primitives can now be extracted without pretending the whole page stack is already generic.
 
 ---
 
@@ -54,7 +57,8 @@ More concretely:
 1. the governed objects remain the deepest source of truth,
 2. `snapshots/snapshot-v2.md` acts as the current **public homepage** for the case,
 3. the generator derives `page-data.js` from that governed case layer,
-4. and the browser renderer turns that generated data into the current page surface.
+4. the extracted primitive layer provides a small reusable renderer substrate,
+5. and the case composer turns that generated data into the current `power-posing` page surface.
 
 This means the page layer is **downstream** of the snapshot release layer, not a competing editorial surface.
 It should not invent a second public storyline that diverges from `snapshot-v2.md`.
@@ -146,52 +150,6 @@ It is also guarded by a small adjacent README template seam audit that keeps sea
 
 ---
 
-## Current release feedback
-
-When generation succeeds, the script now reports its result in three layers in human-readable mode:
-
-1. `Validation passed.`
-2. `Release summary:`
-3. `Write completed: ...` or `Write skipped (--check).`
-
-The release summary itself currently includes:
-
-- total object count,
-- object counts by family,
-- canonical source id count,
-- claim page count,
-- source page count,
-- neighborhood card count,
-- public-route card count,
-- timeline entry count,
-- and reading-path link count.
-
-When `--json-summary` is used, the script instead emits a machine-readable JSON object containing:
-
-- `schema_name`
-- `schema_version`
-- validation status,
-- write status,
-- whether `--check` was active,
-- output path when relevant,
-- and the same release-summary counts.
-
-That means the payload now identifies its own contract instead of requiring downstream automation to infer it from repository docs alone.
-
----
-
-## Exit-code discipline
-
-The generator now follows a simple exit-code rule:
-
-- `0` — validation passed and the requested action completed
-- `1` — validation failed
-- `2` — command-line usage error from `argparse`
-
-That gives downstream automation a minimal but clear contract.
-
----
-
 ## Important honesty note
 
 This is still a **case-scoped prototype**.
@@ -213,15 +171,13 @@ For now, the renderer is intentionally simple and honest:
 - the knowledge model still lives in the case objects,
 - `snapshot-v2.md` acts as the current public homepage and release layer,
 - the generator creates a thin browser-ready data bridge downstream of that release layer,
+- the extracted primitive layer now carries the first lawful reusable renderer units,
+- `render.js` remains the `power-posing` page composer rather than pretending to be a generic renderer runtime,
 - the page reading path is intentionally thinner than the snapshot reading path,
 - the page can now acknowledge the seeded public `claims/` and `sources/` layers without pretending to be a full object browser,
 - the renderer now makes the original-to-descendant claim relation visibly legible in the current judgment surface rather than leaving lineage implicit,
 - the source layer now renders as grouped source stacks with explicit source-route and object-touch subroutes,
 - the generator now validates that those seeded public layers actually exist for the current case,
-- prints a readable release summary,
-- supports a non-writing `--check` mode,
-- can emit machine-readable JSON,
-- the README template seam audit keeps template-governance documents visibly attached to the case entry surface,
 - and the page is a presentation surface over that bridge.
 
 If you want the explicit seam judgment for what may later be extracted into a broader renderer line, read:
@@ -238,20 +194,6 @@ The page-layer integration pass proved that the visible page could acknowledge a
 
 This step proves the next thing:
 
-> the same page line can now start to hold stronger claim/source display components without pretending that generic renderer closure has already happened.
+> the first renderer seam can now be acted on in code without pretending that generic renderer closure has already happened.
 
-That is exactly why the seam note now exists beside the renderer itself.
-
----
-
-## Next natural upgrades
-
-Later iterations may:
-
-- make the generator more generic across cases,
-- derive richer cards from object fields and body sections,
-- validate more protocol constraints,
-- support multiple snapshots,
-- push the lineage surface beyond the current two-claim case without hard-coding case assumptions,
-- lift only the first lawful renderer primitives named in `generic-renderer-seam-v1.md`,
-- and eventually merge into a broader public layer renderer.
+That is exactly why the seam note now exists beside the extracted primitive layer itself.

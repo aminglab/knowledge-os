@@ -32,6 +32,28 @@ It is **not** enough to justify pretending there is already a general multi-case
 
 ---
 
+## Current implementation status
+
+The seam is no longer only theoretical.
+The current page stack now carries a first extracted primitive layer in:
+
+- `renderer-primitives.js`
+
+At the current stage, that extracted layer carries only the first lawful units:
+
+- section shell primitive
+- meta-row primitive
+- links-block primitive
+- lineage-rail primitive
+- route-card primitive
+- split source-link primitive
+- source-link-block primitive
+
+That extraction is intentionally small.
+It proves that primitive extraction can happen in code while the page composer remains case-scoped.
+
+---
+
 ## What now looks like a plausible renderer seam
 
 The following parts now look like the first plausible extraction candidates.
@@ -128,22 +150,36 @@ The current lineage rail implicitly assumes a short ordered chain.
 That is appropriate here.
 It is not yet a proof that the same renderer path can lawfully absorb broader claim-graph structures.
 
+### 5. page composition logic
+
+`render.js` still remains intentionally case-scoped.
+It composes:
+
+- this case’s section order,
+- this case’s source grouping,
+- this case’s reading-path logic,
+- and this case’s current public-layer emphases.
+
+That is still correct.
+The extraction so far does **not** change that ruling.
+
 ---
 
 ## The lawful next extraction move
 
-If a later phase wants to act on this seam, the most lawful next move is:
+If a later phase wants to continue acting on this seam, the most lawful next move is:
 
-> extract **renderer primitives first**, not generator governance first.
+> keep extracting **renderer primitives first**, not generator governance first.
 
 Concretely, that means:
 
 1. keep the generator case-scoped for now,
-2. identify the minimal renderer primitives that no longer depend on `power-posing` wording,
-3. describe a tiny section-registry interface,
-4. wait for a second case before claiming generic renderer closure.
+2. keep `render.js` as the case composer,
+3. continue moving only display primitives that no longer depend on `power-posing` wording,
+4. describe a tiny section-registry interface only after more than one case exists,
+5. wait for a second case before claiming generic renderer closure.
 
-This is the key discipline:
+This remains the key discipline:
 
 > **primitive extraction before system-level genericization**
 
@@ -153,13 +189,14 @@ That avoids fake generality.
 
 ## What should not happen next
 
-The following moves would be premature:
+The following moves would still be premature:
 
 - renaming the current page stack as a multi-case renderer
 - pretending the generator is already a public-layer compiler
 - replacing current case-earned wording with abstract generic placeholders
 - extracting source taxonomy as if it were already cross-case stable
 - claiming graph-browser capability from a short lineage rail
+- collapsing the case composer into a fake universal runtime
 
 That would be theater, not engineering.
 
@@ -171,8 +208,9 @@ So the current practical consequence is:
 
 - **yes** to renderer-component hardening,
 - **yes** to seam identification,
+- **yes** to first primitive extraction,
 - **no** to fake generic closure,
 - **no** to broad renderer extraction before a second case exists.
 
-This is the first renderer seam.
+This is still the first renderer seam.
 It should be treated as a **protected future extraction boundary**, not as a completed general renderer system.
