@@ -109,6 +109,37 @@
     return card;
   };
 
+  const renderStandardCard = (cardData) => {
+    const card = el('article', 'card');
+    const meta = createMetaRow(cardData.badges || [], cardData.kind || 'status');
+    if (meta) card.appendChild(meta);
+    card.appendChild(el('h3', '', cardData.title));
+    card.appendChild(el('p', '', cardData.body));
+    const links = createLinksBlock(cardData.links || []);
+    if (links) card.appendChild(links);
+    return card;
+  };
+
+  const renderStatusCard = (cardData) => {
+    const card = el('article', 'card card-emphasis card-claim-status');
+    const meta = createMetaRow(cardData.badges || [], 'status');
+    if (meta) card.appendChild(meta);
+    card.appendChild(el('h3', '', cardData.title));
+    card.appendChild(el('p', '', cardData.summary));
+    card.appendChild(el('p', 'card-state', `Current state: ${cardData.status}`));
+    const links = createLinksBlock(cardData.links || []);
+    if (links) card.appendChild(links);
+    return card;
+  };
+
+  const renderTimelineItem = (item) => {
+    const wrap = el('article', 'timeline-item');
+    wrap.appendChild(el('div', 'timeline-year', item.year));
+    wrap.appendChild(el('h3', '', item.title));
+    wrap.appendChild(el('p', '', item.body));
+    return wrap;
+  };
+
   const splitSourceLinks = (links = []) => {
     const sourceRoutes = [];
     const objectTouches = [];
@@ -133,6 +164,66 @@
     return block;
   };
 
+  const renderSourceItem = (item, options = {}) => {
+    const toneClass = options.toneClass || '';
+    const source = el('article', `source-item ${toneClass}`.trim());
+    source.appendChild(el('div', 'source-id', item.id));
+    if (item.title) {
+      source.appendChild(el('h3', '', item.title));
+    }
+    const meta = createMetaRow(item.badges || [], 'status');
+    if (meta) source.appendChild(meta);
+    if (item.role) {
+      source.appendChild(el('p', '', item.role));
+    }
+    if (item.locator) {
+      source.appendChild(el('p', 'source-locator', `Canonical locator: ${item.locator}`));
+    }
+    if (item.usage) {
+      source.appendChild(el('p', '', `Object usage: ${item.usage}`));
+    }
+
+    const { sourceRoutes, objectTouches } = splitSourceLinks(item.links || []);
+    const sourceRoutesBlock = renderSourceLinksBlock('Source routes', sourceRoutes);
+    if (sourceRoutesBlock) source.appendChild(sourceRoutesBlock);
+    const objectTouchesBlock = renderSourceLinksBlock('Touches objects', objectTouches);
+    if (objectTouchesBlock) source.appendChild(objectTouchesBlock);
+
+    return source;
+  };
+
+  const renderSourceGroup = ({ title, intro, items = [], renderItem, kicker = 'Grouped source surface' }) => {
+    const group = el('div', 'source-group');
+    const header = el('div', 'source-group-header');
+    header.appendChild(el('div', 'source-group-kicker', kicker));
+    header.appendChild(el('h3', 'source-group-title', title));
+    header.appendChild(el('p', 'source-group-intro', intro));
+    group.appendChild(header);
+
+    const list = el('div', 'source-group-list');
+    items.forEach((item) => list.appendChild(renderItem(item)));
+    group.appendChild(list);
+    return group;
+  };
+
+  const renderFooterCard = (footerData) => {
+    const card = el('div', 'footer-card');
+    if (footerData.eyebrow) {
+      card.appendChild(el('div', 'footer-eyebrow', footerData.eyebrow));
+    }
+    if (footerData.title) {
+      card.appendChild(el('h2', 'footer-title', footerData.title));
+    }
+    if (footerData.body) {
+      card.appendChild(el('p', 'footer-copy', footerData.body));
+    }
+    const meta = createMetaRow(footerData.badges || [], 'status');
+    if (meta) card.appendChild(meta);
+    const links = createLinksBlock(footerData.links || []);
+    if (links) card.appendChild(links);
+    return card;
+  };
+
   window.KnowledgeOSRendererPrimitives = {
     el,
     link,
@@ -142,7 +233,13 @@
     createLinksBlock,
     renderLineageRail,
     renderRouteCard,
+    renderStandardCard,
+    renderStatusCard,
+    renderTimelineItem,
     splitSourceLinks,
     renderSourceLinksBlock,
+    renderSourceItem,
+    renderSourceGroup,
+    renderFooterCard,
   };
 })();

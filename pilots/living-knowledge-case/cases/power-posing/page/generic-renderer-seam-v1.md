@@ -35,11 +35,13 @@ It is **not** enough to justify pretending there is already a general multi-case
 ## Current implementation status
 
 The seam is no longer only theoretical.
-The current page stack now carries a first extracted primitive layer in:
+The current page stack now carries an extracted primitive layer in:
 
 - `renderer-primitives.js`
 
-At the current stage, that extracted layer carries only the first lawful units:
+At the current stage, that extracted layer now carries two waves of lawful units:
+
+### First-wave primitives
 
 - section shell primitive
 - meta-row primitive
@@ -49,8 +51,18 @@ At the current stage, that extracted layer carries only the first lawful units:
 - split source-link primitive
 - source-link-block primitive
 
-That extraction is intentionally small.
-It proves that primitive extraction can happen in code while the page composer remains case-scoped.
+### Second-wave primitives
+
+- standard-card primitive
+- status-card primitive
+- timeline-item primitive
+- source-item primitive
+- source-group primitive
+- footer-card primitive
+
+That extraction is still intentionally small.
+But it is no longer symbolic.
+It proves that primitive extraction can continue in code while the page composer remains case-scoped.
 
 ---
 
@@ -103,6 +115,18 @@ The source layer now renders as:
 
 Again, the current grouping rules are still case-bound.
 But the component pattern is no longer purely accidental.
+
+### 5. status / timeline / footer display primitives
+
+The current renderer now also exposes a second small cluster of reusable display units:
+
+- judgment/status card surface
+- standard section card surface
+- timeline item surface
+- footer card surface
+
+These units still live inside a case-scoped page.
+But they no longer need to be redefined inline for each section.
 
 ---
 
@@ -209,6 +233,7 @@ So the current practical consequence is:
 - **yes** to renderer-component hardening,
 - **yes** to seam identification,
 - **yes** to first primitive extraction,
+- **yes** to second-wave primitive extraction,
 - **no** to fake generic closure,
 - **no** to broad renderer extraction before a second case exists.
 

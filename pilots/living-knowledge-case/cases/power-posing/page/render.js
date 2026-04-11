@@ -13,14 +13,16 @@
   const {
     el,
     link,
-    badgeClass,
     createSection,
-    createMetaRow,
     createLinksBlock,
     renderLineageRail,
     renderRouteCard,
-    splitSourceLinks,
-    renderSourceLinksBlock,
+    renderStandardCard,
+    renderStatusCard,
+    renderTimelineItem,
+    renderSourceItem,
+    renderSourceGroup,
+    renderFooterCard,
   } = primitives;
 
   const sectionAnchors = [];
@@ -153,20 +155,7 @@
     }
 
     const grid = el('div', 'grid grid-2');
-
-    data.statusCards.forEach((cardData) => {
-      const card = el('article', 'card card-emphasis card-claim-status');
-      const meta = createMetaRow(cardData.badges || [], 'status');
-      if (meta) card.appendChild(meta);
-      card.appendChild(el('h3', '', cardData.title));
-      card.appendChild(el('p', '', cardData.summary));
-      card.appendChild(el('p', 'card-state', `Current state: ${cardData.status}`));
-
-      const links = createLinksBlock(cardData.links || []);
-      if (links) card.appendChild(links);
-      grid.appendChild(card);
-    });
-
+    data.statusCards.forEach((cardData) => grid.appendChild(renderStatusCard(cardData)));
     node.appendChild(grid);
     app.appendChild(node);
   };
@@ -188,15 +177,7 @@
           grid.appendChild(renderRouteCard(cardData));
           return;
         }
-
-        const card = el('article', 'card');
-        const meta = createMetaRow(cardData.badges || [], cardData.kind || 'status');
-        if (meta) card.appendChild(meta);
-        card.appendChild(el('h3', '', cardData.title));
-        card.appendChild(el('p', '', cardData.body));
-        const links = createLinksBlock(cardData.links || []);
-        if (links) card.appendChild(links);
-        grid.appendChild(card);
+        grid.appendChild(renderStandardCard(cardData));
       });
 
       node.appendChild(grid);
@@ -211,15 +192,7 @@
       navLabel: 'Timeline',
     });
     const timeline = el('div', 'timeline');
-
-    data.timeline.forEach((item) => {
-      const wrap = el('article', 'timeline-item');
-      wrap.appendChild(el('div', 'timeline-year', item.year));
-      wrap.appendChild(el('h3', '', item.title));
-      wrap.appendChild(el('p', '', item.body));
-      timeline.appendChild(wrap);
-    });
-
+    data.timeline.forEach((item) => timeline.appendChild(renderTimelineItem(item)));
     node.appendChild(timeline);
     app.appendChild(node);
   };
@@ -249,44 +222,14 @@
     });
 
     grouped.forEach((groupData) => {
-      const group = el('div', 'source-group');
-      const header = el('div', 'source-group-header');
-      header.appendChild(el('div', 'source-group-kicker', 'Grouped source surface'));
-      header.appendChild(el('h3', 'source-group-title', groupData.title));
-      header.appendChild(el('p', 'source-group-intro', groupData.intro));
-      group.appendChild(header);
-
-      const list = el('div', 'source-group-list');
-
-      groupData.items.forEach((item) => {
-        const source = el('article', `source-item ${classifySourceTone(item)}`);
-        source.appendChild(el('div', 'source-id', item.id));
-        if (item.title) {
-          source.appendChild(el('h3', '', item.title));
-        }
-        const meta = createMetaRow(item.badges || [], 'status');
-        if (meta) source.appendChild(meta);
-        if (item.role) {
-          source.appendChild(el('p', '', item.role));
-        }
-        if (item.locator) {
-          source.appendChild(el('p', 'source-locator', `Canonical locator: ${item.locator}`));
-        }
-        if (item.usage) {
-          source.appendChild(el('p', '', `Object usage: ${item.usage}`));
-        }
-
-        const { sourceRoutes, objectTouches } = splitSourceLinks(item.links || []);
-        const sourceRoutesBlock = renderSourceLinksBlock('Source routes', sourceRoutes);
-        if (sourceRoutesBlock) source.appendChild(sourceRoutesBlock);
-        const objectTouchesBlock = renderSourceLinksBlock('Touches objects', objectTouches);
-        if (objectTouchesBlock) source.appendChild(objectTouchesBlock);
-
-        list.appendChild(source);
-      });
-
-      group.appendChild(list);
-      node.appendChild(group);
+      node.appendChild(
+        renderSourceGroup({
+          title: groupData.title,
+          intro: groupData.intro,
+          items: groupData.items,
+          renderItem: (item) => renderSourceItem(item, { toneClass: classifySourceTone(item) }),
+        })
+      );
     });
 
     app.appendChild(node);
@@ -309,22 +252,7 @@
 
   const renderFooter = () => {
     if (!footer || !data.footer) return;
-
-    const card = el('div', 'footer-card');
-    if (data.footer.eyebrow) {
-      card.appendChild(el('div', 'footer-eyebrow', data.footer.eyebrow));
-    }
-    if (data.footer.title) {
-      card.appendChild(el('h2', 'footer-title', data.footer.title));
-    }
-    if (data.footer.body) {
-      card.appendChild(el('p', 'footer-copy', data.footer.body));
-    }
-    const meta = createMetaRow(data.footer.badges || [], 'status');
-    if (meta) card.appendChild(meta);
-    const links = createLinksBlock(data.footer.links || []);
-    if (links) card.appendChild(links);
-    footer.appendChild(card);
+    footer.appendChild(renderFooterCard(data.footer));
   };
 
   renderHero();

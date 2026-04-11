@@ -25,7 +25,7 @@ That is enough for the current stage.
 - `styles.css` — the current visual layer
 - `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer, validates the release surface, prints a small release summary, supports `--check`, and can emit machine-readable summaries with `--json-summary`
 - `page-data.js` — generated page data consumed by the browser renderer
-- `renderer-primitives.js` — the first extracted renderer primitive layer
+- `renderer-primitives.js` — the extracted renderer primitive layer
 - `render.js` — the case-scoped page composer that now assembles `power-posing` from the primitive layer rather than defining every primitive inline
 - `generic-renderer-seam-v1.md` — the first renderer-seam judgment on what now looks extractable versus what still remains case-scoped
 
@@ -42,7 +42,7 @@ This renderer prototype is designed to prove eight things:
 5. the page layer can grow from the governed object layer through a minimal generation step,
 6. the page can now begin to expose the seeded `claims/` and `sources/` layers without replacing the snapshot as the fuller release view,
 7. the display layer can now make both claim lineage and grouped source participation more visible as page structure instead of leaving them implicit inside links alone,
-8. and the first lawful renderer primitives can now be extracted without pretending the whole page stack is already generic.
+8. and the first lawful renderer primitives can now be extracted in more than one layer without pretending the whole page stack is already generic.
 
 ---
 
@@ -77,6 +77,36 @@ The current renderer pass also makes two more things visible at the display laye
 
 That is still downstream of the governed case layer.
 But it gives the page a more legible structure without turning it into a full graph browser.
+
+---
+
+## Current renderer extraction status
+
+The current primitive layer is no longer carrying only the very first shell primitives.
+It now also carries a second wave of extracted display units.
+
+At the current stage, `renderer-primitives.js` now contains:
+
+- section shell primitive
+- meta-row primitive
+- links-block primitive
+- lineage-rail primitive
+- route-card primitive
+- standard-card primitive
+- status-card primitive
+- timeline-item primitive
+- source split-link primitive
+- source links-block primitive
+- source item primitive
+- source group primitive
+- footer-card primitive
+
+That means `render.js` is now more clearly a **case composer** than a primitive warehouse.
+
+This is the important boundary:
+
+> the primitive layer now owns reusable display units,
+> while `render.js` still owns the `power-posing` composition logic.
 
 ---
 
@@ -115,41 +145,6 @@ That combined mode performs the same parsing and validation pass, builds the rel
 
 ---
 
-## Current validation floor
-
-The generator now performs a small but useful validation pass before writing `page-data.js`.
-It currently checks for:
-
-- undefined `source_refs`,
-- missing required frontmatter fields,
-- links or internal references that point to missing objects,
-- missing public claim pages for current claim objects,
-- and missing public source pages for current canonical source ids.
-
-This is not yet a full protocol validator.
-But it gives the publishing pipeline real teeth around the current richer page contract.
-
-Adjacent to that generator-level floor, the repository now also carries a small README template seam audit:
-
-- script: `scripts/check_power_posing_template_seam_readme.py`
-- workflow: `.github/workflows/check-power-posing-template-seam-readme.yml`
-
-That audit does **not** validate page-data emission.
-It validates something narrower and neighboring:
-
-> whether the case README continues to expose the template-seam governance documents that now define reusable-shell discipline.
-
-In practical terms, it protects continued README exposure of:
-
-- `case-template-boundary-v1.md`
-- `case-template-extraction-checklist-v1.md`
-- `template-seam-summary-v1.md`
-
-So the current page/publishing line is no longer guarded only by object validation.
-It is also guarded by a small adjacent README template seam audit that keeps seam-governance documents visible to later developers.
-
----
-
 ## Important honesty note
 
 This is still a **case-scoped prototype**.
@@ -171,7 +166,7 @@ For now, the renderer is intentionally simple and honest:
 - the knowledge model still lives in the case objects,
 - `snapshot-v2.md` acts as the current public homepage and release layer,
 - the generator creates a thin browser-ready data bridge downstream of that release layer,
-- the extracted primitive layer now carries the first lawful reusable renderer units,
+- the extracted primitive layer now carries the first lawful reusable renderer units across more than one display tier,
 - `render.js` remains the `power-posing` page composer rather than pretending to be a generic renderer runtime,
 - the page reading path is intentionally thinner than the snapshot reading path,
 - the page can now acknowledge the seeded public `claims/` and `sources/` layers without pretending to be a full object browser,
@@ -194,6 +189,6 @@ The page-layer integration pass proved that the visible page could acknowledge a
 
 This step proves the next thing:
 
-> the first renderer seam can now be acted on in code without pretending that generic renderer closure has already happened.
+> the primitive layer can now absorb a second wave of reusable display units while `render.js` stays honestly case-scoped.
 
-That is exactly why the seam note now exists beside the extracted primitive layer itself.
+That is exactly the kind of progress the seam note argued for.
