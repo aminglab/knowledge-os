@@ -38,7 +38,7 @@ This layer makes that relationship explicit.
 - Snapshot label: `Original claim`
 - Claim id: `C-0001`
 - Verdict id: `V-0001`
-- Governing verdict level: `original_claim_contested_and_weakened`
+- Governing verdict level: `weakened`
 - Governing claim epistemic status: `contested`
 - Reader meaning: the original strong-form claim remains visible in the lineage, but it should not be read as stably supported and it has been materially weakened by later dissent and re-interpretation.
 
@@ -47,7 +47,7 @@ This layer makes that relationship explicit.
 - Snapshot label: `Descendant claim`
 - Claim id: `C-0002`
 - Verdict id: `V-0002`
-- Governing verdict level: `descendant_claim_contested_but_surviving`
+- Governing verdict level: `contested`
 - Governing claim epistemic status: `contested`
 - Reader meaning: the descendant claim is not stabilized or canonized, but the case still continues through this weaker path rather than ending in clean extinction.
 
