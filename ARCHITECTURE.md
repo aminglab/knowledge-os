@@ -104,6 +104,25 @@ BaseObject {
 }
 ```
 
+### 6.1 Revision model (compact rule)
+
+The `revisions` field is not only an audit convenience.
+It is the semantic history of the object.
+
+Current compact rule:
+
+- every substantive object change creates a new revision state,
+- new objects begin at version `1.0`,
+- revisions use a simple `MAJOR.MINOR` model,
+- minor means the same governed object with the same semantic identity, now clarified or enriched,
+- major means the same governed object but a materially changed governed semantic state,
+- lineage remains distinct from revision history,
+- snapshots should pin exact revisions rather than only floating object ids.
+
+Use the detailed companion note for the current working rule:
+
+- `revision-model-v1.md`
+
 ## 7. Crucial modeling decision: two axes
 
 Do **not** collapse object lifecycle and epistemic standing into one status field.
@@ -229,6 +248,9 @@ Suggested core tables:
 
 The key is not storage purity.
 The key is preserving object identity, history, and links.
+
+The `revisions` table should hold append-only semantic revision history rather than acting as a loose edit-log catchall.
+Operational logging may be richer than revision history, but revision history itself should stay accountable and interpretable.
 
 ## 15. What must not happen
 
