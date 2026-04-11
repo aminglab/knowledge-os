@@ -29,6 +29,7 @@ That is enough for the current stage.
 - `render.js` — the case-scoped page composer that now assembles `power-posing` from the primitive layer rather than defining every primitive inline
 - `generic-renderer-seam-v1.md` — the first renderer-seam judgment on what now looks extractable versus what still remains case-scoped
 - `section-registry-interface-v1.md` — the smallest lawful section-shape interface note between the primitive layer and the still case-scoped composer
+- `renderer-contract-audit-v1.md` — the small renderer-side audit of current contract health and first visible drift risks across `page-data.js`, `renderer-primitives.js`, and `render.js`
 
 ---
 
@@ -60,7 +61,8 @@ More concretely:
 3. the generator derives `page-data.js` from that governed case layer,
 4. the extracted primitive layer provides a small reusable renderer substrate,
 5. the case composer turns that generated data into the current `power-posing` page surface,
-6. and the section-registry note now names the smallest lawful interface between those two renderer layers.
+6. the section-registry note names the smallest lawful interface between those two renderer layers,
+7. and the contract-audit note now records where current renderer coupling is still implicit.
 
 This means the page layer is **downstream** of the snapshot release layer, not a competing editorial surface.
 It should not invent a second public storyline that diverges from `snapshot-v2.md`.
@@ -113,6 +115,10 @@ This is the important boundary:
 If you want the smallest registry note for that boundary, read:
 
 - `section-registry-interface-v1.md`
+
+If you want the current small audit of where contract drift might appear first, read:
+
+- `renderer-contract-audit-v1.md`
 
 After the latest cleanup pass, the composer is also less operationally scattered.
 It now centralizes:
@@ -191,10 +197,11 @@ For now, the renderer is intentionally simple and honest:
 - the generator now validates that those seeded public layers actually exist for the current case,
 - and the page is a presentation surface over that bridge.
 
-If you want the explicit seam judgment for what may later be extracted into a broader renderer line, read:
+If you want the explicit seam judgment and audit notes for what may later be extracted into a broader renderer line, read:
 
 - `generic-renderer-seam-v1.md`
 - `section-registry-interface-v1.md`
+- `renderer-contract-audit-v1.md`
 
 ---
 
@@ -206,6 +213,6 @@ The page-layer integration pass proved that the visible page could acknowledge a
 
 This step proves the next thing:
 
-> the primitive layer can now absorb a second wave of reusable display units while `render.js` stays honestly case-scoped, and that boundary can now be named through a minimal section-shape interface.
+> the primitive layer can now absorb a second wave of reusable display units while `render.js` stays honestly case-scoped, that boundary can now be named through a minimal section-shape interface, and the first visible renderer-side drift risks can now be audited without prematurely escalating to a generator redesign.
 
 That is exactly the kind of progress the seam note argued for.
