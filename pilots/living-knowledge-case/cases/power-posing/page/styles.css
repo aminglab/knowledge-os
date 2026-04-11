@@ -225,6 +225,10 @@ a:focus-visible {
   background: linear-gradient(180deg, rgba(110, 231, 183, 0.07), rgba(15, 23, 42, 0.72));
 }
 
+.section-routes {
+  background: linear-gradient(180deg, rgba(147, 197, 253, 0.1), rgba(15, 23, 42, 0.72));
+}
+
 .section-timeline {
   background: linear-gradient(180deg, rgba(147, 197, 253, 0.06), rgba(15, 23, 42, 0.72));
 }
@@ -235,6 +239,56 @@ a:focus-visible {
 
 .section-reading {
   background: linear-gradient(180deg, rgba(148, 163, 184, 0.08), rgba(15, 23, 42, 0.72));
+}
+
+.lineage-rail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  margin: 18px 0 22px;
+}
+
+.lineage-stop {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  background: rgba(17, 24, 39, 0.88);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.lineage-stop-label {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.lineage-stop-state {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.lineage-connector {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  min-width: 160px;
+}
+
+.lineage-connector-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(147, 197, 253, 0.15), rgba(147, 197, 253, 0.55), rgba(147, 197, 253, 0.15));
+}
+
+.lineage-connector-label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: center;
 }
 
 .grid {
@@ -269,6 +323,47 @@ a:focus-visible {
 
 .card-emphasis {
   background: linear-gradient(180deg, rgba(253, 224, 71, 0.08), rgba(17, 24, 39, 0.9));
+}
+
+.card-claim-status {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-claim-status::after {
+  content: "";
+  position: absolute;
+  inset: auto -24px -36px auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  background: rgba(253, 224, 71, 0.05);
+}
+
+.route-grid {
+  align-items: stretch;
+}
+
+.route-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.route-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(147, 197, 253, 0.4);
+}
+
+.route-card-claim::before {
+  background: rgba(253, 224, 71, 0.45);
+}
+
+.route-card-source::before {
+  background: rgba(110, 231, 183, 0.45);
 }
 
 .card h3 {
@@ -434,6 +529,19 @@ a:focus-visible {
   .grid-2,
   .grid-3 {
     grid-template-columns: 1fr;
+  }
+
+  .lineage-rail {
+    grid-template-columns: 1fr;
+  }
+
+  .lineage-connector {
+    min-width: 0;
+  }
+
+  .lineage-connector-line {
+    width: 1px;
+    height: 28px;
   }
 
   .hero-card,

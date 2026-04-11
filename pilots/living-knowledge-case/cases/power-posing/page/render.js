@@ -75,6 +75,28 @@
     return node;
   };
 
+  const renderLineageRail = (cards) => {
+    if (!Array.isArray(cards) || cards.length < 2) return null;
+
+    const rail = el('div', 'lineage-rail');
+
+    cards.forEach((cardData, index) => {
+      const stop = el('div', 'lineage-stop');
+      stop.appendChild(el('div', 'lineage-stop-label', cardData.title));
+      stop.appendChild(el('div', 'lineage-stop-state', cardData.status));
+      rail.appendChild(stop);
+
+      if (index < cards.length - 1) {
+        const connector = el('div', 'lineage-connector');
+        connector.appendChild(el('span', 'lineage-connector-line'));
+        connector.appendChild(el('span', 'lineage-connector-label', 'narrows into descendant path'));
+        rail.appendChild(connector);
+      }
+    });
+
+    return rail;
+  };
+
   const renderHero = () => {
     const card = el('div', 'hero-card');
     card.appendChild(el('div', 'eyebrow', 'Knowledge OS · Living Knowledge Case'));
@@ -155,10 +177,16 @@
       data.judgmentLinks.forEach((item) => links.appendChild(link(item)));
       node.appendChild(links);
     }
+
+    const lineageRail = renderLineageRail(data.statusCards);
+    if (lineageRail) {
+      node.appendChild(lineageRail);
+    }
+
     const grid = el('div', 'grid grid-2');
 
     data.statusCards.forEach((cardData) => {
-      const card = el('article', 'card card-emphasis');
+      const card = el('article', 'card card-emphasis card-claim-status');
       const meta = el('div', 'meta-row');
       cardData.badges.forEach((item) => meta.appendChild(el('span', 'badge badge-status', item)));
       card.appendChild(meta);
@@ -181,14 +209,25 @@
       const toneMap = {
         'Why this case matters': { tone: 'context', kicker: 'Case frame', navLabel: 'Why it matters' },
         'Current object neighborhoods': { tone: 'neighborhoods', kicker: 'Object layer', navLabel: 'Neighborhoods' },
+        'Public claim and source routes': { tone: 'routes', kicker: 'Public layer', navLabel: 'Public routes' },
       };
       const options = toneMap[block.title] || {};
       const node = section(block.title, block.intro, options);
       const gridClass = block.cards.length >= 3 ? 'grid grid-3' : 'grid grid-2';
-      const grid = el('div', gridClass);
+      const grid = el('div', `${gridClass}${block.title === 'Public claim and source routes' ? ' route-grid' : ''}`);
 
       block.cards.forEach((cardData) => {
-        const card = el('article', 'card');
+        const cardClasses = ['card'];
+        if (block.title === 'Public claim and source routes') {
+          cardClasses.push('route-card');
+          if (cardData.kind === 'support') {
+            cardClasses.push('route-card-source');
+          } else {
+            cardClasses.push('route-card-claim');
+          }
+        }
+
+        const card = el('article', cardClasses.join(' '));
         const meta = el('div', 'meta-row');
         (cardData.badges || []).forEach((item) => meta.appendChild(el('span', badgeClass(cardData.kind), item)));
         if (meta.childNodes.length > 0) card.appendChild(meta);

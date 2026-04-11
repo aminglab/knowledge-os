@@ -37,7 +37,8 @@ This renderer prototype is designed to prove six things:
 3. the page can point back to source objects and the reference map,
 4. the snapshot can become a navigable public reading surface,
 5. the page layer can grow from the governed object layer through a minimal generation step,
-6. and the page can now begin to expose the seeded `claims/` and `sources/` layers without replacing the snapshot as the fuller release view.
+6. and the page can now begin to expose the seeded `claims/` and `sources/` layers without replacing the snapshot as the fuller release view,
+7. and the display layer can now make the original-to-descendant claim relation visible as page structure instead of leaving lineage implicit inside links alone.
 
 ---
 
@@ -63,6 +64,13 @@ The page should provide the shortest downstream route back into verdicts, claims
 while the snapshot remains the fuller governance-backed release path.
 
 As of the current integration pass, that thinner route now acknowledges not only raw object links and references, but also the seeded public `claims/` and `sources/` layers that have grown around the case.
+
+The current renderer pass also makes one more thing visible at the display layer:
+
+> the original claim and the weaker descendant claim now appear as an explicit lineage surface rather than only as two disconnected status cards.
+
+That is still downstream of the governed case layer.
+But it gives the page a more legible claim structure without turning it into a full graph browser.
 
 ---
 
@@ -205,6 +213,7 @@ For now, the renderer is intentionally simple and honest:
 - the generator creates a thin browser-ready data bridge downstream of that release layer,
 - the page reading path is intentionally thinner than the snapshot reading path,
 - the page can now acknowledge the seeded public `claims/` and `sources/` layers without pretending to be a full object browser,
+- the renderer now makes the original-to-descendant claim relation visibly legible in the current judgment surface rather than leaving lineage implicit,
 - the generator now validates that those seeded public layers actually exist for the current case,
 - prints a readable release summary,
 - supports a non-writing `--check` mode,
@@ -236,5 +245,5 @@ Later iterations may:
 - derive richer cards from object fields and body sections,
 - validate more protocol constraints,
 - support multiple snapshots,
-- teach the renderer to surface claim and source routes more explicitly at the component level,
+- push the lineage surface beyond the current two-claim case without hard-coding case assumptions,
 - and eventually merge into a broader public layer renderer.
