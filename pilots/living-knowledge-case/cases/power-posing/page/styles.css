@@ -461,7 +461,40 @@ a:focus-visible {
   text-transform: uppercase;
 }
 
-.source-list {
+.source-group {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.source-group:last-child {
+  margin-bottom: 0;
+}
+
+.source-group-header {
+  display: grid;
+  gap: 6px;
+}
+
+.source-group-kicker {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.source-group-title {
+  margin: 0;
+  font-size: 20px;
+}
+
+.source-group-intro {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.source-group-list {
   display: grid;
   gap: 12px;
 }
@@ -472,6 +505,18 @@ a:focus-visible {
   border: 1px solid var(--line);
   border-radius: 16px;
   transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.source-item-support {
+  background: linear-gradient(180deg, rgba(110, 231, 183, 0.07), rgba(17, 24, 39, 0.9));
+}
+
+.source-item-challenge {
+  background: linear-gradient(180deg, rgba(252, 165, 165, 0.08), rgba(17, 24, 39, 0.9));
+}
+
+.source-item-context {
+  background: linear-gradient(180deg, rgba(147, 197, 253, 0.08), rgba(17, 24, 39, 0.9));
 }
 
 .source-item h3 {
@@ -487,6 +532,19 @@ a:focus-visible {
 
 .source-locator {
   color: var(--text);
+}
+
+.source-links-block {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.source-links-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .footer {

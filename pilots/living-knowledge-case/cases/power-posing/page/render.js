@@ -97,6 +97,49 @@
     return rail;
   };
 
+  const classifySourceGroup = (item) => {
+    if (['Early_public_amplification_context', 'TED_Corrections_2017'].includes(item.id)) {
+      return {
+        key: 'public-circulation',
+        title: 'Public circulation and retreat context',
+        intro:
+          'These sources show how the case moved through amplification, public correction, and narrower retreat rather than staying confined to one journal article.',
+      };
+    }
+
+    return {
+      key: 'core-record',
+      title: 'Core scientific record',
+      intro:
+        'These sources carry the original publication, the major empirical challenge, the internal retreat, and the methodological attack that shaped the main contested judgment surface.',
+    };
+  };
+
+  const classifySourceTone = (item) => {
+    if (['Ranehill_et_al_2015', 'Dana_Carney_2016_statement', 'Simmons_Simonsohn_2016'].includes(item.id)) {
+      return 'source-item-challenge';
+    }
+    if (['Early_public_amplification_context', 'TED_Corrections_2017'].includes(item.id)) {
+      return 'source-item-context';
+    }
+    return 'source-item-support';
+  };
+
+  const splitSourceLinks = (links = []) => {
+    const sourceRoutes = [];
+    const objectTouches = [];
+
+    links.forEach((entry) => {
+      if (entry.label.startsWith('Open source')) {
+        sourceRoutes.push(entry);
+      } else {
+        objectTouches.push(entry);
+      }
+    });
+
+    return { sourceRoutes, objectTouches };
+  };
+
   const renderHero = () => {
     const card = el('div', 'hero-card');
     card.appendChild(el('div', 'eyebrow', 'Knowledge OS · Living Knowledge Case'));
@@ -276,37 +319,78 @@
         navLabel: 'Sources',
       }
     );
-    const list = el('div', 'source-list');
+
+    const grouped = [];
+    const groupByKey = new Map();
 
     data.sources.forEach((item) => {
-      const source = el('article', 'source-item');
-      source.appendChild(el('div', 'source-id', item.id));
-      if (item.title) {
-        source.appendChild(el('h3', '', item.title));
+      const groupMeta = classifySourceGroup(item);
+      if (!groupByKey.has(groupMeta.key)) {
+        const record = { ...groupMeta, items: [] };
+        groupByKey.set(groupMeta.key, record);
+        grouped.push(record);
       }
-      if (item.badges && item.badges.length) {
-        const meta = el('div', 'meta-row');
-        item.badges.forEach((badge) => meta.appendChild(el('span', 'badge badge-status', badge)));
-        source.appendChild(meta);
-      }
-      if (item.role) {
-        source.appendChild(el('p', '', item.role));
-      }
-      if (item.locator) {
-        source.appendChild(el('p', 'source-locator', `Canonical locator: ${item.locator}`));
-      }
-      if (item.usage) {
-        source.appendChild(el('p', '', `Object usage: ${item.usage}`));
-      }
-      if (item.links && item.links.length) {
-        const links = el('div', 'object-links');
-        item.links.forEach((entry) => links.appendChild(link(entry)));
-        source.appendChild(links);
-      }
-      list.appendChild(source);
+      groupByKey.get(groupMeta.key).items.push(item);
     });
 
-    node.appendChild(list);
+    grouped.forEach((groupData) => {
+      const group = el('div', 'source-group');
+      const header = el('div', 'source-group-header');
+      header.appendChild(el('div', 'source-group-kicker', 'Grouped source surface'));
+      header.appendChild(el('h3', 'source-group-title', groupData.title));
+      header.appendChild(el('p', 'source-group-intro', groupData.intro));
+      group.appendChild(header);
+
+      const list = el('div', 'source-group-list');
+
+      groupData.items.forEach((item) => {
+        const source = el('article', `source-item ${classifySourceTone(item)}`);
+        source.appendChild(el('div', 'source-id', item.id));
+        if (item.title) {
+          source.appendChild(el('h3', '', item.title));
+        }
+        if (item.badges && item.badges.length) {
+          const meta = el('div', 'meta-row');
+          item.badges.forEach((badge) => meta.appendChild(el('span', 'badge badge-status', badge)));
+          source.appendChild(meta);
+        }
+        if (item.role) {
+          source.appendChild(el('p', '', item.role));
+        }
+        if (item.locator) {
+          source.appendChild(el('p', 'source-locator', `Canonical locator: ${item.locator}`));
+        }
+        if (item.usage) {
+          source.appendChild(el('p', '', `Object usage: ${item.usage}`));
+        }
+
+        const { sourceRoutes, objectTouches } = splitSourceLinks(item.links || []);
+
+        if (sourceRoutes.length) {
+          const routeBlock = el('div', 'source-links-block');
+          routeBlock.appendChild(el('div', 'source-links-label', 'Source routes'));
+          const links = el('div', 'object-links');
+          sourceRoutes.forEach((entry) => links.appendChild(link(entry)));
+          routeBlock.appendChild(links);
+          source.appendChild(routeBlock);
+        }
+
+        if (objectTouches.length) {
+          const objectBlock = el('div', 'source-links-block');
+          objectBlock.appendChild(el('div', 'source-links-label', 'Touches objects'));
+          const links = el('div', 'object-links');
+          objectTouches.forEach((entry) => links.appendChild(link(entry)));
+          objectBlock.appendChild(links);
+          source.appendChild(objectBlock);
+        }
+
+        list.appendChild(source);
+      });
+
+      group.appendChild(list);
+      node.appendChild(group);
+    });
+
     app.appendChild(node);
   };
 

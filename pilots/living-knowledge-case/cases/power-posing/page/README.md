@@ -25,20 +25,21 @@ That is enough for the current stage.
 - `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer, validates the release surface, prints a small release summary, supports `--check`, and can emit machine-readable summaries with `--json-summary`
 - `page-data.js` — generated page data consumed by the browser renderer
 - `render.js` — the script that turns the generated data into a page
+- `generic-renderer-seam-v1.md` — the first renderer-seam judgment on what now looks extractable versus what still remains case-scoped
 
 ---
 
 ## Current scope
 
-This renderer prototype is designed to prove six things:
+This renderer prototype is designed to prove seven things:
 
 1. the case can be rendered as a page rather than only as a markdown tree,
 2. object ids can remain visible at the UI layer,
 3. the page can point back to source objects and the reference map,
 4. the snapshot can become a navigable public reading surface,
 5. the page layer can grow from the governed object layer through a minimal generation step,
-6. and the page can now begin to expose the seeded `claims/` and `sources/` layers without replacing the snapshot as the fuller release view,
-7. and the display layer can now make the original-to-descendant claim relation visible as page structure instead of leaving lineage implicit inside links alone.
+6. the page can now begin to expose the seeded `claims/` and `sources/` layers without replacing the snapshot as the fuller release view,
+7. and the display layer can now make both claim lineage and grouped source participation more visible as page structure instead of leaving them implicit inside links alone.
 
 ---
 
@@ -65,12 +66,13 @@ while the snapshot remains the fuller governance-backed release path.
 
 As of the current integration pass, that thinner route now acknowledges not only raw object links and references, but also the seeded public `claims/` and `sources/` layers that have grown around the case.
 
-The current renderer pass also makes one more thing visible at the display layer:
+The current renderer pass also makes two more things visible at the display layer:
 
-> the original claim and the weaker descendant claim now appear as an explicit lineage surface rather than only as two disconnected status cards.
+- the original claim and the weaker descendant claim now appear as an explicit lineage surface rather than only as two disconnected status cards,
+- and the source layer now renders as grouped stacks with split subroutes (`Source routes` / `Touches objects`) rather than as one flat undifferentiated list.
 
 That is still downstream of the governed case layer.
-But it gives the page a more legible claim structure without turning it into a full graph browser.
+But it gives the page a more legible structure without turning it into a full graph browser.
 
 ---
 
@@ -214,12 +216,17 @@ For now, the renderer is intentionally simple and honest:
 - the page reading path is intentionally thinner than the snapshot reading path,
 - the page can now acknowledge the seeded public `claims/` and `sources/` layers without pretending to be a full object browser,
 - the renderer now makes the original-to-descendant claim relation visibly legible in the current judgment surface rather than leaving lineage implicit,
+- the source layer now renders as grouped source stacks with explicit source-route and object-touch subroutes,
 - the generator now validates that those seeded public layers actually exist for the current case,
 - prints a readable release summary,
 - supports a non-writing `--check` mode,
 - can emit machine-readable JSON,
 - the README template seam audit keeps template-governance documents visibly attached to the case entry surface,
 - and the page is a presentation surface over that bridge.
+
+If you want the explicit seam judgment for what may later be extracted into a broader renderer line, read:
+
+- `generic-renderer-seam-v1.md`
 
 ---
 
@@ -231,9 +238,9 @@ The page-layer integration pass proved that the visible page could acknowledge a
 
 This step proves the next thing:
 
-> the generator itself can now uphold that richer contract instead of leaving `page-data.js` ahead of its own publishing pipeline.
+> the same page line can now start to hold stronger claim/source display components without pretending that generic renderer closure has already happened.
 
-That is what turns the recent page integration work from a surface-only move into a more honest publishing chain.
+That is exactly why the seam note now exists beside the renderer itself.
 
 ---
 
@@ -246,4 +253,5 @@ Later iterations may:
 - validate more protocol constraints,
 - support multiple snapshots,
 - push the lineage surface beyond the current two-claim case without hard-coding case assumptions,
+- lift only the first lawful renderer primitives named in `generic-renderer-seam-v1.md`,
 - and eventually merge into a broader public layer renderer.
