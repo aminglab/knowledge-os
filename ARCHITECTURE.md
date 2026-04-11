@@ -200,6 +200,30 @@ Examples:
 
 AI enters through governed actions, not as the center of the interface.
 
+### 10.1 Action grammar (compact rule)
+
+The current action model distinguishes six compact families:
+
+- object creation
+- object revision
+- relation
+- lifecycle
+- epistemic / institutional
+- publication
+- skill-run
+
+Current compact rule:
+
+- actions must not collapse lifecycle change, epistemic change, relation change, and publication change into one undifferentiated event,
+- object revision is distinct from graph mutation,
+- lifecycle change is distinct from epistemic standing,
+- publication actions are distinct from object semantic history,
+- skill-run outputs must remain governed rather than self-authorizing.
+
+Use the detailed companion note for the current working rule:
+
+- `action-governance-grammar-v1.md`
+
 ## 11. Minimal skill runtime for V1
 
 ### Object Extractor
@@ -260,15 +284,18 @@ Suggested core tables:
 - `skill_runs`
 - `snapshots`
 - `snapshot_objects`
+- `actions`
 
 The key is not storage purity.
-The key is preserving object identity, history, and links.
+The key is preserving object identity, history, links, and governed operations.
 
 The `revisions` table should hold append-only semantic revision history rather than acting as a loose edit-log catchall.
 Operational logging may be richer than revision history, but revision history itself should stay accountable and interpretable.
 
 The `id` field should not be prematurely globalized.
 Namespace upgrades should occur only when the repository crosses from repo-local project context into genuinely multi-project identity pressure.
+
+The `actions` table should preserve governed action history rather than collapsing every object event into an untyped audit stream.
 
 ## 15. What must not happen
 
