@@ -114,6 +114,16 @@ If you want the smallest registry note for that boundary, read:
 
 - `section-registry-interface-v1.md`
 
+After the latest cleanup pass, the composer is also less operationally scattered.
+It now centralizes:
+
+- case section-shape options,
+- section mounting helpers,
+- source-group assembly,
+- and link-section composition,
+
+without pretending that those current case semantics are already generic.
+
 ---
 
 ## How it works now
