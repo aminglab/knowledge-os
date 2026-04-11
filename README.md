@@ -76,6 +76,15 @@ If you want the current semantic revision rule for governed objects, start here:
 
 The current rule now makes `revisions` a governed semantic history rather than a loose placeholder field.
 
+### Object id namespace policy
+
+If you want the current rule for why repo-local ids still hold and when project-prefixed ids become necessary, start here:
+
+- [`object-id-namespace-policy-v1.md`](./object-id-namespace-policy-v1.md)
+- [`ARCHITECTURE.md`](./ARCHITECTURE.md)
+
+The current rule keeps repo-local ids lawful for now, while defining the threshold for future namespace upgrades.
+
 ## Current stance
 
 This repository is building toward a system that is:
@@ -102,6 +111,7 @@ Current pilot directions:
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md) — the current working architecture
 - [`ROADMAP.md`](./ROADMAP.md) — staged build and validation plan
 - [`repo-signal-closeout-v1.md`](./repo-signal-closeout-v1.md) — the current stage closeout for repo entry, preview, and revision-governance signal
+- [`object-id-namespace-policy-v1.md`](./object-id-namespace-policy-v1.md) — the current namespace rule for governed object ids
 
 ## Design constraints
 

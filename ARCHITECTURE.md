@@ -123,6 +123,21 @@ Use the detailed companion note for the current working rule:
 
 - `revision-model-v1.md`
 
+### 6.2 Object id namespace rule (compact rule)
+
+The `id` field is currently repo-local and project-contextual rather than globally prefixed.
+
+Current compact rule:
+
+- repo-local object ids remain lawful while the repository still functions as one active governed project environment,
+- short ids such as `C-0001` remain acceptable while routing stays unambiguous inside that scope,
+- explicit project-prefixed ids become necessary only when multiple active project namespaces or cross-project routing make current ids collision-prone,
+- migration to prefixed ids should be threshold-driven, not anticipatory churn.
+
+Use the detailed companion note for the current working rule:
+
+- `object-id-namespace-policy-v1.md`
+
 ## 7. Crucial modeling decision: two axes
 
 Do **not** collapse object lifecycle and epistemic standing into one status field.
@@ -251,6 +266,9 @@ The key is preserving object identity, history, and links.
 
 The `revisions` table should hold append-only semantic revision history rather than acting as a loose edit-log catchall.
 Operational logging may be richer than revision history, but revision history itself should stay accountable and interpretable.
+
+The `id` field should not be prematurely globalized.
+Namespace upgrades should occur only when the repository crosses from repo-local project context into genuinely multi-project identity pressure.
 
 ## 15. What must not happen
 
