@@ -32,6 +32,7 @@ That is enough for the current stage.
 - `renderer-contract-audit-v1.md` — the small renderer-side audit of current contract health and first visible drift risks across `page-data.js`, `renderer-primitives.js`, and `render.js`
 - `composer-hint-hardening-v1.md` — the small hardening note for reducing two renderer-side implicit assumptions without redesigning the generator
 - `page-data-contract-naming-v1.md` — the smallest naming layer for the payload families already present inside `page-data.js`
+- `emitted-hint-admissibility-v1.md` — the smallest admissibility boundary for deciding which future hints may lawfully move from local composer logic into generator-emitted payload fields
 
 ---
 
@@ -66,7 +67,8 @@ More concretely:
 6. the section-registry note names the smallest lawful interface between those two renderer layers,
 7. the contract-audit note records where current renderer coupling is still implicit,
 8. the composer-hardening note records which renderer-side assumptions were locally reduced without escalating to generator redesign,
-9. and the page-data naming note records the payload families that already exist without yet turning them into emitted generator hints.
+9. the page-data naming note records the payload families that already exist without yet turning them into emitted generator hints,
+10. and the emitted-hint admissibility note now records which candidate hints are mature enough to even be considered for future upstream emission.
 
 This means the page layer is **downstream** of the snapshot release layer, not a competing editorial surface.
 It should not invent a second public storyline that diverges from `snapshot-v2.md`.
@@ -131,6 +133,10 @@ If you want the small hardening note for the first reduced assumptions, read:
 If you want the payload-family naming floor for future hint discussions, read:
 
 - `page-data-contract-naming-v1.md`
+
+If you want the current admissibility boundary for future emitted hints, read:
+
+- `emitted-hint-admissibility-v1.md`
 
 After the latest cleanup pass, the composer is also less operationally scattered.
 It now centralizes:
@@ -209,13 +215,14 @@ For now, the renderer is intentionally simple and honest:
 - the generator now validates that those seeded public layers actually exist for the current case,
 - and the page is a presentation surface over that bridge.
 
-If you want the explicit seam judgment and audit notes for what may later be extracted into a broader renderer line, read:
+If you want the explicit seam judgment and governance notes for what may later be extracted into a broader renderer line, read:
 
 - `generic-renderer-seam-v1.md`
 - `section-registry-interface-v1.md`
 - `renderer-contract-audit-v1.md`
 - `composer-hint-hardening-v1.md`
 - `page-data-contract-naming-v1.md`
+- `emitted-hint-admissibility-v1.md`
 
 ---
 
@@ -227,6 +234,6 @@ The page-layer integration pass proved that the visible page could acknowledge a
 
 This step proves the next thing:
 
-> the primitive layer can now absorb a second wave of reusable display units while `render.js` stays honestly case-scoped, that boundary can now be named through a minimal section-shape interface, the first visible renderer-side drift risks can now be audited without prematurely escalating to a generator redesign, the most fragile local composer assumptions can start to be reduced through small hint hardening rather than broad rewrites, and the payload families already present inside `page-data.js` can now be named explicitly before any later emitted-hint upgrade is considered.
+> the primitive layer can now absorb a second wave of reusable display units while `render.js` stays honestly case-scoped, that boundary can now be named through a minimal section-shape interface, the first visible renderer-side drift risks can now be audited without prematurely escalating to a generator redesign, the most fragile local composer assumptions can start to be reduced through small hint hardening rather than broad rewrites, the payload families already present inside `page-data.js` can now be named explicitly before any later emitted-hint upgrade is considered, and the admissibility boundary for those future emitted hints can now be stated before anything is pushed upstream too early.
 
 That is exactly the kind of progress the seam note argued for.
