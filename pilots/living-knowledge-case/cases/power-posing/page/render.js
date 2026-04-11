@@ -23,6 +23,7 @@
     renderSourceItem,
     renderSourceGroup,
     renderFooterCard,
+    defaultSourceLinkRoleClassifier,
   } = primitives;
 
   const sectionAnchors = [];
@@ -34,40 +35,46 @@
       tone: 'judgment',
       kicker: 'Public judgment',
       navLabel: 'Judgment',
+      sectionKind: 'judgment',
     },
     'Why this case matters': {
       tone: 'context',
       kicker: 'Case frame',
       navLabel: 'Why it matters',
+      cardRenderer: 'standard',
     },
     'Current object neighborhoods': {
       tone: 'neighborhoods',
       kicker: 'Object layer',
       navLabel: 'Neighborhoods',
+      cardRenderer: 'standard',
     },
     'Public claim and source routes': {
       tone: 'routes',
       kicker: 'Public layer',
       navLabel: 'Public routes',
+      cardRenderer: 'route',
     },
     Timeline: {
       tone: 'timeline',
       kicker: 'Case chronology',
       navLabel: 'Timeline',
+      sectionKind: 'timeline',
     },
     'Canonical source ids': {
       tone: 'sources',
       kicker: 'Source layer',
       navLabel: 'Sources',
+      sectionKind: 'sources',
     },
     'Reading path': {
       tone: 'reading',
       kicker: 'Downstream route',
       navLabel: 'Reading path',
+      sectionKind: 'link_collection',
     },
   });
 
-  const ROUTE_SECTION_TITLE = 'Public claim and source routes';
   const SOURCE_GROUP_KICKER = 'Grouped source surface';
   const DEFAULT_READING_PATH_INTRO =
     'The page is a release surface, but it still points back to the governed object layer.';
@@ -93,6 +100,10 @@
 
   const getSectionOptions = (title) => CASE_SECTION_OPTIONS[title] || {};
 
+  const getSectionCardRenderer = (title) => getSectionOptions(title).cardRenderer || 'standard';
+
+  const classifySourceLinkRole = (entry = {}) => defaultSourceLinkRoleClassifier(entry);
+
   const setActiveNav = (activeId) => {
     navLinkById.forEach((node, id) => {
       const isActive = id === activeId;
@@ -116,11 +127,12 @@
   };
 
   const buildSourceGroups = (sources) => {
+    const publicCirculationIds = new Set(SOURCE_GROUP_DEFINITIONS[0].ids);
     const sourcesById = new Map(sources.map((item) => [item.id, item]));
     return SOURCE_GROUP_DEFINITIONS.map((group) => {
       const items = group.ids.length
         ? group.ids.map((id) => sourcesById.get(id)).filter(Boolean)
-        : sources.filter((item) => !SOURCE_GROUP_DEFINITIONS[0].ids.includes(item.id));
+        : sources.filter((item) => !publicCirculationIds.has(item.id));
 
       return {
         key: group.key,
@@ -239,11 +251,12 @@
         title: block.title,
         intro: block.intro,
         mount: () => {
+          const cardRenderer = getSectionCardRenderer(block.title);
           const gridClass = block.cards.length >= 3 ? 'grid grid-3' : 'grid grid-2';
-          const grid = el('div', `${gridClass}${block.title === ROUTE_SECTION_TITLE ? ' route-grid' : ''}`);
+          const grid = el('div', `${gridClass}${cardRenderer === 'route' ? ' route-grid' : ''}`);
 
           block.cards.forEach((cardData) => {
-            const card = block.title === ROUTE_SECTION_TITLE ? renderRouteCard(cardData) : renderStandardCard(cardData);
+            const card = cardRenderer === 'route' ? renderRouteCard(cardData) : renderStandardCard(cardData);
             grid.appendChild(card);
           });
 
@@ -278,7 +291,11 @@
               intro: groupData.intro,
               items: groupData.items,
               kicker: SOURCE_GROUP_KICKER,
-              renderItem: (item) => renderSourceItem(item, { toneClass: classifySourceTone(item) }),
+              renderItem: (item) =>
+                renderSourceItem(item, {
+                  toneClass: classifySourceTone(item),
+                  classifyLinkRole: classifySourceLinkRole,
+                }),
             })
           );
         });

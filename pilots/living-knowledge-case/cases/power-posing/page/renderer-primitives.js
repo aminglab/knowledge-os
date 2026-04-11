@@ -140,12 +140,21 @@
     return wrap;
   };
 
-  const splitSourceLinks = (links = []) => {
+  const defaultSourceLinkRoleClassifier = (entry = {}) => {
+    if (typeof entry.href !== 'string') return 'object_touch';
+    if (entry.href.startsWith('../sources/') || entry.href.startsWith('../references-metadata-v1.md#')) {
+      return 'source_route';
+    }
+    return 'object_touch';
+  };
+
+  const splitSourceLinks = (links = [], classifyLinkRole = defaultSourceLinkRoleClassifier) => {
     const sourceRoutes = [];
     const objectTouches = [];
 
     links.forEach((entry) => {
-      if (entry.label.startsWith('Open source')) {
+      const role = classifyLinkRole(entry);
+      if (role === 'source_route') {
         sourceRoutes.push(entry);
       } else {
         objectTouches.push(entry);
@@ -166,6 +175,7 @@
 
   const renderSourceItem = (item, options = {}) => {
     const toneClass = options.toneClass || '';
+    const classifyLinkRole = options.classifyLinkRole || defaultSourceLinkRoleClassifier;
     const source = el('article', `source-item ${toneClass}`.trim());
     source.appendChild(el('div', 'source-id', item.id));
     if (item.title) {
@@ -183,7 +193,7 @@
       source.appendChild(el('p', '', `Object usage: ${item.usage}`));
     }
 
-    const { sourceRoutes, objectTouches } = splitSourceLinks(item.links || []);
+    const { sourceRoutes, objectTouches } = splitSourceLinks(item.links || [], classifyLinkRole);
     const sourceRoutesBlock = renderSourceLinksBlock('Source routes', sourceRoutes);
     if (sourceRoutesBlock) source.appendChild(sourceRoutesBlock);
     const objectTouchesBlock = renderSourceLinksBlock('Touches objects', objectTouches);
@@ -236,6 +246,7 @@
     renderStandardCard,
     renderStatusCard,
     renderTimelineItem,
+    defaultSourceLinkRoleClassifier,
     splitSourceLinks,
     renderSourceLinksBlock,
     renderSourceItem,
