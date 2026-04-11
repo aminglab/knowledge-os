@@ -72,6 +72,30 @@ This is a real public-layer foundation, not a finished public product shell.
 
 ---
 
+## Preview the first living page locally
+
+If you want to do more than read markdown and actually preview the current living page locally, go here:
+
+- [`power-posing/page/README.md`](./pilots/living-knowledge-case/cases/power-posing/page/README.md)
+- [`preview_page.py`](./pilots/living-knowledge-case/cases/power-posing/page/preview_page.py)
+
+That route now gives a forked checkout a small local preview path for the first public case.
+
+---
+
+## Governance routes
+
+If you want repository-level governance context rather than only the public case surface, continue with:
+
+- [`README.md`](./README.md)
+- [`FOUNDING.md`](./FOUNDING.md)
+- [`ARCHITECTURE.md`](./ARCHITECTURE.md)
+- [`revision-model-v1.md`](./revision-model-v1.md)
+
+The revision model route now makes the `revisions` field a governed semantic history rather than a loose placeholder.
+
+---
+
 ## Next routes
 
 If you want to continue reading in public-layer order:
@@ -85,6 +109,7 @@ If you want repository-level context instead, continue with:
 - [`README.md`](./README.md)
 - [`FOUNDING.md`](./FOUNDING.md)
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md)
+- [`revision-model-v1.md`](./revision-model-v1.md)
 
 ---
 

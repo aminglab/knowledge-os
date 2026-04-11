@@ -54,6 +54,28 @@ Start here if you want the public-facing surface first rather than the repositor
 - [`PUBLIC-CASES.md`](./PUBLIC-CASES.md) — the current public case listing seed
 - [`Power Posing`](./pilots/living-knowledge-case/cases/power-posing/snapshots/snapshot-v2.md) — the first public case homepage
 
+## Preview and governance entry points
+
+Two recently strengthened repo-level routes are now worth surfacing directly:
+
+### Local preview of the first public case
+
+If you want to locally preview the current living page rather than only read markdown surfaces, start here:
+
+- [`power-posing/page/README.md`](./pilots/living-knowledge-case/cases/power-posing/page/README.md)
+- [`preview_page.py`](./pilots/living-knowledge-case/cases/power-posing/page/preview_page.py)
+
+The local preview helper can refresh `page-data.js` and start a tiny static server so a forked checkout can show the current page quickly.
+
+### Revision governance
+
+If you want the current semantic revision rule for governed objects, start here:
+
+- [`revision-model-v1.md`](./revision-model-v1.md)
+- [`ARCHITECTURE.md`](./ARCHITECTURE.md)
+
+The current rule now makes `revisions` a governed semantic history rather than a loose placeholder field.
+
 ## Current stance
 
 This repository is building toward a system that is:
