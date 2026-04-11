@@ -51,7 +51,7 @@ It only asserts the minimum wording anchors that should remain present if the pu
 - Snapshot label: `Original claim`
 - Snapshot current state: `contested and significantly weakened`
 - Required claim epistemic status: `contested`
-- Required verdict level: `original_claim_contested_and_weakened`
+- Required verdict level: `weakened`
 - Required verdict anchors: `contested`, `weakened`, `split lineage`
 
 ### `descendant_claim_status`
@@ -60,7 +60,7 @@ It only asserts the minimum wording anchors that should remain present if the pu
 - Snapshot label: `Descendant claim`
 - Snapshot current state: `contested but still surviving`
 - Required claim epistemic status: `contested`
-- Required verdict level: `descendant_claim_contested_but_surviving`
+- Required verdict level: `contested`
 - Required verdict anchors: `contested`, `surviving`, `weaker`
 
 ---
