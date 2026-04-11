@@ -78,13 +78,6 @@ CANONICAL_VERDICT_LEVELS = {
     "stabilized",
 }
 
-PILOT_LOCAL_VERDICT_LEVELS = {
-    "original_claim_contested_and_weakened",
-    "descendant_claim_contested_but_surviving",
-}
-
-RESOLVING_VERDICT_LINK_TYPES = {"rules_on"}
-
 
 class ProtocolRecordConsistencyError(Exception):
     """Raised when hard-fail consistency violations are present."""
@@ -281,9 +274,10 @@ def validate_links(
             pass
         elif link_type in LEGACY_RELATION_ALIASES:
             legacy += 1
-            warnings.append(
-                f"{object_id}: link #{idx} uses legacy relation alias `{link_type}`; migrate toward canonical relation grammar"
+            hard_failures.append(
+                f"{object_id}: link #{idx} uses legacy relation alias `{link_type}`; canonical relation floor is now required"
             )
+            continue
         else:
             hard_failures.append(f"{object_id}: link #{idx} uses unknown relation type `{link_type}`")
             continue
@@ -301,46 +295,13 @@ def resolve_verdict_target(
     frontmatter: dict[str, Any],
     object_map: dict[str, dict[str, Any]],
     hard_failures: list[str],
-    warnings: list[str],
 ) -> str | None:
-    explicit = frontmatter.get("target_claim_id")
-    links = frontmatter.get("links")
-    legacy_targets: list[str] = []
+    target_claim_id = frontmatter.get("target_claim_id")
+    if not isinstance(target_claim_id, str) or not target_claim_id.strip():
+        hard_failures.append(f"{object_id}: verdict must declare explicit `target_claim_id`")
+        return None
 
-    if isinstance(links, list):
-        for item in links:
-            if isinstance(item, dict) and item.get("type") in RESOLVING_VERDICT_LINK_TYPES:
-                target = item.get("target")
-                if isinstance(target, str) and target.strip():
-                    legacy_targets.append(target.strip())
-
-    if explicit is not None:
-        if not isinstance(explicit, str) or not explicit.strip():
-            hard_failures.append(f"{object_id}: `target_claim_id` must be a non-empty string when present")
-            return None
-        target_claim_id = explicit.strip()
-        if legacy_targets:
-            if len(legacy_targets) != 1 or legacy_targets[0] != target_claim_id:
-                hard_failures.append(
-                    f"{object_id}: `target_claim_id` and legacy `rules_on` link disagree on verdict target"
-                )
-            else:
-                warnings.append(
-                    f"{object_id}: retains legacy `rules_on` link even though `target_claim_id` is present"
-                )
-    else:
-        if not legacy_targets:
-            hard_failures.append(f"{object_id}: verdict must declare `target_claim_id` or a temporary resolving `rules_on` link")
-            return None
-        unique_targets = sorted(set(legacy_targets))
-        if len(unique_targets) != 1:
-            hard_failures.append(f"{object_id}: verdict resolves to multiple legacy `rules_on` targets: {', '.join(unique_targets)}")
-            return None
-        target_claim_id = unique_targets[0]
-        warnings.append(
-            f"{object_id}: verdict target currently inferred through legacy `rules_on` relation; add explicit `target_claim_id`"
-        )
-
+    target_claim_id = target_claim_id.strip()
     target_obj = object_map.get(target_claim_id)
     if target_obj is None:
         hard_failures.append(f"{object_id}: verdict target `{target_claim_id}` does not resolve to a real object")
@@ -369,14 +330,10 @@ def validate_verdict_record(
         verdict_level = verdict_level.strip()
         if verdict_level in CANONICAL_VERDICT_LEVELS:
             pass
-        elif verdict_level in PILOT_LOCAL_VERDICT_LEVELS:
-            warnings.append(
-                f"{object_id}: uses pilot-local verdict level `{verdict_level}`; migrate or formally declare extension against compact verdict floor"
-            )
         else:
-            hard_failures.append(f"{object_id}: unknown `verdict_level` `{verdict_level}`")
+            hard_failures.append(f"{object_id}: verdict_level `{verdict_level}` is outside the current compact verdict floor")
 
-    resolve_verdict_target(object_id, frontmatter, object_map, hard_failures, warnings)
+    resolve_verdict_target(object_id, frontmatter, object_map, hard_failures)
 
     basis_refs = ensure_string_list(frontmatter.get("basis_refs"), "basis_refs", object_id, hard_failures)
     if verdict_level != "under_evaluation" and not basis_refs:
