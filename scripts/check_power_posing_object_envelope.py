@@ -46,7 +46,7 @@ FAMILY_ALLOWED_FIELDS = {
     "claim": set(),
     "evidence": set(),
     "dissent": {"dissent_kind", "severity"},
-    "verdict": {"verdict_level"},
+    "verdict": {"verdict_level", "target_claim_id"},
 }
 
 ENTRY_RE = re.compile(r"\n### `([^`]+)`\n")
@@ -164,9 +164,13 @@ def extract_section(markdown: str, heading: str) -> str:
     return match.group(1).strip() if match else ""
 
 
-def parse_protocol_values(path: Path, heading: str) -> set[str]:
-    section = extract_section(read_text(path), heading)
-    return set(re.findall(r"- `([^`]+)`", section))
+def parse_protocol_values(path: Path, headings: list[str]) -> set[str]:
+    for heading in headings:
+        section = extract_section(read_text(path), heading)
+        values = set(re.findall(r"- `([^`]+)`", section))
+        if values:
+            return values
+    return set()
 
 
 def parse_metadata_source_ids() -> set[str]:
@@ -235,13 +239,13 @@ def validate_links(value: Any, object_id: str, object_ids: set[str], link_types:
 
 def validate_objects() -> dict[str, int]:
     enums = {
-        "lifecycle_state": parse_protocol_values(ENUMS_PATH, "lifecycle_state"),
-        "epistemic_status": parse_protocol_values(ENUMS_PATH, "epistemic_status"),
-        "visibility": parse_protocol_values(ENUMS_PATH, "visibility"),
-        "dissent_kind": parse_protocol_values(ENUMS_PATH, "dissent_kind"),
-        "severity": parse_protocol_values(ENUMS_PATH, "severity"),
+        "lifecycle_state": parse_protocol_values(ENUMS_PATH, ["lifecycle_state"]),
+        "epistemic_status": parse_protocol_values(ENUMS_PATH, ["epistemic_status"]),
+        "visibility": parse_protocol_values(ENUMS_PATH, ["visibility"]),
+        "dissent_kind": parse_protocol_values(ENUMS_PATH, ["dissent_kind"]),
+        "severity": parse_protocol_values(ENUMS_PATH, ["severity"]),
     }
-    link_types = parse_protocol_values(LINK_TYPES_PATH, "Current working link types")
+    link_types = parse_protocol_values(LINK_TYPES_PATH, ["Current canonical link floor", "Current working link types"])
     metadata_source_ids = parse_metadata_source_ids()
     objects = load_objects()
     object_ids = set(objects)
@@ -302,6 +306,14 @@ def validate_objects() -> dict[str, int]:
             verdict_level = frontmatter.get("verdict_level")
             if not isinstance(verdict_level, str) or not verdict_level.strip():
                 errors.append(f"{object_id}: missing non-empty `verdict_level`")
+
+            target_claim_id = frontmatter.get("target_claim_id")
+            if not isinstance(target_claim_id, str) or not target_claim_id.strip():
+                errors.append(f"{object_id}: missing non-empty `target_claim_id`")
+            elif target_claim_id not in object_ids:
+                errors.append(f"{object_id}: `target_claim_id` points to missing object `{target_claim_id}`")
+            elif objects[target_claim_id]["object_type"] != "claim":
+                errors.append(f"{object_id}: `target_claim_id` must point to a `claim`, found `{objects[target_claim_id]['object_type']}`")
 
         key_facts = frontmatter.get("key_facts")
         if key_facts is not None and not isinstance(key_facts, dict):
