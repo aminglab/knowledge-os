@@ -31,6 +31,7 @@ That is enough for the current stage.
 - `section-registry-interface-v1.md` — the smallest lawful section-shape interface note between the primitive layer and the still case-scoped composer
 - `renderer-contract-audit-v1.md` — the small renderer-side audit of current contract health and first visible drift risks across `page-data.js`, `renderer-primitives.js`, and `render.js`
 - `composer-hint-hardening-v1.md` — the small hardening note for reducing two renderer-side implicit assumptions without redesigning the generator
+- `page-data-contract-naming-v1.md` — the smallest naming layer for the payload families already present inside `page-data.js`
 
 ---
 
@@ -64,7 +65,8 @@ More concretely:
 5. the case composer turns that generated data into the current `power-posing` page surface,
 6. the section-registry note names the smallest lawful interface between those two renderer layers,
 7. the contract-audit note records where current renderer coupling is still implicit,
-8. and the composer-hardening note records which two of those couplings were locally reduced without escalating to generator redesign.
+8. the composer-hardening note records which renderer-side assumptions were locally reduced without escalating to generator redesign,
+9. and the page-data naming note records the payload families that already exist without yet turning them into emitted generator hints.
 
 This means the page layer is **downstream** of the snapshot release layer, not a competing editorial surface.
 It should not invent a second public storyline that diverges from `snapshot-v2.md`.
@@ -122,9 +124,13 @@ If you want the current small audit of where contract drift might appear first, 
 
 - `renderer-contract-audit-v1.md`
 
-If you want the small hardening note for the first two reduced assumptions, read:
+If you want the small hardening note for the first reduced assumptions, read:
 
 - `composer-hint-hardening-v1.md`
+
+If you want the payload-family naming floor for future hint discussions, read:
+
+- `page-data-contract-naming-v1.md`
 
 After the latest cleanup pass, the composer is also less operationally scattered.
 It now centralizes:
@@ -209,6 +215,7 @@ If you want the explicit seam judgment and audit notes for what may later be ext
 - `section-registry-interface-v1.md`
 - `renderer-contract-audit-v1.md`
 - `composer-hint-hardening-v1.md`
+- `page-data-contract-naming-v1.md`
 
 ---
 
@@ -220,6 +227,6 @@ The page-layer integration pass proved that the visible page could acknowledge a
 
 This step proves the next thing:
 
-> the primitive layer can now absorb a second wave of reusable display units while `render.js` stays honestly case-scoped, that boundary can now be named through a minimal section-shape interface, the first visible renderer-side drift risks can now be audited without prematurely escalating to a generator redesign, and the most fragile local composer assumptions can start to be reduced through small hint hardening rather than broad rewrites.
+> the primitive layer can now absorb a second wave of reusable display units while `render.js` stays honestly case-scoped, that boundary can now be named through a minimal section-shape interface, the first visible renderer-side drift risks can now be audited without prematurely escalating to a generator redesign, the most fragile local composer assumptions can start to be reduced through small hint hardening rather than broad rewrites, and the payload families already present inside `page-data.js` can now be named explicitly before any later emitted-hint upgrade is considered.
 
 That is exactly the kind of progress the seam note argued for.

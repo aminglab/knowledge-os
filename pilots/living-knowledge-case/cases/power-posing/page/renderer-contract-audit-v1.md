@@ -111,8 +111,8 @@ The following are the first concrete drift risks.
 
 Examples of current risk shape:
 
-- route-section behavior is keyed off the current route-section title
-- section options are keyed by current visible section title strings
+- route-section behavior was previously keyed off the current route-section title
+- section options are still keyed by current visible section title strings
 
 That is acceptable right now.
 But it means a future rename of section titles could silently change composition behavior if the note and the data drift apart.
@@ -122,12 +122,16 @@ It is a **rename-coupling risk**.
 
 ### 2. label-driven source-link splitting
 
-The source layer still splits link meaning by checking whether a link label begins with `Open source`.
+The source layer previously split link meaning by checking whether a link label began with `Open source`.
 
-That means current semantics partly depend on display wording.
-If a future wording pass changes link labels while keeping the same structural intent, the source-route / object-touch split could drift.
+That specific wording-coupling risk has now been locally reduced by the href-based classifier described in `composer-hint-hardening-v1.md`.
 
-This is the clearest current **presentation-text coupling risk**.
+So the risk is no longer best described as label-driven.
+The current residual risk is smaller:
+
+- source link roles are still inferred locally rather than emitted upstream.
+
+That is a **local role-inference risk**, not a presentation-text coupling risk anymore.
 
 ### 3. id-driven source grouping
 
@@ -148,9 +152,16 @@ Examples:
 - standard / route cards use `body`
 
 This is not necessarily wrong.
-But it means the page-data card family is already plural, while the contract is still only lightly named.
+It also no longer needs to remain unnamed.
+The family naming layer is now recorded in `page-data-contract-naming-v1.md`.
 
-This is a **card-family naming risk**, not yet a rendering failure.
+So the current residual issue is no longer “unnamed divergence”.
+It is smaller:
+
+- payload families are now named,
+- but those family names are not yet emitted as machine-readable hints.
+
+This is a **family-naming-complete / emitted-hint-not-yet-present** state.
 
 ### 5. composer hints are still implicit
 
@@ -202,9 +213,9 @@ because this is still a single real case.
 The next time this page line changes materially, re-check these four areas first:
 
 1. section title changes
-2. source link label wording changes
-3. source id set changes
-4. page-data card-field shape changes
+2. source-group id set changes
+3. page-data card-field shape changes
+4. whether local role inference is still small enough to remain local
 
 That is the real use of this audit.
 
@@ -237,6 +248,7 @@ So the practical verdict is:
 - **contract still passes**
 - **no immediate renderer-seam rewrite needed**
 - **implicit composer assumptions now formally identified**
-- **future drift most likely to appear first in title / label / source-id coupling**
+- **payload family naming now exists**
+- **future drift most likely to appear first in title / source-group / local-role-inference coupling**
 
 That is enough for the current stage.
