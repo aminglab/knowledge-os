@@ -48,20 +48,21 @@ The current working shape is:
 
 ```yaml
 ---
-id: C-0001
+id: C-0002
 object_type: claim
-title: Short power poses can change hormone levels and affect risk-taking behavior
+title: A weaker descendant claim about subjective feeling may survive the collapse of the original strong-form claim
 lifecycle_state: active
 epistemic_status: contested
 visibility: public
 source_refs:
-  - Carney_Cuddy_Yap_2010
+  - Ranehill_et_al_2015
+  - Dana_Carney_2016_statement
 key_facts:
-  year: 2010
-  sample_size: 42
+  year: 2015
+  scope: weaker descendant route
 links:
-  - type: supported_by
-    target: E-0001
+  - type: descends_from
+    target: C-0001
 ---
 ```
 
@@ -192,20 +193,30 @@ It is to preserve the small number of facts that are especially useful for index
 ---
 
 ### `links`
-Typed relations from this object to other objects.
+Typed directed relations from this object to other governed objects.
 
 Each link currently uses the working shape:
 
 ```yaml
 links:
-  - type: attacks
+  - type: supports
     target: C-0001
 ```
 
-Use the working relation vocabulary defined in [`link-types.md`](./link-types.md).
+Use the current relation floor defined in:
+
+- [`object-relation-grammar-v1.md`](../object-relation-grammar-v1.md)
+- [`link-types.md`](./link-types.md)
+
+Current direction rule:
+
+> the source object is making the governed move named by `type` toward the `target`.
 
 This field is required.
 Even if the list is short, relation discipline is central to the system.
+
+Legacy pilot names such as `supported_by`, `attacks`, `ruled_on`, or `splits_to` may still appear in older materials.
+They should now be treated as migration vocabulary rather than the preferred canonical graph language.
 
 ---
 
@@ -238,6 +249,8 @@ Usually expected to include:
 - `source_refs`
 - `links`
 
+Evidence objects should now prefer canonical outward relation names such as `supports`, `challenges`, or `cites` rather than mirrored reverse labels.
+
 ### Dissent
 Usually expected to include:
 
@@ -254,6 +267,8 @@ Usually expected to include:
 
 `dissent_kind` and `severity` are governed by the working enum vocabulary in [`enums.md`](./enums.md).
 
+Dissent objects should now prefer canonical outward relation names such as `challenges` or `cites`.
+
 ### Verdict
 Usually expected to include:
 
@@ -266,7 +281,11 @@ Usually expected to include:
 - `basis_refs`
 - `links`
 
-`verdict_level` is still pilot-specific and intentionally provisional.
+`verdict_level` is no longer only an unnamed pilot-local prose field.
+The current compact verdict floor is now described in [`verdict-grammar-v1.md`](../verdict-grammar-v1.md).
+
+Older pilot materials may still infer verdict targeting through legacy relation names such as `rules_on`.
+That should now be treated as a migration pattern rather than the preferred long-term shape.
 
 ---
 
@@ -293,10 +312,11 @@ They should not be front-loaded before repeated use demands them.
 When adding or editing object files in early pilots:
 
 1. Prefer the current working envelope.
-2. Prefer current enum values and link types.
+2. Prefer current enum values and canonical relation names.
 3. Do not invent new top-level frontmatter fields casually.
 4. If a new field is genuinely needed, add it deliberately and explain why.
 5. Keep `source_refs` aligned with canonical source ids defined by the case or project.
+6. Treat older mirrored or pilot-local relation names as migration debt, not as the stable target shape.
 
 ---
 
