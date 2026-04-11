@@ -24,6 +24,7 @@ That is enough for the current stage.
 - `index.html` — the page shell
 - `styles.css` — the current visual layer
 - `generate_page_data.py` — the case-scoped generator that derives page data from the current case layer, validates the release surface, prints a small release summary, supports `--check`, and can emit machine-readable summaries with `--json-summary`
+- `preview_page.py` — the local preview helper that can refresh `page-data.js` and start a tiny static server for browser preview
 - `page-data.js` — generated page data consumed by the browser renderer
 - `renderer-primitives.js` — the extracted renderer primitive layer
 - `render.js` — the case-scoped page composer that now assembles `power-posing` from the primitive layer rather than defining every primitive inline
@@ -48,6 +49,36 @@ This renderer prototype is designed to prove eight things:
 6. the page can now begin to expose the seeded `claims/` and `sources/` layers without replacing the snapshot as the fuller release view,
 7. the display layer can now make both claim lineage and grouped source participation more visible as page structure instead of leaving them implicit inside links alone,
 8. and the first lawful renderer primitives can now be extracted in more than one layer without pretending the whole page stack is already generic.
+
+---
+
+## Local preview
+
+The easiest local preview path is now:
+
+```bash
+cd pilots/living-knowledge-case/cases/power-posing/page
+python preview_page.py
+```
+
+By default this does two things:
+
+1. refreshes `page-data.js` by running `generate_page_data.py`
+2. serves the page locally at `http://127.0.0.1:4173/index.html`
+
+It will also try to open a browser automatically.
+
+Useful options:
+
+```bash
+python preview_page.py --no-open
+python preview_page.py --port 8080
+python preview_page.py --no-refresh
+python preview_page.py --check-only
+```
+
+Use `--check-only` when you want generator validation before preview without rewriting `page-data.js`.
+Use `--no-refresh` when you already trust the current generated file and just want a fast local page preview.
 
 ---
 
@@ -159,7 +190,7 @@ The current intended flow is:
 3. run `generate_page_data.py`
 4. let the generator validate the current case layer and seeded public page surfaces
 5. review the printed release summary or emitted JSON summary
-6. open `index.html`
+6. open `index.html` or use `preview_page.py`
 
 That means `page-data.js` should now be treated as a **generated artifact**, not as the canonical place to edit case content.
 
@@ -234,6 +265,6 @@ The page-layer integration pass proved that the visible page could acknowledge a
 
 This step proves the next thing:
 
-> the primitive layer can now absorb a second wave of reusable display units while `render.js` stays honestly case-scoped, that boundary can now be named through a minimal section-shape interface, the first visible renderer-side drift risks can now be audited without prematurely escalating to a generator redesign, the most fragile local composer assumptions can start to be reduced through small hint hardening rather than broad rewrites, the payload families already present inside `page-data.js` can now be named explicitly before any later emitted-hint upgrade is considered, and the admissibility boundary for those future emitted hints can now be stated before anything is pushed upstream too early.
+> the primitive layer can now absorb a second wave of reusable display units while `render.js` stays honestly case-scoped, that boundary can now be named through a minimal section-shape interface, the first visible renderer-side drift risks can now be audited without prematurely escalating to a generator redesign, the most fragile local composer assumptions can start to be reduced through small hint hardening rather than broad rewrites, the payload families already present inside `page-data.js` can now be named explicitly before any later emitted-hint upgrade is considered, the admissibility boundary for those future emitted hints can now be stated before anything is pushed upstream too early, and the page can now be previewed locally with a single small helper rather than requiring manual serving steps.
 
 That is exactly the kind of progress the seam note argued for.
