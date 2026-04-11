@@ -101,6 +101,7 @@ Current pilot directions:
 - [`FOUNDING.md`](./FOUNDING.md) — the short founding narrative
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md) — the current working architecture
 - [`ROADMAP.md`](./ROADMAP.md) — staged build and validation plan
+- [`repo-signal-closeout-v1.md`](./repo-signal-closeout-v1.md) — the current stage closeout for repo entry, preview, and revision-governance signal
 
 ## Design constraints
 
