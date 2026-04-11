@@ -28,6 +28,7 @@ That is enough for the current stage.
 - `renderer-primitives.js` — the extracted renderer primitive layer
 - `render.js` — the case-scoped page composer that now assembles `power-posing` from the primitive layer rather than defining every primitive inline
 - `generic-renderer-seam-v1.md` — the first renderer-seam judgment on what now looks extractable versus what still remains case-scoped
+- `section-registry-interface-v1.md` — the smallest lawful section-shape interface note between the primitive layer and the still case-scoped composer
 
 ---
 
@@ -58,7 +59,8 @@ More concretely:
 2. `snapshots/snapshot-v2.md` acts as the current **public homepage** for the case,
 3. the generator derives `page-data.js` from that governed case layer,
 4. the extracted primitive layer provides a small reusable renderer substrate,
-5. and the case composer turns that generated data into the current `power-posing` page surface.
+5. the case composer turns that generated data into the current `power-posing` page surface,
+6. and the section-registry note now names the smallest lawful interface between those two renderer layers.
 
 This means the page layer is **downstream** of the snapshot release layer, not a competing editorial surface.
 It should not invent a second public storyline that diverges from `snapshot-v2.md`.
@@ -107,6 +109,10 @@ This is the important boundary:
 
 > the primitive layer now owns reusable display units,
 > while `render.js` still owns the `power-posing` composition logic.
+
+If you want the smallest registry note for that boundary, read:
+
+- `section-registry-interface-v1.md`
 
 ---
 
@@ -178,6 +184,7 @@ For now, the renderer is intentionally simple and honest:
 If you want the explicit seam judgment for what may later be extracted into a broader renderer line, read:
 
 - `generic-renderer-seam-v1.md`
+- `section-registry-interface-v1.md`
 
 ---
 
@@ -189,6 +196,6 @@ The page-layer integration pass proved that the visible page could acknowledge a
 
 This step proves the next thing:
 
-> the primitive layer can now absorb a second wave of reusable display units while `render.js` stays honestly case-scoped.
+> the primitive layer can now absorb a second wave of reusable display units while `render.js` stays honestly case-scoped, and that boundary can now be named through a minimal section-shape interface.
 
 That is exactly the kind of progress the seam note argued for.

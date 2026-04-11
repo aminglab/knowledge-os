@@ -64,6 +64,13 @@ That extraction is still intentionally small.
 But it is no longer symbolic.
 It proves that primitive extraction can continue in code while the page composer remains case-scoped.
 
+The seam is now complemented by one more small note:
+
+- `section-registry-interface-v1.md`
+
+That note does not genericize the page system.
+It only names the smallest lawful interface between the primitive layer and the case composer.
+
 ---
 
 ## What now looks like a plausible renderer seam
@@ -146,7 +153,7 @@ Still clearly case-bound:
 
 ### 2. section registry semantics
 
-Still clearly case-bound:
+Still case-scoped:
 
 - `Why this case matters`
 - `Current object neighborhoods`
@@ -187,6 +194,20 @@ It composes:
 That is still correct.
 The extraction so far does **not** change that ruling.
 
+### 6. section semantics versus section-shape interface
+
+The new section-registry note changes one thing only:
+
+- the smallest lawful section-shape interface can now be named.
+
+It does **not** change the following ruling:
+
+- section semantics remain case-scoped,
+- section ordering remains case-scoped,
+- section body meaning remains case-scoped.
+
+So the registry note must not be misread as semantic closure.
+
 ---
 
 ## The lawful next extraction move
@@ -200,7 +221,7 @@ Concretely, that means:
 1. keep the generator case-scoped for now,
 2. keep `render.js` as the case composer,
 3. continue moving only display primitives that no longer depend on `power-posing` wording,
-4. describe a tiny section-registry interface only after more than one case exists,
+4. use the section-registry note only as a section-shape boundary note,
 5. wait for a second case before claiming generic renderer closure.
 
 This remains the key discipline:
@@ -221,6 +242,7 @@ The following moves would still be premature:
 - extracting source taxonomy as if it were already cross-case stable
 - claiming graph-browser capability from a short lineage rail
 - collapsing the case composer into a fake universal runtime
+- misreading the section-registry note as a cross-case semantic registry
 
 That would be theater, not engineering.
 
@@ -234,6 +256,7 @@ So the current practical consequence is:
 - **yes** to seam identification,
 - **yes** to first primitive extraction,
 - **yes** to second-wave primitive extraction,
+- **yes** to a minimal section-shape registry note,
 - **no** to fake generic closure,
 - **no** to broad renderer extraction before a second case exists.
 
