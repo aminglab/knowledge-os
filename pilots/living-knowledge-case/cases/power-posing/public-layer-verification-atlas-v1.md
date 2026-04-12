@@ -89,6 +89,7 @@ Core artifacts:
 - `claims/*.md`
 - `claim-page-layering-v1.md`
 - `scripts/check_power_posing_claim_page_layering.py`
+- `scripts/check_power_posing_claim_page_pressure_coverage.py`
 
 ### 5. source page public layer
 This is the first human-readable case-participation layer for sources.
@@ -189,7 +190,17 @@ Below is the current public-layer verification network, ordered from lower subst
   - claim-page title drift from the governed object title
 - **Failure meaning:** claim pages are no longer doing their job as the human-readable neighborhood summary layer
 
-### 6. Source page layering
+### 6. Claim page pressure coverage
+- **Primary script:** `scripts/check_power_posing_claim_page_pressure_coverage.py`
+- **Protected layer:** claim-page support/challenge fidelity to direct object-side pressure-bearing relations
+- **Reads:** `claims/*.md`, all object files
+- **Main job:** ensure that every direct inbound `supports` or `challenges` relation targeting a claim is actually surfaced in the appropriate public claim-page section
+- **Typical drift caught:**
+  - a direct supporting object disappearing from `Support surface`,
+  - a direct challenging object disappearing from `Challenge surface`
+- **Failure meaning:** the claim page still has the right section headings, but it is no longer faithfully summarizing the direct pressure-bearing neighborhood of the governed claim
+
+### 7. Source page layering
 - **Primary script:** `scripts/check_power_posing_source_page_layering.py`
 - **Protected layer:** source-page public readability layer
 - **Reads:** `sources/*.md`, `references-metadata-v1.md`
@@ -204,7 +215,7 @@ Below is the current public-layer verification network, ordered from lower subst
   - object-usage section without actual governed object links
 - **Failure meaning:** source pages are no longer acting as the public case-participation layer for sources
 
-### 7. Snapshot section layering
+### 8. Snapshot section layering
 - **Primary script:** `scripts/check_power_posing_snapshot_section_layering.py`
 - **Protected layer:** snapshot release-view structure
 - **Reads:** `snapshots/snapshot-v2.md`, current object set, status legend and verdict grammar paths
@@ -216,7 +227,7 @@ Below is the current public-layer verification network, ordered from lower subst
   - missing included-object exposure
 - **Failure meaning:** the snapshot has started to lose its release-view structure
 
-### 8. Snapshot consistency
+### 9. Snapshot consistency
 - **Primary script:** `scripts/check_power_posing_snapshot_consistency.py`
 - **Protected layer:** snapshot narrative fidelity to current governed objects and source ids
 - **Reads:** `snapshot-v2.md`, `references-metadata-v1.md`, all object files
@@ -228,7 +239,7 @@ Below is the current public-layer verification network, ordered from lower subst
   - canonical source id coverage drift
 - **Failure meaning:** the snapshot still has structure, but no longer truthfully points to the current governed layer
 
-### 9. Reference metadata consistency
+### 10. Reference metadata consistency
 - **Primary script:** `scripts/check_power_posing_reference_metadata.py`
 - **Protected layer:** stable source metadata floor
 - **Reads:** `references-metadata-v1.md`, all object files
@@ -239,7 +250,7 @@ Below is the current public-layer verification network, ordered from lower subst
   - object usage declarations that no longer match object frontmatter
 - **Failure meaning:** public source pages and snapshot source routes are sitting on stale source metadata
 
-### 10. Public surface consistency
+### 11. Public surface consistency
 - **Primary script:** `scripts/check_power_posing_public_surface.py`
 - **Protected layer:** reader-facing navigation entry surface
 - **Reads:** `snapshot-v2.md`, `README.md`
@@ -249,7 +260,7 @@ Below is the current public-layer verification network, ordered from lower subst
   - missing required snapshot / references / timeline / case-entry routes
 - **Failure meaning:** the public layer is still internally coherent, but the outside reader can no longer navigate it properly
 
-### 11. Page emission validation
+### 12. Page emission validation
 - **Primary surface:** `page/generate_page_data.py` in validation mode, plus page-related CI entrypoints
 - **Protected layer:** downstream page-data contract and page prototype emission layer
 - **Reads:** object files, snapshot, timeline, references metadata, page stack
@@ -290,6 +301,15 @@ These three are parallel, not hierarchical.
 
 Each is a different compensation layer for a different public surface.
 
+### Claim page layering vs claim page pressure coverage
+These are adjacent but not duplicate.
+
+- **Claim page layering** checks whether the claim page still has the required public sections and correct linked-verdict routing.
+- **Claim page pressure coverage** checks whether those sections still faithfully expose the direct pressure-bearing support/challenge neighborhood from the governed object layer.
+
+A page can keep all the right section headings and still quietly omit the actual objects that matter.
+These two checks catch different failure modes.
+
 ### Snapshot section layering vs snapshot consistency
 These are adjacent but not duplicate.
 
@@ -324,10 +344,7 @@ It does not yet deeply validate subsection-by-subsection semantic content inside
 ### 3. No source-page role-anchor checker yet
 The current source-page layering checker verifies structure and metadata alignment, but it does not yet inspect whether the prose role explanation preserves specific anchor phrases or semantic commitments.
 
-### 4. No claim-page support/challenge coverage checker yet
-The current claim-page layering checker ensures those sections exist, but it does not yet verify whether a claim page’s support/challenge summary fully reflects all relevant object-side pressure-bearing relations.
-
-### 5. No public-layer atlas checker yet
+### 4. No public-layer atlas checker yet
 This atlas itself is currently documentary, not checked.
 It can still drift unless later given a small audit companion.
 
@@ -345,6 +362,7 @@ If a new failure appears, the safest first interpretation is:
 - **verdict grammar failed** → public judgment wording drifted from claim/verdict semantics
 - **status legend failed** → reader explanation drifted from governing judgment bridge
 - **claim page layering failed** → claim pages stopped compensating for machine-layer strictness
+- **claim page pressure coverage failed** → claim pages stopped faithfully surfacing direct support/challenge pressure from the object layer
 - **source page layering failed** → source pages stopped compensating for metadata-layer strictness
 - **snapshot section layering failed** → public homepage structure drifted
 - **snapshot consistency failed** → homepage content drifted from current governed reality
