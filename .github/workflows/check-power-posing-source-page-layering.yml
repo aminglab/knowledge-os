@@ -1,0 +1,37 @@
+name: Check power-posing source page layering
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/sources/**"
+      - "pilots/living-knowledge-case/cases/power-posing/references-metadata-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/source-page-layering-v1.md"
+      - "scripts/check_power_posing_source_page_layering.py"
+      - ".github/workflows/check-power-posing-source-page-layering.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/sources/**"
+      - "pilots/living-knowledge-case/cases/power-posing/references-metadata-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/source-page-layering-v1.md"
+      - "scripts/check_power_posing_source_page_layering.py"
+      - ".github/workflows/check-power-posing-source-page-layering.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-source-page-layering:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run source page layering check
+        run: python scripts/check_power_posing_source_page_layering.py
