@@ -20,7 +20,7 @@ CHECK_ATLAS_LINK = "./check-atlas-v1.md"
 ATLAS_AUTHORITY_RULING_LINK = "./atlas-authority-boundary-ruling-v1.md"
 ATLAS_MERGE_THRESHOLD_LINK = "./atlas-merge-threshold-v1.md"
 
-REQUIRED_ATLAS_TOKENS = [
+REQUIRED_PUBLIC_LAYER_ATLAS_TOKENS = [
     "make check-public-layer",
     "make power-posing-public-layer",
     "check-power-posing-public-layer.yml",
@@ -31,13 +31,13 @@ FORBIDDEN_PUBLIC_LAYER_ATLAS_TOKENS = [
     "No unified public-layer orchestrator yet",
     "No public-layer atlas checker yet",
 ]
-REQUIRED_RULING_TOKENS = [
+REQUIRED_AUTHORITY_RULING_TOKENS = [
     "check-atlas-v1.md",
     "public-layer-verification-atlas-v1.md",
     "Do not merge them yet.",
     "atlas-merge-threshold-v1.md",
 ]
-REQUIRED_THRESHOLD_TOKENS = [
+REQUIRED_MERGE_THRESHOLD_TOKENS = [
     "HOLD_NO_ATLAS_MERGE",
     "check-atlas-v1.md",
     "public-layer-verification-atlas-v1.md",
@@ -63,26 +63,31 @@ def find_markdown_links(markdown: str) -> set[str]:
     return {target for _label, target in re.findall(r"\[([^\]]+)\]\(([^)]+)\)", markdown)}
 
 
-def validate() -> dict[str, int]:
+def collect_context() -> dict[str, object]:
     readme_text = read_text(README_PATH)
-    public_layer_atlas_text = read_text(PUBLIC_LAYER_ATLAS_PATH)
-    check_atlas_text = read_text(CHECK_ATLAS_PATH)
-    authority_ruling_text = read_text(ATLAS_AUTHORITY_RULING_PATH)
-    merge_threshold_text = read_text(ATLAS_MERGE_THRESHOLD_PATH)
+    return {
+        "readme_text": readme_text,
+        "public_layer_atlas_text": read_text(PUBLIC_LAYER_ATLAS_PATH),
+        "check_atlas_text": read_text(CHECK_ATLAS_PATH),
+        "authority_ruling_text": read_text(ATLAS_AUTHORITY_RULING_PATH),
+        "merge_threshold_text": read_text(ATLAS_MERGE_THRESHOLD_PATH),
+        "developer_links": find_markdown_links(extract_section(readme_text, "Developer / governance path")),
+        "folder_links": find_markdown_links(extract_section(readme_text, "Folder guide")),
+    }
 
-    developer_governance_path = extract_section(readme_text, "Developer / governance path")
-    folder_guide = extract_section(readme_text, "Folder guide")
 
+def validate_boundary_view(context: dict[str, object]) -> tuple[list[str], dict[str, int]]:
     errors: list[str] = []
-
-    developer_links = find_markdown_links(developer_governance_path)
-    folder_links = find_markdown_links(folder_guide)
+    developer_links = context["developer_links"]
+    folder_links = context["folder_links"]
+    public_layer_atlas_text = context["public_layer_atlas_text"]
+    check_atlas_text = context["check_atlas_text"]
+    authority_ruling_text = context["authority_ruling_text"]
 
     for link_name, link_target in [
         ("public-layer atlas", PUBLIC_LAYER_ATLAS_LINK),
         ("check atlas", CHECK_ATLAS_LINK),
         ("atlas authority ruling", ATLAS_AUTHORITY_RULING_LINK),
-        ("atlas merge threshold", ATLAS_MERGE_THRESHOLD_LINK),
     ]:
         if link_target not in developer_links:
             errors.append(
@@ -95,13 +100,11 @@ def validate() -> dict[str, int]:
 
     if ATLAS_AUTHORITY_RULING_LINK not in check_atlas_text:
         errors.append("check-atlas-v1.md no longer points to atlas-authority-boundary-ruling-v1.md")
-    if ATLAS_MERGE_THRESHOLD_LINK not in check_atlas_text:
-        errors.append("check-atlas-v1.md no longer points to atlas-merge-threshold-v1.md")
 
     if ATLAS_AUTHORITY_RULING_LINK not in public_layer_atlas_text:
         errors.append("public-layer-verification-atlas-v1.md no longer points to atlas-authority-boundary-ruling-v1.md")
 
-    for token in REQUIRED_ATLAS_TOKENS:
+    for token in REQUIRED_PUBLIC_LAYER_ATLAS_TOKENS:
         if token not in public_layer_atlas_text:
             errors.append(f"public-layer atlas is missing required current-state token `{token}`")
 
@@ -109,23 +112,75 @@ def validate() -> dict[str, int]:
         if token in public_layer_atlas_text:
             errors.append(f"public-layer atlas still contains retired token `{token}`")
 
-    for token in REQUIRED_RULING_TOKENS:
+    for token in REQUIRED_AUTHORITY_RULING_TOKENS:
         if token not in authority_ruling_text:
             errors.append(f"atlas authority ruling is missing required token `{token}`")
 
-    for token in REQUIRED_THRESHOLD_TOKENS:
+    summary = {
+        "developer_governance_path_links": len(developer_links),
+        "folder_guide_links": len(folder_links),
+        "required_public_layer_atlas_tokens": len(REQUIRED_PUBLIC_LAYER_ATLAS_TOKENS),
+        "required_authority_ruling_tokens": len(REQUIRED_AUTHORITY_RULING_TOKENS),
+        "boundary_errors": len(errors),
+    }
+    return errors, summary
+
+
+def validate_threshold_view(context: dict[str, object]) -> tuple[list[str], dict[str, int]]:
+    errors: list[str] = []
+    developer_links = context["developer_links"]
+    folder_links = context["folder_links"]
+    check_atlas_text = context["check_atlas_text"]
+    authority_ruling_text = context["authority_ruling_text"]
+    merge_threshold_text = context["merge_threshold_text"]
+
+    if ATLAS_MERGE_THRESHOLD_LINK not in developer_links:
+        errors.append(
+            f"README developer / governance path is missing required atlas merge threshold link `{ATLAS_MERGE_THRESHOLD_LINK}`"
+        )
+    if ATLAS_MERGE_THRESHOLD_LINK not in folder_links:
+        errors.append(
+            f"README folder guide is missing required atlas merge threshold link `{ATLAS_MERGE_THRESHOLD_LINK}`"
+        )
+
+    if ATLAS_MERGE_THRESHOLD_LINK not in check_atlas_text:
+        errors.append("check-atlas-v1.md no longer points to atlas-merge-threshold-v1.md")
+
+    if ATLAS_MERGE_THRESHOLD_LINK not in authority_ruling_text:
+        errors.append("atlas-authority-boundary-ruling-v1.md no longer points to atlas-merge-threshold-v1.md")
+
+    for token in REQUIRED_MERGE_THRESHOLD_TOKENS:
         if token not in merge_threshold_text:
             errors.append(f"atlas merge threshold is missing required token `{token}`")
 
-    if errors:
-        raise PublicLayerAtlasError("\n".join(errors))
+    summary = {
+        "required_merge_threshold_tokens": len(REQUIRED_MERGE_THRESHOLD_TOKENS),
+        "threshold_errors": len(errors),
+    }
+    return errors, summary
+
+
+def validate() -> dict[str, dict[str, int]]:
+    context = collect_context()
+    boundary_errors, boundary_summary = validate_boundary_view(context)
+    threshold_errors, threshold_summary = validate_threshold_view(context)
+
+    all_errors = []
+    if boundary_errors:
+        all_errors.append("Boundary view")
+        all_errors.extend(boundary_errors)
+    if threshold_errors:
+        if all_errors:
+            all_errors.append("")
+        all_errors.append("Threshold view")
+        all_errors.extend(threshold_errors)
+
+    if all_errors:
+        raise PublicLayerAtlasError("\n".join(all_errors))
 
     return {
-        "developer_governance_path_links": len(developer_links),
-        "folder_guide_links": len(folder_links),
-        "required_public_layer_atlas_tokens": len(REQUIRED_ATLAS_TOKENS),
-        "required_authority_ruling_tokens": len(REQUIRED_RULING_TOKENS),
-        "required_merge_threshold_tokens": len(REQUIRED_THRESHOLD_TOKENS),
+        "boundary_view": boundary_summary,
+        "threshold_view": threshold_summary,
     }
 
 
@@ -133,20 +188,37 @@ def main() -> None:
     try:
         summary = validate()
     except PublicLayerAtlasError as exc:
-        print("Public-layer atlas check failed.", file=sys.stderr)
+        print("Public-layer atlas governance check failed.", file=sys.stderr)
         print(file=sys.stderr)
+        current_header = None
         for line in str(exc).splitlines():
-            if line.strip():
-                print(line, file=sys.stderr)
+            stripped = line.strip()
+            if not stripped:
+                print(file=sys.stderr)
+                continue
+            if stripped in {"Boundary view", "Threshold view"}:
+                current_header = stripped
+                print(stripped, file=sys.stderr)
+                continue
+            prefix = "- " if current_header else ""
+            print(f"{prefix}{stripped}", file=sys.stderr)
         raise SystemExit(1) from exc
 
-    print("Public-layer atlas check passed.")
+    boundary = summary["boundary_view"]
+    threshold = summary["threshold_view"]
+
+    print("Public-layer atlas governance check passed.")
     print()
-    print(f"- developer / governance path links: {summary['developer_governance_path_links']}")
-    print(f"- folder guide links: {summary['folder_guide_links']}")
-    print(f"- required public-layer atlas tokens: {summary['required_public_layer_atlas_tokens']}")
-    print(f"- required authority ruling tokens: {summary['required_authority_ruling_tokens']}")
-    print(f"- required merge threshold tokens: {summary['required_merge_threshold_tokens']}")
+    print("Boundary view")
+    print(f"- developer / governance path links: {boundary['developer_governance_path_links']}")
+    print(f"- folder guide links: {boundary['folder_guide_links']}")
+    print(f"- required public-layer atlas tokens: {boundary['required_public_layer_atlas_tokens']}")
+    print(f"- required authority ruling tokens: {boundary['required_authority_ruling_tokens']}")
+    print(f"- boundary errors: {boundary['boundary_errors']}")
+    print()
+    print("Threshold view")
+    print(f"- required merge threshold tokens: {threshold['required_merge_threshold_tokens']}")
+    print(f"- threshold errors: {threshold['threshold_errors']}")
 
 
 if __name__ == "__main__":

@@ -90,6 +90,11 @@ The public-layer subset currently includes at least the following named checks:
 15. `page/generate_page_data.py --check`
 16. `check_power_posing_public_layer.py` as the suite entrypoint
 
+`check_power_posing_public_layer_atlas.py` now reports atlas governance in two views:
+
+- **boundary view** — whether the current dual-atlas structure, README exposure, and authority ruling remain intact
+- **threshold view** — whether the future merge-threshold object remains properly exposed and expressed
+
 The important current fact is not just that these checks exist.
 It is that the public layer now has a **named operational boundary** for running the subset as a suite.
 

@@ -112,6 +112,7 @@ These workflows together form the current CI surface for the case.
 
 These are not entrypoints for running validation.
 They are entrypoints for interpreting the current atlas structure correctly.
+The current atlas governance checker now reports this layer in two views: a **boundary view** for the present dual-atlas structure and a **threshold view** for future merge admissibility.
 
 ---
 
