@@ -14,6 +14,13 @@ Its purpose is to make the existing validation network legible:
 This atlas is case-scoped.
 It does **not** claim to be a repository-wide validation constitution.
 
+For the narrower atlas that focuses only on the current public-layer ecology, see:
+
+- [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md)
+
+That file is now the better guide for the claim / source / snapshot / page public-layer subset.
+This file remains the broader case-scoped map.
+
 ---
 
 ## Why this atlas exists
@@ -60,8 +67,10 @@ The current explicit validation entrypoints are:
 ### Make targets
 - `make check-page`
 - `make check-page-json`
+- `make check-public-layer`
+- `make power-posing-public-layer`
 
-These call the page generator in validation mode rather than write mode.
+These call either the page generator in validation mode or the public-layer orchestrator entrypoint.
 
 ### GitHub Actions workflows
 - `check-power-posing-page.yml`
@@ -72,6 +81,7 @@ These call the page generator in validation mode rather than write mode.
 - `check-power-posing-status-legend.yml`
 - `check-power-posing-public-surface.yml`
 - `check-power-posing-template-seam-readme.yml`
+- `check-power-posing-public-layer.yml`
 
 These workflows together form the current CI surface for the case.
 
@@ -141,7 +151,7 @@ These workflows together form the current CI surface for the case.
 - **Protected layer:** template-seam governance surface as exposed through README paths
 - **Reads:** `README.md`
 - **Checks:** required README exposure of `case-template-boundary-v1.md`, `case-template-extraction-checklist-v1.md`, and `template-seam-summary-v1.md` in both `Developer / governance path` and `Folder guide`
-- **Failure meaning:** the README no longer exposes the documents that govern template-seam boundary, extraction discipline, and consolidated seam judgment
+- **Failure meaning:** the README no longer exposes the documents that govern seam boundary, extraction discipline, and consolidated seam judgment
 - **Why it stays distinct:** it does not validate general public navigation; it validates continued exposure of the case’s reusable-seam governance documents
 
 ---
