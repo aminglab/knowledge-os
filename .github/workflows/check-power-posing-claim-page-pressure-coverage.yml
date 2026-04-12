@@ -1,0 +1,35 @@
+name: Check power-posing claim page pressure coverage
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/claims/**"
+      - "pilots/living-knowledge-case/cases/power-posing/objects/**"
+      - "scripts/check_power_posing_claim_page_pressure_coverage.py"
+      - ".github/workflows/check-power-posing-claim-page-pressure-coverage.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/claims/**"
+      - "pilots/living-knowledge-case/cases/power-posing/objects/**"
+      - "scripts/check_power_posing_claim_page_pressure_coverage.py"
+      - ".github/workflows/check-power-posing-claim-page-pressure-coverage.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-claim-page-pressure-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run claim page pressure coverage check
+        run: python scripts/check_power_posing_claim_page_pressure_coverage.py
