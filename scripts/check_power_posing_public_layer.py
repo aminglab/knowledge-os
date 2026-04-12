@@ -23,6 +23,7 @@ PUBLIC_LAYER_CHECKS = [
     ("snapshot_consistency", [PYTHON, "scripts/check_power_posing_snapshot_consistency.py"]),
     ("reference_metadata", [PYTHON, "scripts/check_power_posing_reference_metadata.py"]),
     ("public_surface", [PYTHON, "scripts/check_power_posing_public_surface.py"]),
+    ("public_layer_atlas", [PYTHON, "scripts/check_power_posing_public_layer_atlas.py"]),
     ("page_emission_validation", [PYTHON, str(PAGE_GENERATOR), "--check"]),
 ]
 

@@ -3,10 +3,13 @@ name: Check power-posing public layer
 on:
   push:
     paths:
+      - "pilots/living-knowledge-case/cases/power-posing/README.md"
       - "pilots/living-knowledge-case/cases/power-posing/claims/**"
       - "pilots/living-knowledge-case/cases/power-posing/sources/**"
       - "pilots/living-knowledge-case/cases/power-posing/snapshots/**"
       - "pilots/living-knowledge-case/cases/power-posing/page/**"
+      - "pilots/living-knowledge-case/cases/power-posing/check-atlas-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/public-layer-verification-atlas-v1.md"
       - "pilots/living-knowledge-case/cases/power-posing/status-legend-v1.md"
       - "pilots/living-knowledge-case/cases/power-posing/verdict-grammar-v1.md"
       - "pilots/living-knowledge-case/cases/power-posing/references-metadata-v1.md"
@@ -16,10 +19,13 @@ on:
       - ".github/workflows/check-power-posing-public-layer.yml"
   pull_request:
     paths:
+      - "pilots/living-knowledge-case/cases/power-posing/README.md"
       - "pilots/living-knowledge-case/cases/power-posing/claims/**"
       - "pilots/living-knowledge-case/cases/power-posing/sources/**"
       - "pilots/living-knowledge-case/cases/power-posing/snapshots/**"
       - "pilots/living-knowledge-case/cases/power-posing/page/**"
+      - "pilots/living-knowledge-case/cases/power-posing/check-atlas-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/public-layer-verification-atlas-v1.md"
       - "pilots/living-knowledge-case/cases/power-posing/status-legend-v1.md"
       - "pilots/living-knowledge-case/cases/power-posing/verdict-grammar-v1.md"
       - "pilots/living-knowledge-case/cases/power-posing/references-metadata-v1.md"
