@@ -98,7 +98,9 @@ Core artifacts:
 
 - `sources/*.md`
 - `source-page-layering-v1.md`
+- `source-page-role-anchors-v1.md`
 - `scripts/check_power_posing_source_page_layering.py`
+- `scripts/check_power_posing_source_page_role_anchors.py`
 
 ### 6. snapshot release-view layer
 This is the whole-case public homepage surface.
@@ -215,7 +217,16 @@ Below is the current public-layer verification network, ordered from lower subst
   - object-usage section without actual governed object links
 - **Failure meaning:** source pages are no longer acting as the public case-participation layer for sources
 
-### 8. Snapshot section layering
+### 8. Source page role anchors
+- **Primary script:** `scripts/check_power_posing_source_page_role_anchors.py`
+- **Protected layer:** source-page role fidelity inside the public source layer
+- **Reads:** `sources/*.md`, `source-page-role-anchors-v1.md`
+- **Main job:** ensure that each source page keeps the minimal role phrases that make its case function legible
+- **Typical drift caught:**
+  - a source page keeping its headings but losing the role phrases that identify it as foundational source, empirical challenge, internal withdrawal, methodological attack, amplification surface, or retreat-and-reframing surface
+- **Failure meaning:** the source page still looks structurally complete, but its actual case role has drifted into generic prose
+
+### 9. Snapshot section layering
 - **Primary script:** `scripts/check_power_posing_snapshot_section_layering.py`
 - **Protected layer:** snapshot release-view structure
 - **Reads:** `snapshots/snapshot-v2.md`, current object set, status legend and verdict grammar paths
@@ -227,7 +238,7 @@ Below is the current public-layer verification network, ordered from lower subst
   - missing included-object exposure
 - **Failure meaning:** the snapshot has started to lose its release-view structure
 
-### 9. Snapshot consistency
+### 10. Snapshot consistency
 - **Primary script:** `scripts/check_power_posing_snapshot_consistency.py`
 - **Protected layer:** snapshot narrative fidelity to current governed objects and source ids
 - **Reads:** `snapshot-v2.md`, `references-metadata-v1.md`, all object files
@@ -239,7 +250,7 @@ Below is the current public-layer verification network, ordered from lower subst
   - canonical source id coverage drift
 - **Failure meaning:** the snapshot still has structure, but no longer truthfully points to the current governed layer
 
-### 10. Reference metadata consistency
+### 11. Reference metadata consistency
 - **Primary script:** `scripts/check_power_posing_reference_metadata.py`
 - **Protected layer:** stable source metadata floor
 - **Reads:** `references-metadata-v1.md`, all object files
@@ -250,7 +261,7 @@ Below is the current public-layer verification network, ordered from lower subst
   - object usage declarations that no longer match object frontmatter
 - **Failure meaning:** public source pages and snapshot source routes are sitting on stale source metadata
 
-### 11. Public surface consistency
+### 12. Public surface consistency
 - **Primary script:** `scripts/check_power_posing_public_surface.py`
 - **Protected layer:** reader-facing navigation entry surface
 - **Reads:** `snapshot-v2.md`, `README.md`
@@ -260,7 +271,7 @@ Below is the current public-layer verification network, ordered from lower subst
   - missing required snapshot / references / timeline / case-entry routes
 - **Failure meaning:** the public layer is still internally coherent, but the outside reader can no longer navigate it properly
 
-### 12. Page emission validation
+### 13. Page emission validation
 - **Primary surface:** `page/generate_page_data.py` in validation mode, plus page-related CI entrypoints
 - **Protected layer:** downstream page-data contract and page prototype emission layer
 - **Reads:** object files, snapshot, timeline, references metadata, page stack
@@ -310,6 +321,15 @@ These are adjacent but not duplicate.
 A page can keep all the right section headings and still quietly omit the actual objects that matter.
 These two checks catch different failure modes.
 
+### Source page layering vs source page role anchors
+These are adjacent but not duplicate.
+
+- **Source page layering** checks whether the source page still has the required public sections and metadata-aligned identity surface.
+- **Source page role anchors** checks whether the source page still preserves the minimal role phrases that identify why this source matters in the case.
+
+A page can keep all the right headings and still quietly lose the role language that makes it case-specific.
+These two checks catch different failure modes.
+
 ### Snapshot section layering vs snapshot consistency
 These are adjacent but not duplicate.
 
@@ -341,10 +361,7 @@ The checks now form a real network, but there is not yet a single explicit `publ
 The current snapshot layering checker validates section presence and major route surfaces.
 It does not yet deeply validate subsection-by-subsection semantic content inside `What changed later` or `Original claim neighborhood`.
 
-### 3. No source-page role-anchor checker yet
-The current source-page layering checker verifies structure and metadata alignment, but it does not yet inspect whether the prose role explanation preserves specific anchor phrases or semantic commitments.
-
-### 4. No public-layer atlas checker yet
+### 3. No public-layer atlas checker yet
 This atlas itself is currently documentary, not checked.
 It can still drift unless later given a small audit companion.
 
@@ -364,6 +381,7 @@ If a new failure appears, the safest first interpretation is:
 - **claim page layering failed** → claim pages stopped compensating for machine-layer strictness
 - **claim page pressure coverage failed** → claim pages stopped faithfully surfacing direct support/challenge pressure from the object layer
 - **source page layering failed** → source pages stopped compensating for metadata-layer strictness
+- **source page role anchors failed** → source pages kept their structure but lost the role language that makes them case-specific
 - **snapshot section layering failed** → public homepage structure drifted
 - **snapshot consistency failed** → homepage content drifted from current governed reality
 - **reference metadata failed** → source metadata drifted from object grounding
