@@ -9,6 +9,10 @@ Its job is simple:
 > say which one to read first for which task,
 > and state clearly why they should **not** be merged yet.
 
+For the lighter future-threshold note that asks when a merge could later become admissible, see:
+
+- [`atlas-merge-threshold-v1.md`](./atlas-merge-threshold-v1.md)
+
 ---
 
 ## One-sentence ruling
@@ -68,6 +72,11 @@ Use the following rule.
 - you are tempted to merge the two atlases,
 - or you need the current boundary judgment in one place instead of reconstructing it from README notes and cross-links.
 
+### Read `atlas-merge-threshold-v1.md` when:
+- you are asking whether a future merge has become admissible,
+- you want the current non-merge stance translated into threshold language,
+- or you need a future-facing criterion rather than a present-boundary ruling.
+
 ---
 
 ## Why they should not be merged yet
@@ -108,6 +117,10 @@ But not before one of the following becomes true:
 - the public-layer atlas expands into the dominant case-scoped map,
 - or a stronger multi-case / repo-wide atlas structure forces a clearer consolidation pass.
 
+The explicit future-threshold object for that question now lives in:
+
+- [`atlas-merge-threshold-v1.md`](./atlas-merge-threshold-v1.md)
+
 Until then, the safer discipline is:
 
 > **keep both, name their boundary, and stop pretending the split is accidental.**
@@ -116,11 +129,12 @@ Until then, the safer discipline is:
 
 ## README exposure rule
 
-The `power-posing/README.md` should expose all three of the following in the developer / governance route and in the folder guide:
+The `power-posing/README.md` should expose all four of the following in the developer / governance route and in the folder guide:
 
 - `public-layer-verification-atlas-v1.md`
 - `check-atlas-v1.md`
 - `atlas-authority-boundary-ruling-v1.md`
+- `atlas-merge-threshold-v1.md`
 
 That is the minimum exposure rule for keeping the split legible rather than hidden.
 
@@ -141,4 +155,5 @@ So the practical verdict is:
 
 - the atlas split is now intentional rather than accidental,
 - the broader atlas and the narrower public-layer atlas now have explicit roles,
+- the future merge question now has its own lighter threshold note,
 - and the current stage still favors a governed dual-atlas structure over premature consolidation.

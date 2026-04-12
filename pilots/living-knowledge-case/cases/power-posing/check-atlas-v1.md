@@ -18,8 +18,29 @@ For the narrower atlas that focuses only on the current public-layer ecology, se
 
 - [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md)
 
-That file is now the better guide for the claim / source / snapshot / page public-layer subset.
+For the formal authority note that explains why the two atlas files currently coexist and why they should not be merged yet, see:
+
+- [`atlas-authority-boundary-ruling-v1.md`](./atlas-authority-boundary-ruling-v1.md)
+
+For the lighter future-threshold note that names when a merge could later become admissible, see:
+
+- [`atlas-merge-threshold-v1.md`](./atlas-merge-threshold-v1.md)
+
+That ruling governs the present boundary.
+That threshold note governs the future merge condition.
 This file remains the broader case-scoped map.
+
+---
+
+## Authority note
+
+Current authority note:
+
+- `check-atlas-v1.md` remains the broader case-scoped validation map,
+- `public-layer-verification-atlas-v1.md` remains the narrower public-layer atlas,
+- `atlas-authority-boundary-ruling-v1.md` governs the current dual-atlas boundary,
+- `atlas-merge-threshold-v1.md` governs the future admissibility threshold for a possible merge,
+- and no atlas merge is currently authorized.
 
 ---
 
@@ -84,6 +105,13 @@ These call either the page generator in validation mode or the public-layer orch
 - `check-power-posing-public-layer.yml`
 
 These workflows together form the current CI surface for the case.
+
+### Atlas governance notes
+- [`atlas-authority-boundary-ruling-v1.md`](./atlas-authority-boundary-ruling-v1.md) — current authority boundary for the dual-atlas structure
+- [`atlas-merge-threshold-v1.md`](./atlas-merge-threshold-v1.md) — future admissibility threshold for a possible atlas merge
+
+These are not entrypoints for running validation.
+They are entrypoints for interpreting the current atlas structure correctly.
 
 ---
 

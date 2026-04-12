@@ -50,13 +50,14 @@ For protocol, validation, and seam-governance context, continue in this order.
 4. [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — the narrower atlas for the current claim / source / snapshot / page public-layer ecology
 5. [`check-atlas-v1.md`](./check-atlas-v1.md) — the broader case-scoped validation map
 6. [`atlas-authority-boundary-ruling-v1.md`](./atlas-authority-boundary-ruling-v1.md) — the formal ruling on which atlas is broader, which is narrower, and why they should not be merged yet
-7. [`check-merge-assessment-v1.md`](./check-merge-assessment-v1.md) — the current ruling on whether adjacent checks should stay separate or be partially merged later
+7. [`atlas-merge-threshold-v1.md`](./atlas-merge-threshold-v1.md) — the lighter threshold note that names when a future atlas merge could become admissible
+8. [`check-merge-assessment-v1.md`](./check-merge-assessment-v1.md) — the current ruling on whether adjacent checks should stay separate or be partially merged later
 
 ### Template seam governance
 
-8. [`case-template-boundary-v1.md`](./case-template-boundary-v1.md) — the current boundary ruling on what is already reusable shell versus what remains case-specific
-9. [`case-template-extraction-checklist-v1.md`](./case-template-extraction-checklist-v1.md) — the current operational copy discipline for what a future second case may copy, rewrite, or not yet assume generic
-10. [`template-seam-summary-v1.md`](./template-seam-summary-v1.md) — the short consolidated ruling that compresses stage judgment, boundary judgment, and extraction judgment into one seam-level anchor
+9. [`case-template-boundary-v1.md`](./case-template-boundary-v1.md) — the current boundary ruling on what is already reusable shell versus what remains case-specific
+10. [`case-template-extraction-checklist-v1.md`](./case-template-extraction-checklist-v1.md) — the current operational copy discipline for what a future second case may copy, rewrite, or not yet assume generic
+11. [`template-seam-summary-v1.md`](./template-seam-summary-v1.md) — the short consolidated ruling that compresses stage judgment, boundary judgment, and extraction judgment into one seam-level anchor
 
 Earlier snapshot:
 
@@ -74,6 +75,7 @@ Earlier snapshot:
 - [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — the narrower atlas for the current public-layer verification ecology
 - [`check-atlas-v1.md`](./check-atlas-v1.md) — the broader case-scoped validation map and checker boundary guide
 - [`atlas-authority-boundary-ruling-v1.md`](./atlas-authority-boundary-ruling-v1.md) — the formal ruling that governs the current dual-atlas structure
+- [`atlas-merge-threshold-v1.md`](./atlas-merge-threshold-v1.md) — the lighter threshold note for future atlas admissibility
 - [`check-merge-assessment-v1.md`](./check-merge-assessment-v1.md) — developer-facing merge ruling for adjacent validation checks
 - [`case-template-boundary-v1.md`](./case-template-boundary-v1.md) — developer-facing boundary ruling for the first small reusable template seam
 - [`case-template-extraction-checklist-v1.md`](./case-template-extraction-checklist-v1.md) — developer-facing copy discipline for extracting and reusing the first template seam
