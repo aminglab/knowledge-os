@@ -12,16 +12,27 @@ CASE_ROOT = REPO_ROOT / "pilots" / "living-knowledge-case" / "cases" / "power-po
 README_PATH = CASE_ROOT / "README.md"
 PUBLIC_LAYER_ATLAS_PATH = CASE_ROOT / "public-layer-verification-atlas-v1.md"
 CHECK_ATLAS_PATH = CASE_ROOT / "check-atlas-v1.md"
+ATLAS_AUTHORITY_RULING_PATH = CASE_ROOT / "atlas-authority-boundary-ruling-v1.md"
 
 PUBLIC_LAYER_ATLAS_LINK = "./public-layer-verification-atlas-v1.md"
+CHECK_ATLAS_LINK = "./check-atlas-v1.md"
+ATLAS_AUTHORITY_RULING_LINK = "./atlas-authority-boundary-ruling-v1.md"
+
 REQUIRED_ATLAS_TOKENS = [
     "make check-public-layer",
     "make power-posing-public-layer",
     "check-power-posing-public-layer.yml",
     "scripts/check_power_posing_public_layer.py",
+    "check_power_posing_public_layer_atlas.py",
 ]
-FORBIDDEN_ATLAS_TOKENS = [
+FORBIDDEN_PUBLIC_LAYER_ATLAS_TOKENS = [
     "No unified public-layer orchestrator yet",
+    "No public-layer atlas checker yet",
+]
+REQUIRED_RULING_TOKENS = [
+    "check-atlas-v1.md",
+    "public-layer-verification-atlas-v1.md",
+    "Do not merge them yet.",
 ]
 
 
@@ -47,6 +58,7 @@ def validate() -> dict[str, int]:
     readme_text = read_text(README_PATH)
     public_layer_atlas_text = read_text(PUBLIC_LAYER_ATLAS_PATH)
     check_atlas_text = read_text(CHECK_ATLAS_PATH)
+    authority_ruling_text = read_text(ATLAS_AUTHORITY_RULING_PATH)
 
     developer_governance_path = extract_section(readme_text, "Developer / governance path")
     folder_guide = extract_section(readme_text, "Folder guide")
@@ -56,27 +68,37 @@ def validate() -> dict[str, int]:
     developer_links = find_markdown_links(developer_governance_path)
     folder_links = find_markdown_links(folder_guide)
 
-    if PUBLIC_LAYER_ATLAS_LINK not in developer_links:
-        errors.append(
-            "README developer / governance path is missing required public-layer atlas link "
-            f"`{PUBLIC_LAYER_ATLAS_LINK}`"
-        )
-    if PUBLIC_LAYER_ATLAS_LINK not in folder_links:
-        errors.append(
-            "README folder guide is missing required public-layer atlas link "
-            f"`{PUBLIC_LAYER_ATLAS_LINK}`"
-        )
+    for link_name, link_target in [
+        ("public-layer atlas", PUBLIC_LAYER_ATLAS_LINK),
+        ("check atlas", CHECK_ATLAS_LINK),
+        ("atlas authority ruling", ATLAS_AUTHORITY_RULING_LINK),
+    ]:
+        if link_target not in developer_links:
+            errors.append(
+                f"README developer / governance path is missing required {link_name} link `{link_target}`"
+            )
+        if link_target not in folder_links:
+            errors.append(
+                f"README folder guide is missing required {link_name} link `{link_target}`"
+            )
 
-    if PUBLIC_LAYER_ATLAS_LINK not in check_atlas_text:
-        errors.append("check-atlas-v1.md no longer points to public-layer-verification-atlas-v1.md")
+    if ATLAS_AUTHORITY_RULING_LINK not in check_atlas_text:
+        errors.append("check-atlas-v1.md no longer points to atlas-authority-boundary-ruling-v1.md")
+
+    if ATLAS_AUTHORITY_RULING_LINK not in public_layer_atlas_text:
+        errors.append("public-layer-verification-atlas-v1.md no longer points to atlas-authority-boundary-ruling-v1.md")
 
     for token in REQUIRED_ATLAS_TOKENS:
         if token not in public_layer_atlas_text:
             errors.append(f"public-layer atlas is missing required current-state token `{token}`")
 
-    for token in FORBIDDEN_ATLAS_TOKENS:
+    for token in FORBIDDEN_PUBLIC_LAYER_ATLAS_TOKENS:
         if token in public_layer_atlas_text:
             errors.append(f"public-layer atlas still contains retired token `{token}`")
+
+    for token in REQUIRED_RULING_TOKENS:
+        if token not in authority_ruling_text:
+            errors.append(f"atlas authority ruling is missing required token `{token}`")
 
     if errors:
         raise PublicLayerAtlasError("\n".join(errors))
@@ -84,7 +106,8 @@ def validate() -> dict[str, int]:
     return {
         "developer_governance_path_links": len(developer_links),
         "folder_guide_links": len(folder_links),
-        "required_atlas_tokens": len(REQUIRED_ATLAS_TOKENS),
+        "required_public_layer_atlas_tokens": len(REQUIRED_ATLAS_TOKENS),
+        "required_authority_ruling_tokens": len(REQUIRED_RULING_TOKENS),
     }
 
 
@@ -103,7 +126,8 @@ def main() -> None:
     print()
     print(f"- developer / governance path links: {summary['developer_governance_path_links']}")
     print(f"- folder guide links: {summary['folder_guide_links']}")
-    print(f"- required atlas tokens: {summary['required_atlas_tokens']}")
+    print(f"- required public-layer atlas tokens: {summary['required_public_layer_atlas_tokens']}")
+    print(f"- required authority ruling tokens: {summary['required_authority_ruling_tokens']}")
 
 
 if __name__ == "__main__":

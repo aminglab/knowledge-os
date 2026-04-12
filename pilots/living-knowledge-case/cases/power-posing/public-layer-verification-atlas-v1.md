@@ -15,8 +15,9 @@ This atlas now sits **alongside** `check-atlas-v1.md`.
 
 - `check-atlas-v1.md` remains the broader case-scoped validation map.
 - `public-layer-verification-atlas-v1.md` is the narrower atlas for the current claim/source/snapshot/page public-layer ecology.
+- [`atlas-authority-boundary-ruling-v1.md`](./atlas-authority-boundary-ruling-v1.md) is the formal ruling that explains why both atlases currently coexist and why they should not be merged yet.
 
-The two files should be treated as adjacent rather than contradictory.
+The two atlases should be treated as adjacent rather than contradictory, and this ruling is now the authoritative boundary note for that split.
 
 ---
 
@@ -85,8 +86,9 @@ The public-layer subset currently includes at least the following named checks:
 11. `check_power_posing_snapshot_consistency.py`
 12. `check_power_posing_reference_metadata.py`
 13. `check_power_posing_public_surface.py`
-14. `page/generate_page_data.py --check`
-15. `check_power_posing_public_layer.py` as the suite entrypoint
+14. `check_power_posing_public_layer_atlas.py`
+15. `page/generate_page_data.py --check`
+16. `check_power_posing_public_layer.py` as the suite entrypoint
 
 The important current fact is not just that these checks exist.
 It is that the public layer now has a **named operational boundary** for running the subset as a suite.
@@ -99,11 +101,11 @@ These two atlas files are now adjacent but not identical.
 
 - **`check-atlas-v1.md`** is the broader case-scoped validation map.
 - **`public-layer-verification-atlas-v1.md`** is the narrower public-layer-specific atlas.
+- **`atlas-authority-boundary-ruling-v1.md`** is the formal authority note that explains which one is broader, which one is narrower, when to read which one first, and why they should not be merged yet.
 
 The first helps keep the whole case validation topology legible.
 The second helps keep the public-layer rule stack legible.
-
-The split is manageable as long as they remain clearly distinguished and do not contradict each other.
+The third keeps the split itself governed rather than implicit.
 
 ---
 
@@ -111,18 +113,11 @@ The split is manageable as long as they remain clearly distinguished and do not 
 
 This atlas should also say what is **not** yet covered.
 
-### 1. No public-layer atlas checker yet
-This atlas itself is still documentary rather than checked.
+### 1. No single merged atlas yet
+The current stage still uses a governed dual-atlas structure rather than a single consolidated atlas.
+That is now intentional rather than accidental.
 
-### 2. Atlas authority is still split across two adjacent documents
-The atlas language still lives across:
-
-- `check-atlas-v1.md`
-- `public-layer-verification-atlas-v1.md`
-
-That split is now visible rather than hidden, but it is still a governance edge.
-
-### 3. No repository-wide public-layer orchestrator yet
+### 2. No repository-wide public-layer orchestrator yet
 The current orchestrator is still explicitly case-scoped to `power-posing`.
 That is correct for the current stage.
 It also means the repository does not yet have a generic multi-case public-layer suite.
@@ -134,5 +129,5 @@ It also means the repository does not yet have a generic multi-case public-layer
 So the practical verdict is:
 
 - **the `power-posing` public layer now has a real multi-surface verification network**
-- **claim pages, source pages, snapshot structure, judgment wording, source metadata, navigation surface, page emission, and public-layer orchestration are no longer being treated as one undifferentiated surface**
+- **claim pages, source pages, snapshot structure, judgment wording, source metadata, navigation surface, page emission, public-layer orchestration, and public-layer atlas governance are no longer being treated as one undifferentiated surface**
 - **the main remaining work is no longer “add checks blindly,” but decide which currently named gaps deserve the next hardening step**
