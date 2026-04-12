@@ -1,0 +1,35 @@
+name: Check power-posing snapshot subsection semantics
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/snapshots/**"
+      - "pilots/living-knowledge-case/cases/power-posing/snapshot-subsection-semantic-anchors-v1.md"
+      - "scripts/check_power_posing_snapshot_subsection_semantics.py"
+      - ".github/workflows/check-power-posing-snapshot-subsection-semantics.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/snapshots/**"
+      - "pilots/living-knowledge-case/cases/power-posing/snapshot-subsection-semantic-anchors-v1.md"
+      - "scripts/check_power_posing_snapshot_subsection_semantics.py"
+      - ".github/workflows/check-power-posing-snapshot-subsection-semantics.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-snapshot-subsection-semantics:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run snapshot subsection semantic check
+        run: python scripts/check_power_posing_snapshot_subsection_semantics.py
