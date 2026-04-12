@@ -109,7 +109,9 @@ Core artifacts:
 
 - `snapshots/snapshot-v2.md`
 - `snapshot-section-layering-v1.md`
+- `snapshot-subsection-semantic-anchors-v1.md`
 - `scripts/check_power_posing_snapshot_section_layering.py`
+- `scripts/check_power_posing_snapshot_subsection_semantics.py`
 - `scripts/check_power_posing_snapshot_consistency.py`
 
 ### 7. page emission layer
@@ -238,7 +240,18 @@ Below is the current public-layer verification network, ordered from lower subst
   - missing included-object exposure
 - **Failure meaning:** the snapshot has started to lose its release-view structure
 
-### 10. Snapshot consistency
+### 10. Snapshot subsection semantics
+- **Primary script:** `scripts/check_power_posing_snapshot_subsection_semantics.py`
+- **Protected layer:** semantic fidelity of the snapshot’s most important narrative subsections
+- **Reads:** `snapshots/snapshot-v2.md`, `snapshot-subsection-semantic-anchors-v1.md`
+- **Main job:** ensure that the snapshot keeps the minimal role phrases and object/source anchors that make the main neighborhood and change-history subsections case-specific rather than generic
+- **Typical drift caught:**
+  - `Original claim neighborhood` losing the original four reported outcomes or losing core claim/support/source anchors,
+  - `What changed later` losing the four main later-change routes or their core object/source anchors,
+  - `Why the descendant claim is a separate object` drifting away from the lineage / split / survival logic that makes the descendant route intelligible
+- **Failure meaning:** the snapshot still has the right headings, but its core narrative subsections have drifted away from the semantic commitments that make this release view specifically about the current `power-posing` case
+
+### 11. Snapshot consistency
 - **Primary script:** `scripts/check_power_posing_snapshot_consistency.py`
 - **Protected layer:** snapshot narrative fidelity to current governed objects and source ids
 - **Reads:** `snapshot-v2.md`, `references-metadata-v1.md`, all object files
@@ -250,7 +263,7 @@ Below is the current public-layer verification network, ordered from lower subst
   - canonical source id coverage drift
 - **Failure meaning:** the snapshot still has structure, but no longer truthfully points to the current governed layer
 
-### 11. Reference metadata consistency
+### 12. Reference metadata consistency
 - **Primary script:** `scripts/check_power_posing_reference_metadata.py`
 - **Protected layer:** stable source metadata floor
 - **Reads:** `references-metadata-v1.md`, all object files
@@ -261,7 +274,7 @@ Below is the current public-layer verification network, ordered from lower subst
   - object usage declarations that no longer match object frontmatter
 - **Failure meaning:** public source pages and snapshot source routes are sitting on stale source metadata
 
-### 12. Public surface consistency
+### 13. Public surface consistency
 - **Primary script:** `scripts/check_power_posing_public_surface.py`
 - **Protected layer:** reader-facing navigation entry surface
 - **Reads:** `snapshot-v2.md`, `README.md`
@@ -271,7 +284,7 @@ Below is the current public-layer verification network, ordered from lower subst
   - missing required snapshot / references / timeline / case-entry routes
 - **Failure meaning:** the public layer is still internally coherent, but the outside reader can no longer navigate it properly
 
-### 13. Page emission validation
+### 14. Page emission validation
 - **Primary surface:** `page/generate_page_data.py` in validation mode, plus page-related CI entrypoints
 - **Protected layer:** downstream page-data contract and page prototype emission layer
 - **Reads:** object files, snapshot, timeline, references metadata, page stack
@@ -330,13 +343,22 @@ These are adjacent but not duplicate.
 A page can keep all the right headings and still quietly lose the role language that makes it case-specific.
 These two checks catch different failure modes.
 
-### Snapshot section layering vs snapshot consistency
+### Snapshot section layering vs snapshot subsection semantics
 These are adjacent but not duplicate.
 
 - **Snapshot section layering** asks whether the snapshot still has the right public release-view structure.
-- **Snapshot consistency** asks whether that structured page still truthfully points to the current governed layer.
+- **Snapshot subsection semantics** asks whether the most important narrative subsections still preserve the semantic anchors that make the release view specifically about this case.
 
-A snapshot can be structurally beautiful and still factually stale.
+A snapshot can keep all the right sections and still slowly drift into generic prose.
+These two checks catch different failure modes.
+
+### Snapshot subsection semantics vs snapshot consistency
+These are adjacent but not duplicate.
+
+- **Snapshot subsection semantics** checks whether the subsection narratives still preserve the role logic and anchor phrases that make the case intelligible.
+- **Snapshot consistency** checks whether the snapshot still truthfully points to the current governed layer.
+
+A subsection can keep its object links and still lose the semantic commitments that make those links meaningful.
 These two checks catch different failure modes.
 
 ### Public surface consistency vs page emission validation
@@ -357,11 +379,7 @@ This atlas should also say what is **not** yet covered.
 ### 1. No unified public-layer orchestrator yet
 The checks now form a real network, but there is not yet a single explicit `public-layer check orchestrator` that runs only the public-layer subset as one named command.
 
-### 2. No snapshot subsection semantic checker yet
-The current snapshot layering checker validates section presence and major route surfaces.
-It does not yet deeply validate subsection-by-subsection semantic content inside `What changed later` or `Original claim neighborhood`.
-
-### 3. No public-layer atlas checker yet
+### 2. No public-layer atlas checker yet
 This atlas itself is currently documentary, not checked.
 It can still drift unless later given a small audit companion.
 
@@ -383,6 +401,7 @@ If a new failure appears, the safest first interpretation is:
 - **source page layering failed** → source pages stopped compensating for metadata-layer strictness
 - **source page role anchors failed** → source pages kept their structure but lost the role language that makes them case-specific
 - **snapshot section layering failed** → public homepage structure drifted
+- **snapshot subsection semantics failed** → public homepage kept its structure but lost the semantic anchors that make its neighborhood and change-history surfaces case-specific
 - **snapshot consistency failed** → homepage content drifted from current governed reality
 - **reference metadata failed** → source metadata drifted from object grounding
 - **public surface failed** → public navigation drifted
