@@ -31,6 +31,17 @@ Use this checklist only when all of the following are true:
 
 If those conditions are not met, stop here.
 
+## Current activation status
+
+Those conditions are now met for the currently authorized second case.
+
+The activating authority object is:
+
+- [`../../second-case-authorization-v1.md`](../../second-case-authorization-v1.md)
+
+That file does not replace this checklist.
+It explicitly activates the shell-copy discipline for `cases/h-pylori-ulcer/`.
+
 ---
 
 ## Core rule

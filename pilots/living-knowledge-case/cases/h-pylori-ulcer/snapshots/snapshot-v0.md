@@ -77,7 +77,7 @@ The current object skeleton includes:
 - [`Case entry`](../README.md)
 - [`Claim pages`](../claims/README.md)
 - [`References`](../references.md)
-- [`Source-pack index`](../sources/README.md)
+- [`Source-page index`](../sources/README.md)
 - [`Timeline`](../timeline/events.md)
 
 ---
@@ -85,5 +85,13 @@ The current object skeleton includes:
 ## Current-stage honesty note
 
 This page is a first snapshot seed.
-It is not yet the final public case homepage and does not yet expose the richer source-page and page-surface layers.
-Its current job is to make the second case legible as a governed living-case object set.
+It is not yet the final public case homepage and does not yet expose a richer page-surface layer.
+
+But it no longer sits above a purely nominal source layer.
+It now sits above:
+
+- a stable metadata floor,
+- a source-page index,
+- and first written source pages for the canonical case sources.
+
+Its current job is to make the second case legible as a governed living-case object set without pretending that the second case has already reached first-case maturity.

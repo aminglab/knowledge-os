@@ -17,7 +17,7 @@ What it does claim is narrower and more concrete:
 - every canonical source id used by current objects is declared here,
 - every declared source carries a stable minimum metadata surface,
 - exact object usage is recorded in a machine-readable way,
-- and the source-pack index can later grow into a richer source-page layer.
+- and the second case now has both a source-page index and first written source pages.
 
 ---
 
@@ -42,7 +42,8 @@ At the current stage, the rough division of labor is:
 
 - `references.md` — thin reader-facing entrypoint
 - `references-metadata-v1.md` — stable metadata layer
-- `sources/` — source-pack index and later source-page growth path
+- `sources/README.md` — source-page index
+- `sources/*.md` — first written source-page seed surfaces
 
 This is the current source-surface structure of the second case.
 
@@ -77,7 +78,7 @@ It is strong enough to stabilize the current second-case skeleton without preten
 - Venue / host: The Lancet
 - Canonical locator: PMID `6134060`
 - Role in case: early observation surface for bacteria on gastric epithelium in active chronic gastritis
-- Object usage: `E-0001`
+- Object usage: `E-0001`, `D-0001`
 - Notes: used in this case as part of the early observation route that destabilized the assumption that ulcer-relevant gastric surfaces were bacterially irrelevant.
 
 ### `Marshall_Warren_1984_Lancet`
@@ -88,7 +89,7 @@ It is strong enough to stabilize the current second-case skeleton without preten
 - Venue / host: The Lancet
 - Canonical locator: DOI `10.1016/S0140-6736(84)91816-6`; PMID `6145023`
 - Role in case: stronger early causal and cultivation-linked challenge to the dominant ulcer model
-- Object usage: `C-0001`, `E-0001`
+- Object usage: `C-0001`, `E-0001`, `D-0001`, `D-0002`
 - Notes: used here as the clearest early publication object in the transition from observational anomaly to causal pressure.
 
 ### `Nobel_2005_Hpylori`
@@ -99,7 +100,7 @@ It is strong enough to stabilize the current second-case skeleton without preten
 - Venue / host: NobelPrize.org
 - Canonical locator: Nobel Prize page for Physiology or Medicine 2005
 - Role in case: later stabilization anchor for the core claim
-- Object usage: `E-0001`, `V-0001`
+- Object usage: `E-0001`
 - Notes: used here not as primary experimental evidence, but as a public-facing stabilization marker.
 
 ### `NIH_1994_Consensus`
@@ -110,7 +111,7 @@ It is strong enough to stabilize the current second-case skeleton without preten
 - Venue / host: JAMA / NIH consensus record
 - Canonical locator: PMID `8007082`
 - Role in case: consensus-turn anchor
-- Object usage: `E-0002`, `E-0003`
+- Object usage: `E-0002`, `E-0003`, `D-0002`
 - Notes: used here to mark movement from contested disease theory toward accepted clinical doctrine.
 
 ### `Review_1995_Hpylori_Peptic_Ulcer`
@@ -136,7 +137,7 @@ It is strong enough to stabilize the current second-case skeleton without preten
 - Venue / host: NIDDK
 - Canonical locator: NIDDK peptic ulcers overview page
 - Role in case: current official disease-frame anchor
-- Object usage: `E-0003`, `D-0003`, `V-0002`
+- Object usage: `C-0002`, `E-0003`, `D-0003`
 - Notes: used here because it explicitly names H. pylori infection and NSAID use as the two most common causes of peptic ulcers.
 
 ### `NIDDK_Peptic_Ulcer_Treatment`
@@ -147,7 +148,7 @@ It is strong enough to stabilize the current second-case skeleton without preten
 - Venue / host: NIDDK
 - Canonical locator: NIDDK peptic ulcer treatment page
 - Role in case: current treatment-path anchor
-- Object usage: `C-0002`, `E-0002`, `E-0003`, `V-0002`
+- Object usage: `C-0002`, `E-0002`, `E-0003`
 - Notes: used here because it makes the detect-treat-retest clinical path publicly legible.
 
 ### `NCI_Hpylori_Cancer_Fact_Sheet`
@@ -158,7 +159,7 @@ It is strong enough to stabilize the current second-case skeleton without preten
 - Venue / host: National Cancer Institute
 - Canonical locator: NCI fact sheet on H. pylori and cancer
 - Role in case: extension and public-risk guardrail anchor
-- Object usage: `C-0002`, `D-0003`, `V-0002`
+- Object usage: `C-0002`, `D-0003`
 - Notes: used here to keep the case honest about cancer-risk extension, testing/treatment scope, and the dangers of careless overgeneralization.
 
 ---
@@ -179,4 +180,5 @@ But at the current stage, the second case already has a real source floor:
 
 - entry,
 - metadata,
-- and a source-pack layer that can later grow into public source pages.
+- a source-page index,
+- and first written source pages that can later support harder public-layer passes.

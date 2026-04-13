@@ -1,9 +1,6 @@
 # Source Pages
 
-This directory currently contains the **source-pack index** for the `h-pylori-ulcer` case.
-
-At this stage, it does not yet provide a fully written source page for every canonical source id.
-Instead, it establishes the source layer that later public source pages can grow from.
+This directory now contains the **source-page index** and first written source-page seed surfaces for the `h-pylori-ulcer` case.
 
 These pages do not replace:
 
@@ -16,28 +13,29 @@ At the current stage:
 
 - `references.md` remains the thin reader-facing source entrypoint,
 - `references-metadata-v1.md` remains the stable metadata layer,
-- and this directory acts as the first visible **source-pack layer** for the second case.
+- this directory index makes the source layer navigable,
+- and the written pages here make canonical source grounding visibly real.
 
 ---
 
-## Current source pack
+## Current written source pages
 
 ### Early observation and publication
 
-- `Warren_1983_Lancet` — early gastric-epithelium observation surface
-- `Marshall_Warren_1984_Lancet` — early gastritis / ulceration publication anchor
-- `Nobel_2005_Hpylori` — later stabilization marker
+- [`Warren_1983_Lancet.md`](./Warren_1983_Lancet.md) — early gastric-epithelium observation surface
+- [`Marshall_Warren_1984_Lancet.md`](./Marshall_Warren_1984_Lancet.md) — early gastritis / ulceration publication anchor
+- [`Nobel_2005_Hpylori.md`](./Nobel_2005_Hpylori.md) — later stabilization marker
 
 ### Consensus and treatment uptake
 
-- `NIH_1994_Consensus` — consensus-turn anchor
-- `Review_1995_Hpylori_Peptic_Ulcer` — review-level disease-model reinforcement
-- `NIDDK_Peptic_Ulcers_Overview` — current official disease-frame anchor
-- `NIDDK_Peptic_Ulcer_Treatment` — current treatment-path anchor
+- [`NIH_1994_Consensus.md`](./NIH_1994_Consensus.md) — consensus-turn anchor
+- [`Review_1995_Hpylori_Peptic_Ulcer.md`](./Review_1995_Hpylori_Peptic_Ulcer.md) — review-level disease-model reinforcement
+- [`NIDDK_Peptic_Ulcers_Overview.md`](./NIDDK_Peptic_Ulcers_Overview.md) — current official disease-frame anchor
+- [`NIDDK_Peptic_Ulcer_Treatment.md`](./NIDDK_Peptic_Ulcer_Treatment.md) — current treatment-path anchor
 
 ### Extension and guardrail anchor
 
-- `NCI_Hpylori_Cancer_Fact_Sheet` — extension and public-risk guardrail anchor
+- [`NCI_Hpylori_Cancer_Fact_Sheet.md`](./NCI_Hpylori_Cancer_Fact_Sheet.md) — extension and public-risk guardrail anchor
 
 ---
 
@@ -54,6 +52,7 @@ At the current stage:
 
 This directory is still a seed source surface.
 It does not yet form a large source browser or a cross-case literature system.
+
 Its current job is narrower:
 
-> to make source grounding visibly real in the second case before the full source-page layer is written.
+> to make source grounding visibly real in the second case through a source-page index and first written source pages, without pretending that the full public-layer source system is already finished.
