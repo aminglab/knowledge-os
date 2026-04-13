@@ -60,6 +60,7 @@ PUBLIC_LAYER_CHECKS = [
         "name": "public_layer_atlas",
         "cmd": [PYTHON, "scripts/check_power_posing_public_layer_atlas.py"],
         "hint": "atlas governance (boundary + threshold views)",
+        "summary_label": "atlas governance",
     },
     {
         "name": "page_emission_validation",
@@ -109,6 +110,7 @@ def emit_check_output(name: str, output: str) -> None:
 def main() -> None:
     failures: list[tuple[str, str]] = []
     passes = 0
+    governance_summary: tuple[str, str] | None = None
 
     print("Power-posing public-layer orchestrator")
     print()
@@ -126,10 +128,21 @@ def main() -> None:
         else:
             failures.append((name, output))
 
+        summary_label = check.get("summary_label")
+        hint = str(check.get("hint", ""))
+        if isinstance(summary_label, str) and summary_label:
+            governance_summary = (status, hint)
+
     print("Summary")
     print(f"- checks run: {len(PUBLIC_LAYER_CHECKS)}")
     print(f"- passed: {passes}")
     print(f"- failed: {len(failures)}")
+    if governance_summary is not None:
+        governance_status, governance_hint = governance_summary
+        summary_line = f"- atlas governance: {governance_status}"
+        if governance_hint:
+            summary_line += f" ({governance_hint})"
+        print(summary_line)
 
     if failures:
         raise SystemExit(1)
