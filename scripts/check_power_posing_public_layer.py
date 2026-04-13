@@ -12,20 +12,62 @@ PYTHON = sys.executable
 PAGE_GENERATOR = REPO_ROOT / "pilots" / "living-knowledge-case" / "cases" / "power-posing" / "page" / "generate_page_data.py"
 
 PUBLIC_LAYER_CHECKS = [
-    ("verdict_grammar", [PYTHON, "scripts/check_power_posing_verdict_grammar.py"]),
-    ("status_legend", [PYTHON, "scripts/check_power_posing_status_legend.py"]),
-    ("claim_page_layering", [PYTHON, "scripts/check_power_posing_claim_page_layering.py"]),
-    ("claim_page_pressure_coverage", [PYTHON, "scripts/check_power_posing_claim_page_pressure_coverage.py"]),
-    ("source_page_layering", [PYTHON, "scripts/check_power_posing_source_page_layering.py"]),
-    ("source_page_role_anchors", [PYTHON, "scripts/check_power_posing_source_page_role_anchors.py"]),
-    ("snapshot_section_layering", [PYTHON, "scripts/check_power_posing_snapshot_section_layering.py"]),
-    ("snapshot_subsection_semantics", [PYTHON, "scripts/check_power_posing_snapshot_subsection_semantics.py"]),
-    ("snapshot_consistency", [PYTHON, "scripts/check_power_posing_snapshot_consistency.py"]),
-    ("reference_metadata", [PYTHON, "scripts/check_power_posing_reference_metadata.py"]),
-    ("public_surface", [PYTHON, "scripts/check_power_posing_public_surface.py"]),
-    ("public_layer_atlas", [PYTHON, "scripts/check_power_posing_public_layer_atlas.py"]),
-    ("page_emission_validation", [PYTHON, str(PAGE_GENERATOR), "--check"]),
+    {
+        "name": "verdict_grammar",
+        "cmd": [PYTHON, "scripts/check_power_posing_verdict_grammar.py"],
+    },
+    {
+        "name": "status_legend",
+        "cmd": [PYTHON, "scripts/check_power_posing_status_legend.py"],
+    },
+    {
+        "name": "claim_page_layering",
+        "cmd": [PYTHON, "scripts/check_power_posing_claim_page_layering.py"],
+    },
+    {
+        "name": "claim_page_pressure_coverage",
+        "cmd": [PYTHON, "scripts/check_power_posing_claim_page_pressure_coverage.py"],
+    },
+    {
+        "name": "source_page_layering",
+        "cmd": [PYTHON, "scripts/check_power_posing_source_page_layering.py"],
+    },
+    {
+        "name": "source_page_role_anchors",
+        "cmd": [PYTHON, "scripts/check_power_posing_source_page_role_anchors.py"],
+    },
+    {
+        "name": "snapshot_section_layering",
+        "cmd": [PYTHON, "scripts/check_power_posing_snapshot_section_layering.py"],
+    },
+    {
+        "name": "snapshot_subsection_semantics",
+        "cmd": [PYTHON, "scripts/check_power_posing_snapshot_subsection_semantics.py"],
+    },
+    {
+        "name": "snapshot_consistency",
+        "cmd": [PYTHON, "scripts/check_power_posing_snapshot_consistency.py"],
+    },
+    {
+        "name": "reference_metadata",
+        "cmd": [PYTHON, "scripts/check_power_posing_reference_metadata.py"],
+    },
+    {
+        "name": "public_surface",
+        "cmd": [PYTHON, "scripts/check_power_posing_public_surface.py"],
+    },
+    {
+        "name": "public_layer_atlas",
+        "cmd": [PYTHON, "scripts/check_power_posing_public_layer_atlas.py"],
+        "hint": "atlas governance (boundary + threshold views)",
+    },
+    {
+        "name": "page_emission_validation",
+        "cmd": [PYTHON, str(PAGE_GENERATOR), "--check"],
+    },
 ]
+
+ATLAS_GOVERNANCE_HEADERS = {"Boundary view", "Threshold view"}
 
 
 class PublicLayerCheckError(Exception):
@@ -44,6 +86,26 @@ def run_check(name: str, cmd: list[str]) -> tuple[bool, str]:
     return result.returncode == 0, output.strip()
 
 
+def format_check_title(check: dict[str, object], status: str) -> str:
+    title = f"[{status}] {check['name']}"
+    hint = check.get("hint")
+    if hint:
+        title += f" — {hint}"
+    return title
+
+
+def emit_check_output(name: str, output: str) -> None:
+    if not output:
+        return
+
+    for line in output.splitlines():
+        stripped = line.strip()
+        if name == "public_layer_atlas" and stripped in ATLAS_GOVERNANCE_HEADERS:
+            print(f"  > {stripped}")
+            continue
+        print(f"  {line}")
+
+
 def main() -> None:
     failures: list[tuple[str, str]] = []
     passes = 0
@@ -51,13 +113,13 @@ def main() -> None:
     print("Power-posing public-layer orchestrator")
     print()
 
-    for name, cmd in PUBLIC_LAYER_CHECKS:
+    for check in PUBLIC_LAYER_CHECKS:
+        name = str(check["name"])
+        cmd = list(check["cmd"])
         ok, output = run_check(name, cmd)
         status = "PASS" if ok else "FAIL"
-        print(f"[{status}] {name}")
-        if output:
-            for line in output.splitlines():
-                print(f"  {line}")
+        print(format_check_title(check, status))
+        emit_check_output(name, output)
         print()
         if ok:
             passes += 1
