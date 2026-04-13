@@ -1,0 +1,39 @@
+name: Check H. pylori claim page layering
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/claims/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/objects/claims/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/objects/verdicts/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/claim-page-layering-v1.md"
+      - "scripts/check_h_pylori_claim_page_layering.py"
+      - ".github/workflows/check-h-pylori-claim-page-layering.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/claims/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/objects/claims/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/objects/verdicts/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/claim-page-layering-v1.md"
+      - "scripts/check_h_pylori_claim_page_layering.py"
+      - ".github/workflows/check-h-pylori-claim-page-layering.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-claim-page-layering:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run claim page layering check
+        run: python scripts/check_h_pylori_claim_page_layering.py
