@@ -1,0 +1,37 @@
+name: Check H. pylori snapshot section layering
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/snapshots/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/claims/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/snapshot-section-layering-v1.md"
+      - "scripts/check_h_pylori_snapshot_section_layering.py"
+      - ".github/workflows/check-h-pylori-snapshot-section-layering.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/snapshots/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/claims/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/snapshot-section-layering-v1.md"
+      - "scripts/check_h_pylori_snapshot_section_layering.py"
+      - ".github/workflows/check-h-pylori-snapshot-section-layering.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-snapshot-section-layering:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run snapshot section layering check
+        run: python scripts/check_h_pylori_snapshot_section_layering.py
