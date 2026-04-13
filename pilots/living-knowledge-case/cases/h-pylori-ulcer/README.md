@@ -46,14 +46,18 @@ Then continue with:
 
 ## Developer / governance path
 
-For shell-reuse and activation context, continue in this order.
+For shell-reuse, second-case activation, and first public-layer governance, continue in this order.
 
 1. [`../power-posing/case-template-boundary-v1.md`](../power-posing/case-template-boundary-v1.md) — the current seam boundary ruling
 2. [`../power-posing/case-template-extraction-checklist-v1.md`](../power-posing/case-template-extraction-checklist-v1.md) — the operational shell-copy discipline
 3. [`../power-posing/template-seam-summary-v1.md`](../power-posing/template-seam-summary-v1.md) — the consolidated seam-level summary
 4. [`../../second-case-authorization-v1.md`](../../second-case-authorization-v1.md) — the explicit authorization that activated second-case extraction
 5. [`first-consistency-pass-v1.md`](./first-consistency-pass-v1.md) — first shell-internal consistency ruling for the second case
-6. [`references-metadata-v1.md`](./references-metadata-v1.md) — current stable source metadata floor for this case
+6. [`first-governed-public-layer-pass-v1.md`](./first-governed-public-layer-pass-v1.md) — entry ruling for the first governed public-layer pass
+7. [`claim-page-layering-v1.md`](./claim-page-layering-v1.md) — claim-page public-layer rule
+8. [`source-page-layering-v1.md`](./source-page-layering-v1.md) — source-page public-layer rule
+9. [`snapshot-section-layering-v1.md`](./snapshot-section-layering-v1.md) — snapshot release-view rule
+10. [`references-metadata-v1.md`](./references-metadata-v1.md) — current stable source metadata floor for this case
 
 ## Folder guide
 
@@ -68,18 +72,28 @@ For shell-reuse and activation context, continue in this order.
 - [`objects/verdicts/`](./objects/verdicts/) — verdict objects
 - [`timeline/events.md`](./timeline/events.md) — ordered timeline view
 - [`snapshots/`](./snapshots/) — publication snapshots
+- [`first-consistency-pass-v1.md`](./first-consistency-pass-v1.md) — first shell-internal consistency record
+- [`first-governed-public-layer-pass-v1.md`](./first-governed-public-layer-pass-v1.md) — public-layer pass ruling
+- [`claim-page-layering-v1.md`](./claim-page-layering-v1.md) — claim-page governance note
+- [`source-page-layering-v1.md`](./source-page-layering-v1.md) — source-page governance note
+- [`snapshot-section-layering-v1.md`](./snapshot-section-layering-v1.md) — snapshot governance note
 
 ## Current scope
 
 This case is not yet a full public-layer release like the first case.
-It is the first shell-reuse test under a second payload.
+It is still the first shell-reuse test under a second payload.
 
-Its current job is still narrower:
+But it has now entered its first governed public-layer pass.
+That means the current public claim, source, and snapshot surfaces are no longer being left purely informal.
 
-> to prove that the first living-case shell can carry a second, structurally different knowledge fate without cloning the first case’s content.
+Its current job remains narrower than the first case:
 
-What changed after the initial object-skeleton drop is that the second case now has a more real source surface:
+> to prove that the first living-case shell can carry a second, structurally different knowledge fate without cloning the first case’s content,
+> while beginning to govern the second case’s own public-facing layers.
+
+What changed after the initial object-skeleton drop is that the second case now has a more real and more governed source surface:
 
 - a stable metadata floor,
 - a source-page index,
-- and first written source pages for the canonical case sources.
+- first written source pages,
+- and first lightweight public-layer checks.
