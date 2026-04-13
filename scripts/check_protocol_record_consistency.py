@@ -188,7 +188,8 @@ def parse_frontmatter(lines: list[str]) -> dict[str, Any]:
 def load_objects() -> dict[str, dict[str, Any]]:
     objects: dict[str, dict[str, Any]] = {}
     for object_type, directory in OBJECT_DIRS.items():
-        for path in sorted(directory.glob("*.md")):
+        pattern = f"{ID_PREFIXES[object_type]}*.md"
+        for path in sorted(directory.glob(pattern)):
             frontmatter = parse_frontmatter(extract_frontmatter(read_text(path)))
             object_id = str(frontmatter.get("id", path.stem))
             objects[object_id] = {
