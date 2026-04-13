@@ -14,56 +14,69 @@ PAGE_GENERATOR = REPO_ROOT / "pilots" / "living-knowledge-case" / "cases" / "pow
 PUBLIC_LAYER_CHECKS = [
     {
         "name": "verdict_grammar",
+        "label": "Verdict grammar",
         "cmd": [PYTHON, "scripts/check_power_posing_verdict_grammar.py"],
     },
     {
         "name": "status_legend",
+        "label": "Status legend",
         "cmd": [PYTHON, "scripts/check_power_posing_status_legend.py"],
     },
     {
         "name": "claim_page_layering",
+        "label": "Claim page layering",
         "cmd": [PYTHON, "scripts/check_power_posing_claim_page_layering.py"],
     },
     {
         "name": "claim_page_pressure_coverage",
+        "label": "Claim pressure coverage",
         "cmd": [PYTHON, "scripts/check_power_posing_claim_page_pressure_coverage.py"],
     },
     {
         "name": "source_page_layering",
+        "label": "Source page layering",
         "cmd": [PYTHON, "scripts/check_power_posing_source_page_layering.py"],
     },
     {
         "name": "source_page_role_anchors",
+        "label": "Source role anchors",
         "cmd": [PYTHON, "scripts/check_power_posing_source_page_role_anchors.py"],
     },
     {
         "name": "snapshot_section_layering",
+        "label": "Snapshot section layering",
         "cmd": [PYTHON, "scripts/check_power_posing_snapshot_section_layering.py"],
     },
     {
         "name": "snapshot_subsection_semantics",
+        "label": "Snapshot semantics",
         "cmd": [PYTHON, "scripts/check_power_posing_snapshot_subsection_semantics.py"],
     },
     {
         "name": "snapshot_consistency",
+        "label": "Snapshot consistency",
         "cmd": [PYTHON, "scripts/check_power_posing_snapshot_consistency.py"],
     },
     {
         "name": "reference_metadata",
+        "label": "Reference metadata",
         "cmd": [PYTHON, "scripts/check_power_posing_reference_metadata.py"],
     },
     {
         "name": "public_surface",
+        "label": "Public surface",
         "cmd": [PYTHON, "scripts/check_power_posing_public_surface.py"],
     },
     {
         "name": "public_layer_atlas",
+        "label": "Atlas governance",
         "cmd": [PYTHON, "scripts/check_power_posing_public_layer_atlas.py"],
         "hint": "atlas governance (boundary + threshold views)",
         "summary_label": "atlas governance",
     },
     {
         "name": "page_emission_validation",
+        "label": "Page emission",
         "cmd": [PYTHON, str(PAGE_GENERATOR), "--check"],
     },
 ]
@@ -127,8 +140,8 @@ def emit_failure_focus(failures: list[dict[str, str]]) -> None:
         print("  see above: boundary / threshold details")
 
     if other_failures:
-        other_names = ", ".join(failure["name"] for failure in other_failures)
-        print(f"- other failed checks ({len(other_failures)}): {other_names}")
+        other_labels = ", ".join(failure["label"] for failure in other_failures)
+        print(f"- other failed checks ({len(other_failures)}): {other_labels}")
 
 
 def main() -> None:
@@ -149,6 +162,7 @@ def main() -> None:
         print()
         hint = str(check.get("hint", ""))
         summary_label = check.get("summary_label")
+        label = str(check.get("label", name))
 
         if ok:
             passes += 1
@@ -156,6 +170,7 @@ def main() -> None:
             failures.append(
                 {
                     "name": name,
+                    "label": label,
                     "output": output,
                     "hint": hint,
                     "summary_label": str(summary_label or ""),
