@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -27,6 +28,17 @@ def extract_section(markdown: str, title: str) -> str:
     pattern = rf"## {re.escape(title)}\n\n(.+?)(?:\n---\n|\n## |\Z)"
     match = re.search(pattern, markdown, re.S)
     return match.group(1) if match else ""
+
+
+def normalize_text(text: str) -> str:
+    text = unicodedata.normalize("NFKC", text)
+    text = text.lower()
+    text = re.sub(r"[`*_]", "", text)
+    text = text.replace("/", " ")
+    text = text.replace("-", " ")
+    text = re.sub(r"[^a-z0-9\s]", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
 
 
 def parse_role_anchor_entries(markdown: str) -> dict[str, list[str]]:
@@ -63,10 +75,10 @@ def validate() -> dict[str, int]:
             errors.append(f"{source_id}: missing `Source role in the case` section body")
             continue
 
-        lowered = role_section.lower()
+        normalized_role = normalize_text(role_section)
         for anchor in anchors:
             anchors_checked += 1
-            if anchor.lower() not in lowered:
+            if normalize_text(anchor) not in normalized_role:
                 errors.append(f"{source_id}: source role section is missing required anchor `{anchor}`")
 
     if errors:

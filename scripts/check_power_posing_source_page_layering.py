@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -43,6 +44,15 @@ def extract_canonical_source_id(markdown: str) -> str | None:
 def extract_title(markdown: str) -> str | None:
     match = re.search(r"\*\*Title:\*\* (.+?)\s{2,}$", markdown, re.M)
     return match.group(1).strip() if match else None
+
+
+def normalize_text(text: str | None) -> str:
+    if not text:
+        return ""
+    text = unicodedata.normalize("NFKC", text)
+    text = re.sub(r"[`*_]", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text.casefold()
 
 
 def parse_metadata_entries(markdown: str) -> dict[str, dict[str, str]]:
@@ -86,7 +96,7 @@ def validate() -> dict[str, int]:
 
         page_title = extract_title(markdown)
         metadata_title = metadata.get("Title")
-        if page_title != metadata_title:
+        if normalize_text(page_title) != normalize_text(metadata_title):
             errors.append(
                 f"{source_id}: page title `{page_title}` does not match metadata title `{metadata_title}`"
             )
