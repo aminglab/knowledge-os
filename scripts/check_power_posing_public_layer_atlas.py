@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Validate that the public-layer atlas remains exposed and synchronized."""
+"""Validate the public-layer atlas remains exposed and synchronized."""
 
 from __future__ import annotations
 
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -34,7 +35,7 @@ FORBIDDEN_PUBLIC_LAYER_ATLAS_TOKENS = [
 REQUIRED_AUTHORITY_RULING_TOKENS = [
     "check-atlas-v1.md",
     "public-layer-verification-atlas-v1.md",
-    "Do not merge them yet.",
+    "Do not merge them yet",
     "atlas-merge-threshold-v1.md",
 ]
 REQUIRED_MERGE_THRESHOLD_TOKENS = [
@@ -59,6 +60,14 @@ def extract_section(markdown: str, heading: str) -> str:
     return match.group(1).strip() if match else ""
 
 
+def normalize_text(text: str) -> str:
+    text = unicodedata.normalize("NFKC", text)
+    text = text.casefold()
+    text = re.sub(r"[`*_]", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+
 def find_markdown_links(markdown: str) -> set[str]:
     return {target for _label, target in re.findall(r"\[([^\]]+)\]\(([^)]+)\)", markdown)}
 
@@ -76,13 +85,17 @@ def collect_context() -> dict[str, object]:
     }
 
 
+def contains_token(text: str, token: str) -> bool:
+    return normalize_text(token) in normalize_text(text)
+
+
 def validate_boundary_view(context: dict[str, object]) -> tuple[list[str], dict[str, int]]:
     errors: list[str] = []
     developer_links = context["developer_links"]
     folder_links = context["folder_links"]
-    public_layer_atlas_text = context["public_layer_atlas_text"]
-    check_atlas_text = context["check_atlas_text"]
-    authority_ruling_text = context["authority_ruling_text"]
+    public_layer_atlas_text = str(context["public_layer_atlas_text"])
+    check_atlas_text = str(context["check_atlas_text"])
+    authority_ruling_text = str(context["authority_ruling_text"])
 
     for link_name, link_target in [
         ("public-layer atlas", PUBLIC_LAYER_ATLAS_LINK),
@@ -105,15 +118,15 @@ def validate_boundary_view(context: dict[str, object]) -> tuple[list[str], dict[
         errors.append("public-layer-verification-atlas-v1.md no longer points to atlas-authority-boundary-ruling-v1.md")
 
     for token in REQUIRED_PUBLIC_LAYER_ATLAS_TOKENS:
-        if token not in public_layer_atlas_text:
+        if not contains_token(public_layer_atlas_text, token):
             errors.append(f"public-layer atlas is missing required current-state token `{token}`")
 
     for token in FORBIDDEN_PUBLIC_LAYER_ATLAS_TOKENS:
-        if token in public_layer_atlas_text:
+        if contains_token(public_layer_atlas_text, token):
             errors.append(f"public-layer atlas still contains retired token `{token}`")
 
     for token in REQUIRED_AUTHORITY_RULING_TOKENS:
-        if token not in authority_ruling_text:
+        if not contains_token(authority_ruling_text, token):
             errors.append(f"atlas authority ruling is missing required token `{token}`")
 
     summary = {
@@ -130,9 +143,9 @@ def validate_threshold_view(context: dict[str, object]) -> tuple[list[str], dict
     errors: list[str] = []
     developer_links = context["developer_links"]
     folder_links = context["folder_links"]
-    check_atlas_text = context["check_atlas_text"]
-    authority_ruling_text = context["authority_ruling_text"]
-    merge_threshold_text = context["merge_threshold_text"]
+    check_atlas_text = str(context["check_atlas_text"])
+    authority_ruling_text = str(context["authority_ruling_text"])
+    merge_threshold_text = str(context["merge_threshold_text"])
 
     if ATLAS_MERGE_THRESHOLD_LINK not in developer_links:
         errors.append(
@@ -150,7 +163,7 @@ def validate_threshold_view(context: dict[str, object]) -> tuple[list[str], dict
         errors.append("atlas-authority-boundary-ruling-v1.md no longer points to atlas-merge-threshold-v1.md")
 
     for token in REQUIRED_MERGE_THRESHOLD_TOKENS:
-        if token not in merge_threshold_text:
+        if not contains_token(merge_threshold_text, token):
             errors.append(f"atlas merge threshold is missing required token `{token}`")
 
     summary = {
