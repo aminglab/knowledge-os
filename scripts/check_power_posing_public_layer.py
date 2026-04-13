@@ -107,8 +107,33 @@ def emit_check_output(name: str, output: str) -> None:
         print(f"  {line}")
 
 
+def emit_failure_focus(failures: list[dict[str, str]]) -> None:
+    if not failures:
+        return
+
+    governance_failures = [f for f in failures if f.get("summary_label") == "atlas governance"]
+    other_failures = [f for f in failures if f.get("summary_label") != "atlas governance"]
+
+    print()
+    print("Failure focus")
+
+    if governance_failures:
+        failure = governance_failures[0]
+        line = "- atlas governance: FAIL"
+        hint = failure.get("hint", "")
+        if hint:
+            line += f" ({hint})"
+        print(line)
+        print("  see above: boundary / threshold details")
+
+    if other_failures:
+        print("- other failed checks:")
+        for failure in other_failures:
+            print(f"  - {failure['name']}")
+
+
 def main() -> None:
-    failures: list[tuple[str, str]] = []
+    failures: list[dict[str, str]] = []
     passes = 0
     governance_summary: tuple[str, str] | None = None
 
@@ -123,13 +148,21 @@ def main() -> None:
         print(format_check_title(check, status))
         emit_check_output(name, output)
         print()
+        hint = str(check.get("hint", ""))
+        summary_label = check.get("summary_label")
+
         if ok:
             passes += 1
         else:
-            failures.append((name, output))
+            failures.append(
+                {
+                    "name": name,
+                    "output": output,
+                    "hint": hint,
+                    "summary_label": str(summary_label or ""),
+                }
+            )
 
-        summary_label = check.get("summary_label")
-        hint = str(check.get("hint", ""))
         if isinstance(summary_label, str) and summary_label:
             governance_summary = (status, hint)
 
@@ -143,6 +176,8 @@ def main() -> None:
         if governance_hint:
             summary_line += f" ({governance_hint})"
         print(summary_line)
+
+    emit_failure_focus(failures)
 
     if failures:
         raise SystemExit(1)
