@@ -1,0 +1,77 @@
+name: Check power-posing hidden public-layer checks
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/README.md"
+      - "pilots/living-knowledge-case/cases/power-posing/claims/**"
+      - "pilots/living-knowledge-case/cases/power-posing/sources/**"
+      - "pilots/living-knowledge-case/cases/power-posing/snapshots/**"
+      - "pilots/living-knowledge-case/cases/power-posing/page/**"
+      - "pilots/living-knowledge-case/cases/power-posing/check-atlas-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/public-layer-verification-atlas-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/atlas-authority-boundary-ruling-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/atlas-merge-threshold-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/source-page-role-anchors-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/snapshot-subsection-semantic-anchors-v1.md"
+      - "scripts/check_power_posing_source_page_layering.py"
+      - "scripts/check_power_posing_source_page_role_anchors.py"
+      - "scripts/check_power_posing_snapshot_section_layering.py"
+      - "scripts/check_power_posing_snapshot_subsection_semantics.py"
+      - "scripts/check_power_posing_public_layer_atlas.py"
+      - ".github/workflows/check-power-posing-hidden-public-layer-checks.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/power-posing/README.md"
+      - "pilots/living-knowledge-case/cases/power-posing/claims/**"
+      - "pilots/living-knowledge-case/cases/power-posing/sources/**"
+      - "pilots/living-knowledge-case/cases/power-posing/snapshots/**"
+      - "pilots/living-knowledge-case/cases/power-posing/page/**"
+      - "pilots/living-knowledge-case/cases/power-posing/check-atlas-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/public-layer-verification-atlas-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/atlas-authority-boundary-ruling-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/atlas-merge-threshold-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/source-page-role-anchors-v1.md"
+      - "pilots/living-knowledge-case/cases/power-posing/snapshot-subsection-semantic-anchors-v1.md"
+      - "scripts/check_power_posing_source_page_layering.py"
+      - "scripts/check_power_posing_source_page_role_anchors.py"
+      - "scripts/check_power_posing_snapshot_section_layering.py"
+      - "scripts/check_power_posing_snapshot_subsection_semantics.py"
+      - "scripts/check_power_posing_public_layer_atlas.py"
+      - ".github/workflows/check-power-posing-hidden-public-layer-checks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hidden-public-layer-checks:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: source-page-layering
+            script: scripts/check_power_posing_source_page_layering.py
+          - name: source-page-role-anchors
+            script: scripts/check_power_posing_source_page_role_anchors.py
+          - name: snapshot-section-layering
+            script: scripts/check_power_posing_snapshot_section_layering.py
+          - name: snapshot-subsection-semantics
+            script: scripts/check_power_posing_snapshot_subsection_semantics.py
+          - name: public-layer-atlas
+            script: scripts/check_power_posing_public_layer_atlas.py
+
+    name: ${{ matrix.name }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run hidden public-layer check
+        run: python ${{ matrix.script }}
