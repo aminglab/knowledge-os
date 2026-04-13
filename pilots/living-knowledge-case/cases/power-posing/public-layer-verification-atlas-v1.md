@@ -69,6 +69,42 @@ The orchestration boundary is now explicit rather than only implied by scattered
 
 ---
 
+## Orchestrator-facing layer order
+
+To keep the single-check output, the orchestrator summary, and this atlas from drifting apart, the current orchestrator-facing layer order should stay pinned to the stack above.
+
+The current layer-to-check grouping is:
+
+1. **protocol consistency floor**
+   - `check_protocol_record_consistency.py`
+2. **object-envelope floor**
+   - `check_power_posing_object_envelope.py`
+3. **judgment wording bridge**
+   - `check_power_posing_verdict_grammar.py`
+   - `check_power_posing_status_legend.py`
+4. **claim page public layer**
+   - `check_power_posing_claim_page_layering.py`
+   - `check_power_posing_claim_page_pressure_coverage.py`
+5. **source page public layer**
+   - `check_power_posing_source_page_layering.py`
+   - `check_power_posing_source_page_role_anchors.py`
+   - `check_power_posing_reference_metadata.py`
+6. **snapshot release-view layer**
+   - `check_power_posing_snapshot_section_layering.py`
+   - `check_power_posing_snapshot_subsection_semantics.py`
+   - `check_power_posing_snapshot_consistency.py`
+7. **page emission layer**
+   - `check_power_posing_public_surface.py`
+   - `page/generate_page_data.py --check`
+8. **public-layer orchestration boundary**
+   - `check_power_posing_public_layer_atlas.py`
+   - `check_power_posing_public_layer.py` as the suite entry surface
+
+This grouping is not a new checker taxonomy.
+It is a small naming and ordering discipline that keeps the public-layer stack readable when the suite emits a compact verdict table.
+
+---
+
 ## Current checker atlas
 
 The public-layer subset currently includes at least the following named checks:
