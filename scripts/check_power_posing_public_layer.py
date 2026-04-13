@@ -127,9 +127,8 @@ def emit_failure_focus(failures: list[dict[str, str]]) -> None:
         print("  see above: boundary / threshold details")
 
     if other_failures:
-        print("- other failed checks:")
-        for failure in other_failures:
-            print(f"  - {failure['name']}")
+        other_names = ", ".join(failure["name"] for failure in other_failures)
+        print(f"- other failed checks ({len(other_failures)}): {other_names}")
 
 
 def main() -> None:
