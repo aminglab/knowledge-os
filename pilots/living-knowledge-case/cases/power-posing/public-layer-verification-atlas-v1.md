@@ -44,11 +44,7 @@ The current explicit public-layer entrypoints are:
 ### Orchestrator script
 - `scripts/check_power_posing_public_layer.py`
 
-This means the old sentence:
-
-> `No unified public-layer orchestrator yet`
-
-is no longer true for the current `power-posing` case.
+This means the earlier gap note about the absence of a unified public-layer orchestrator is no longer true for the current `power-posing` case.
 
 ---
 
