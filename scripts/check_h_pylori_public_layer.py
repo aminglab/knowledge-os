@@ -30,6 +30,12 @@ PUBLIC_LAYER_CHECKS = [
         "cmd": [PYTHON, "scripts/check_h_pylori_source_page_layering.py"],
     },
     {
+        "name": "source_page_role_anchors",
+        "label": "Source page role anchors",
+        "layer": "source page public layer",
+        "cmd": [PYTHON, "scripts/check_h_pylori_source_page_role_anchors.py"],
+    },
+    {
         "name": "snapshot_section_layering",
         "label": "Snapshot section layering",
         "layer": "snapshot release-view layer",

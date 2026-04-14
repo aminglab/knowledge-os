@@ -57,10 +57,11 @@ For shell-reuse, second-case activation, and current public-layer governance, co
 7. [`claim-page-layering-v1.md`](./claim-page-layering-v1.md) — claim-page public-layer rule
 8. [`claim-page-pressure-coverage-v1.md`](./claim-page-pressure-coverage-v1.md) — claim-page direct-pressure hardening rule
 9. [`source-page-layering-v1.md`](./source-page-layering-v1.md) — source-page public-layer rule
-10. [`snapshot-section-layering-v1.md`](./snapshot-section-layering-v1.md) — snapshot release-view rule
-11. [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — current second-case public-layer verification map
-12. [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — current second-case acceptance verdict
-13. [`references-metadata-v1.md`](./references-metadata-v1.md) — current stable source metadata floor for this case
+10. [`source-page-role-anchors-v1.md`](./source-page-role-anchors-v1.md) — source-page role-anchor hardening rule
+11. [`snapshot-section-layering-v1.md`](./snapshot-section-layering-v1.md) — snapshot release-view rule
+12. [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — current second-case public-layer verification map
+13. [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — current second-case acceptance verdict
+14. [`references-metadata-v1.md`](./references-metadata-v1.md) — current stable source metadata floor for this case
 
 ## Folder guide
 
@@ -80,6 +81,7 @@ For shell-reuse, second-case activation, and current public-layer governance, co
 - [`claim-page-layering-v1.md`](./claim-page-layering-v1.md) — claim-page governance note
 - [`claim-page-pressure-coverage-v1.md`](./claim-page-pressure-coverage-v1.md) — claim-page semantic hardening note
 - [`source-page-layering-v1.md`](./source-page-layering-v1.md) — source-page governance note
+- [`source-page-role-anchors-v1.md`](./source-page-role-anchors-v1.md) — source-page semantic hardening note
 - [`snapshot-section-layering-v1.md`](./snapshot-section-layering-v1.md) — snapshot governance note
 - [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — public-layer verification atlas
 - [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — public-layer acceptance pass record
@@ -94,7 +96,8 @@ But it has now completed:
 - first consistency pass,
 - first governed public-layer pass,
 - first public-layer verification / acceptance pass,
-- and the first richer semantic hardening lift on the claim-page side.
+- the first richer semantic hardening lift on the claim-page side,
+- and the second richer semantic hardening lift on the source-page side.
 
 That means the current public claim, source, and snapshot surfaces are no longer being left purely informal.
 They now have:
@@ -104,7 +107,8 @@ They now have:
 - a suite entrypoint,
 - a verification atlas,
 - an acceptance verdict at the current threshold,
-- and direct claim-page pressure coverage checks.
+- direct claim-page pressure coverage checks,
+- and source-page role-anchor checks.
 
 Its current job remains narrower than the first case:
 
@@ -114,5 +118,5 @@ Its current job remains narrower than the first case:
 The current stage verdict is therefore narrower than full public release and stronger than mere seeding:
 
 > the second case now holds an accepted first governed public layer,
-> with its first richer semantic hardening move already landed on the claim-page surface,
-> while still retaining holds against full public release, page emission, source-role-anchor coverage, richer snapshot semantics, and repository-wide public-layer generalization.
+> with richer semantic hardening now landed on both the claim-page and source-page surfaces,
+> while still retaining holds against full public release, page emission, richer snapshot semantics, and repository-wide public-layer generalization.
