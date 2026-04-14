@@ -19,7 +19,7 @@ That sequence now makes a narrower but real acceptance question possible:
 > has the second case crossed the threshold for a first accepted governed public layer,
 > even though it is still far from the first case's fuller public-layer maturity?
 
-This file now also records the post-acceptance semantic hardening lifts inside that accepted public layer.
+This file now also records the post-acceptance semantic and consistency hardening lifts inside that accepted public layer.
 
 ---
 
@@ -31,10 +31,10 @@ Current verdict:
 >
 > The second case now has an accepted minimal governed public layer across claim pages, source pages, and snapshot structure.
 >
-> That accepted layer now includes three richer semantic hardening moves:
-> claim-page direct pressure coverage, source-page role anchors, and snapshot subsection semantic anchors.
+> That accepted layer now includes five richer hardening moves:
+> claim-page direct pressure coverage, source-page role anchors, snapshot subsection semantic anchors, fuller snapshot consistency checking, and atlas-governance self-checking.
 >
-> It still does **not** yet have a full public-layer release, page-emission layer, or first-case-equivalent orchestration boundary.
+> It still does **not** yet have a full public-layer release, page-emission layer, or larger public-layer orchestration boundary.
 
 ---
 
@@ -48,6 +48,8 @@ This acceptance pass is based on the current second-case public-layer stack:
 - source-page role-anchor rule + checker
 - snapshot section layering rule + checker
 - snapshot subsection semantic-anchor rule + checker
+- snapshot consistency rule + checker
+- public-layer atlas-governance rule + checker
 - public-layer verification atlas
 - public-layer suite entrypoint
 - workflow-level public-layer suite entry
@@ -91,12 +93,25 @@ The second case now has a richer semantic source-page check that requires each s
 
 The second case now has a richer semantic snapshot check that requires the most important snapshot subsections to preserve their minimal semantic commitments rather than drifting into generic medical-reversal prose.
 
-### 7. The current boundaries are explicitly stated
+### 7. Snapshot now remains more tightly aligned with case reality
+
+The second case now has a fuller snapshot consistency check that keeps `snapshot-v0.md` aligned with:
+
+- the current verdict layer,
+- the current object totals,
+- the current reader routes,
+- and the current source-floor reality.
+
+### 8. Atlas / acceptance / README no longer drift without being checked
+
+The second case now has a small atlas-governance self-check that requires the suite entrypoint, verification atlas, acceptance record, and case README to stay aligned on the current stack.
+
+### 9. The current boundaries are explicitly stated
 
 This acceptance pass does not confuse:
 
 - first governed public layer,
-- fuller semantic hardening,
+- fuller hardening,
 - full public-layer release,
 - or repository-wide generic public-layer doctrine.
 
@@ -110,8 +125,7 @@ This verdict does **not** mean:
 
 - that the second case is now equivalent to `power-posing`,
 - that it already has a page-emission layer,
-- that it already has a public-layer atlas governance checker,
-- that it already has a fuller snapshot consistency checker,
+- that it already has a larger public-layer orchestration boundary,
 - or that the repo has earned multi-case public-layer genericity.
 
 This is a local, stage-appropriate acceptance verdict.
@@ -124,8 +138,7 @@ The second case should continue to carry the following holds:
 
 - **HOLD_NO_FULL_PUBLIC_RELEASE**
 - **HOLD_NO_PAGE_EMISSION_LAYER**
-- **HOLD_NO_PUBLIC_LAYER_ATLAS_GOVERNANCE_CHECKER**
-- **HOLD_NO_FULLER_SNAPSHOT_CONSISTENCY_CHECK**
+- **HOLD_NO_LARGER_PUBLIC_LAYER_ORCHESTRATION_BOUNDARY**
 - **HOLD_NO_REPOSITORY_WIDE_PUBLIC_LAYER_GENERALIZATION**
 
 These are not signs of failure.
@@ -135,10 +148,9 @@ They are the correct boundaries for the current stage.
 
 ## Next natural hardening options
 
-After the current claim-page, source-page, and snapshot-subsection hardening lifts, the next natural hardening options are:
+After the current claim-page, source-page, and snapshot-side hardening lifts, and after the current atlas-governance self-check, the next natural hardening option is:
 
-1. add a fuller snapshot consistency checker
-2. only after that, consider whether a larger public-layer orchestration boundary is justified
+1. consider whether a larger public-layer orchestration boundary is justified
 
 That is now the natural upgrade order.
 
@@ -152,14 +164,15 @@ That is now the natural upgrade order.
   - claim page public layer
   - source page public layer
   - snapshot release-view layer
-  - suite-level public-layer verification entry
-- current richer semantic lifts:
+  - public-layer verification entry surface
+- current richer hardening lifts:
   - claim-page direct pressure coverage
   - source-page role anchors
   - snapshot subsection semantic anchors
+  - fuller snapshot consistency checking
+  - atlas-governance self-checking
 - retained holds:
   - `HOLD_NO_FULL_PUBLIC_RELEASE`
   - `HOLD_NO_PAGE_EMISSION_LAYER`
-  - `HOLD_NO_PUBLIC_LAYER_ATLAS_GOVERNANCE_CHECKER`
-  - `HOLD_NO_FULLER_SNAPSHOT_CONSISTENCY_CHECK`
+  - `HOLD_NO_LARGER_PUBLIC_LAYER_ORCHESTRATION_BOUNDARY`
   - `HOLD_NO_REPOSITORY_WIDE_PUBLIC_LAYER_GENERALIZATION`

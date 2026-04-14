@@ -1,0 +1,41 @@
+name: Check H. pylori public-layer atlas governance
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-verification-atlas-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-acceptance-pass-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-atlas-governance-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/README.md"
+      - "scripts/check_h_pylori_public_layer.py"
+      - "scripts/check_h_pylori_public_layer_atlas_governance.py"
+      - ".github/workflows/check-h-pylori-public-layer-atlas-governance.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-verification-atlas-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-acceptance-pass-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-atlas-governance-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/README.md"
+      - "scripts/check_h_pylori_public_layer.py"
+      - "scripts/check_h_pylori_public_layer_atlas_governance.py"
+      - ".github/workflows/check-h-pylori-public-layer-atlas-governance.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-public-layer-atlas-governance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run atlas governance check
+        run: python scripts/check_h_pylori_public_layer_atlas_governance.py

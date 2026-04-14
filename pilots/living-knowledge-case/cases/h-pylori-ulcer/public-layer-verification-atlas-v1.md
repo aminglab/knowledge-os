@@ -17,7 +17,7 @@ It does something more immediately useful:
 Current ruling:
 
 > **The second case now has a real but still minimal governed public layer.**
-> **Its current verification stack is claim-page structure, claim-page direct pressure coverage, source-page structure, source-page role anchors, snapshot release-view structure, snapshot subsection semantics, fuller snapshot consistency, and one small suite entrypoint that can run them together.**
+> **Its current verification stack is claim-page structure, claim-page direct pressure coverage, source-page structure, source-page role anchors, snapshot release-view structure, snapshot subsection semantics, fuller snapshot consistency, atlas-governance self-checking, and one small suite entrypoint that can run them together.**
 
 ---
 
@@ -65,6 +65,7 @@ The current layer-to-check grouping is:
    - `check_h_pylori_snapshot_subsection_semantics.py`
    - `check_h_pylori_snapshot_consistency.py`
 4. **public-layer verification entry surface**
+   - `check_h_pylori_public_layer_atlas_governance.py`
    - `check_h_pylori_public_layer.py`
 
 This grouping is not a grand checker taxonomy.
@@ -83,7 +84,8 @@ The current public-layer subset includes the following named checks:
 5. `check_h_pylori_snapshot_section_layering.py`
 6. `check_h_pylori_snapshot_subsection_semantics.py`
 7. `check_h_pylori_snapshot_consistency.py`
-8. `check_h_pylori_public_layer.py` as the suite entrypoint
+8. `check_h_pylori_public_layer_atlas_governance.py`
+9. `check_h_pylori_public_layer.py` as the suite entrypoint
 
 The important current fact is not just that these checks exist.
 It is that the second case now has a **named operational entry surface** for running them together.
@@ -98,11 +100,13 @@ This atlas should also say what is **not** yet covered.
 The current second case does not yet have a page-emission layer comparable to the first case.
 That means there is nothing here like `generate_page_data.py --check`.
 
-### 2. No public-layer atlas governance checker yet
-The current second-case stack is still small enough that atlas self-governance does not yet need its own checker.
+### 2. No larger public-layer orchestration boundary yet
+The current second-case stack is now large enough to justify a small atlas-governance self-check.
+It does not yet justify a larger orchestration boundary beyond the current suite entrypoint.
 
-### 3. No hidden-checks orchestration boundary yet
-The current second case does not yet need the stronger orchestration boundary used by the first case.
+### 3. No repository-wide public-layer governance layer yet
+The current second-case stack remains local.
+It does not yet claim repository-wide public-layer governance.
 
 ---
 
@@ -111,5 +115,5 @@ The current second case does not yet need the stronger orchestration boundary us
 So the practical verdict is:
 
 - **the `h-pylori-ulcer` public layer now has a real but compact verification network**
-- **claim-page structure, claim-page direct pressure coverage, source-page structure, source-page role anchors, snapshot structure, snapshot subsection semantics, fuller snapshot consistency, and suite-level entry are no longer being treated as one undifferentiated surface**
-- **the next hardening question is no longer whether the snapshot layer has a fuller consistency checker, but whether a larger public-layer orchestration boundary or atlas-governance checker is now justified**
+- **claim-page structure, claim-page direct pressure coverage, source-page structure, source-page role anchors, snapshot structure, snapshot subsection semantics, fuller snapshot consistency, atlas-governance self-checking, and suite-level entry are no longer being treated as one undifferentiated surface**
+- **the next hardening question is no longer whether atlas / acceptance / README can drift silently, but whether a larger public-layer orchestration boundary is now justified**
