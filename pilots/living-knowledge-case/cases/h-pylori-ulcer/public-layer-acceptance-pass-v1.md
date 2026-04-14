@@ -19,7 +19,7 @@ That sequence now makes a narrower but real acceptance question possible:
 > has the second case crossed the threshold for a first accepted governed public layer,
 > even though it is still far from the first case's fuller public-layer maturity?
 
-This file now also records the first **post-acceptance semantic hardening lifts** inside that accepted public layer.
+This file now also records the post-acceptance semantic hardening lifts inside that accepted public layer.
 
 ---
 
@@ -31,8 +31,8 @@ Current verdict:
 >
 > The second case now has an accepted minimal governed public layer across claim pages, source pages, and snapshot structure.
 >
-> That accepted layer now includes two richer semantic hardening moves:
-> claim-page direct pressure coverage and source-page role anchors.
+> That accepted layer now includes three richer semantic hardening moves:
+> claim-page direct pressure coverage, source-page role anchors, and snapshot subsection semantic anchors.
 >
 > It still does **not** yet have a full public-layer release, page-emission layer, or first-case-equivalent orchestration boundary.
 
@@ -47,6 +47,7 @@ This acceptance pass is based on the current second-case public-layer stack:
 - source-page layering rule + checker
 - source-page role-anchor rule + checker
 - snapshot section layering rule + checker
+- snapshot subsection semantic-anchor rule + checker
 - public-layer verification atlas
 - public-layer suite entrypoint
 - workflow-level public-layer suite entry
@@ -86,10 +87,11 @@ The second case now has a richer semantic claim-page check that requires direct 
 
 The second case now has a richer semantic source-page check that requires each source page to preserve the minimal role phrases that identify why that source matters in this case.
 
-That does not make the whole public layer semantically rich.
-But it is a real hardening lift beyond structure alone.
+### 6. Snapshot subsections now preserve semantic identity more faithfully
 
-### 6. The current boundaries are explicitly stated
+The second case now has a richer semantic snapshot check that requires the most important snapshot subsections to preserve their minimal semantic commitments rather than drifting into generic medical-reversal prose.
+
+### 7. The current boundaries are explicitly stated
 
 This acceptance pass does not confuse:
 
@@ -109,7 +111,7 @@ This verdict does **not** mean:
 - that the second case is now equivalent to `power-posing`,
 - that it already has a page-emission layer,
 - that it already has a public-layer atlas governance checker,
-- that it already has richer snapshot semantic checking,
+- that it already has a fuller snapshot consistency checker,
 - or that the repo has earned multi-case public-layer genericity.
 
 This is a local, stage-appropriate acceptance verdict.
@@ -123,7 +125,7 @@ The second case should continue to carry the following holds:
 - **HOLD_NO_FULL_PUBLIC_RELEASE**
 - **HOLD_NO_PAGE_EMISSION_LAYER**
 - **HOLD_NO_PUBLIC_LAYER_ATLAS_GOVERNANCE_CHECKER**
-- **HOLD_NO_RICHER_SNAPSHOT_SEMANTIC_CHECKS**
+- **HOLD_NO_FULLER_SNAPSHOT_CONSISTENCY_CHECK**
 - **HOLD_NO_REPOSITORY_WIDE_PUBLIC_LAYER_GENERALIZATION**
 
 These are not signs of failure.
@@ -133,9 +135,9 @@ They are the correct boundaries for the current stage.
 
 ## Next natural hardening options
 
-After the current claim-page and source-page hardening lifts, the next natural hardening options are:
+After the current claim-page, source-page, and snapshot-subsection hardening lifts, the next natural hardening options are:
 
-1. add a richer snapshot consistency / semantics checker
+1. add a fuller snapshot consistency checker
 2. only after that, consider whether a larger public-layer orchestration boundary is justified
 
 That is now the natural upgrade order.
@@ -154,9 +156,10 @@ That is now the natural upgrade order.
 - current richer semantic lifts:
   - claim-page direct pressure coverage
   - source-page role anchors
+  - snapshot subsection semantic anchors
 - retained holds:
   - `HOLD_NO_FULL_PUBLIC_RELEASE`
   - `HOLD_NO_PAGE_EMISSION_LAYER`
   - `HOLD_NO_PUBLIC_LAYER_ATLAS_GOVERNANCE_CHECKER`
-  - `HOLD_NO_RICHER_SNAPSHOT_SEMANTIC_CHECKS`
+  - `HOLD_NO_FULLER_SNAPSHOT_CONSISTENCY_CHECK`
   - `HOLD_NO_REPOSITORY_WIDE_PUBLIC_LAYER_GENERALIZATION`

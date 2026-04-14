@@ -41,6 +41,12 @@ PUBLIC_LAYER_CHECKS = [
         "layer": "snapshot release-view layer",
         "cmd": [PYTHON, "scripts/check_h_pylori_snapshot_section_layering.py"],
     },
+    {
+        "name": "snapshot_subsection_semantics",
+        "label": "Snapshot subsection semantics",
+        "layer": "snapshot release-view layer",
+        "cmd": [PYTHON, "scripts/check_h_pylori_snapshot_subsection_semantics.py"],
+    },
 ]
 
 LAYER_ORDER = [
