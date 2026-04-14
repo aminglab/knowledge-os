@@ -72,6 +72,18 @@ h1, h2, h3, p { margin: 0; }
   box-shadow: 0 12px 28px rgba(0,0,0,0.25);
 }
 
+.left-rail {
+  align-self: start;
+}
+
+.main-panel {
+  min-height: 520px;
+}
+
+.right-rail {
+  align-self: start;
+}
+
 .panel-header {
   margin-bottom: 14px;
 }

@@ -1,0 +1,30 @@
+name: Check COCKPIT1-B Static Prototype
+
+on:
+  pull_request:
+    paths:
+      - 'cockpit/COCKPIT1-B/**'
+      - 'cockpit/COCKPIT1-C/**'
+      - 'scripts/check_cockpit1_b_static_prototype.py'
+      - '.github/workflows/check-cockpit1-b-static-prototype.yml'
+  push:
+    paths:
+      - 'cockpit/COCKPIT1-B/**'
+      - 'cockpit/COCKPIT1-C/**'
+      - 'scripts/check_cockpit1_b_static_prototype.py'
+      - '.github/workflows/check-cockpit1-b-static-prototype.yml'
+
+jobs:
+  check-cockpit1-b-static-prototype:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run static prototype semantic check
+        run: python scripts/check_cockpit1_b_static_prototype.py
