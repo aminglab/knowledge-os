@@ -67,7 +67,8 @@ For shell-reuse, second-case activation, and current public-layer governance, co
 16. [`public-layer-orchestration-threshold-v1.md`](./public-layer-orchestration-threshold-v1.md) — public-layer orchestration threshold rule
 17. [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — current second-case public-layer verification map
 18. [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — current second-case acceptance verdict
-19. [`references-metadata-v1.md`](./references-metadata-v1.md) — current stable source metadata floor for this case
+19. [`second-case-stage-closeout-v1.md`](./second-case-stage-closeout-v1.md) — current stage closeout after orchestration-boundary governance landed on `main`
+20. [`references-metadata-v1.md`](./references-metadata-v1.md) — current stable source metadata floor for this case
 
 ## Folder guide
 
@@ -96,6 +97,7 @@ For shell-reuse, second-case activation, and current public-layer governance, co
 - [`public-layer-orchestration-threshold-v1.md`](./public-layer-orchestration-threshold-v1.md) — orchestration threshold note
 - [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — public-layer verification atlas
 - [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — public-layer acceptance pass record
+- [`second-case-stage-closeout-v1.md`](./second-case-stage-closeout-v1.md) — current stage closeout record
 
 ## Current scope
 
@@ -128,6 +130,8 @@ They now have:
 - fuller snapshot consistency checking,
 - atlas-governance self-checking,
 - and public-layer orchestration boundary governance.
+
+For the current stage freeze after orchestration-boundary governance landed on `main`, read [`second-case-stage-closeout-v1.md`](./second-case-stage-closeout-v1.md).
 
 Its current job remains narrower than the first case:
 

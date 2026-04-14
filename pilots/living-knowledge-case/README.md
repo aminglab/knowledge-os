@@ -26,7 +26,7 @@ That means modeling a case as governed objects such as:
 
 ### Public case already seeded
 
-- [`cases/power-posing/`](./cases/power-posing/)
+- [`cases/power-posing/](./cases/power-posing/)
 
 This first case was chosen because it is easy to understand, publicly legible, and structurally rich:
 
@@ -39,7 +39,7 @@ This first case was chosen because it is easy to understand, publicly legible, a
 
 ### Second case now authorized
 
-- [`cases/h-pylori-ulcer/`](./cases/h-pylori-ulcer/)
+- [`cases/h-pylori-ulcer/](./cases/h-pylori-ulcer/)
 
 This second case has been opened under explicit shell-copy discipline.
 It is intended to test the opposite knowledge fate:
@@ -47,9 +47,14 @@ It is intended to test the opposite knowledge fate:
 - not false elevation followed by weakening,
 - but false rejection followed by clinical stabilization.
 
-For the authorization basis, read:
+It has now moved beyond shell activation alone.
+The second case currently holds an accepted first governed public layer with an explicit orchestration boundary.
+It still retains holds against full public release, page emission, larger orchestration expansion, and repository-wide public-layer generalization.
+
+For the authorization basis and current stage closeout, read:
 
 - [`second-case-authorization-v1.md`](./second-case-authorization-v1.md)
+- [`cases/h-pylori-ulcer/second-case-stage-closeout-v1.md`](./cases/h-pylori-ulcer/second-case-stage-closeout-v1.md)
 
 ## What success looks like
 
