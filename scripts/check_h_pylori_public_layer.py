@@ -18,6 +18,12 @@ PUBLIC_LAYER_CHECKS = [
         "cmd": [PYTHON, "scripts/check_h_pylori_claim_page_layering.py"],
     },
     {
+        "name": "claim_page_pressure_coverage",
+        "label": "Claim page pressure coverage",
+        "layer": "claim page public layer",
+        "cmd": [PYTHON, "scripts/check_h_pylori_claim_page_pressure_coverage.py"],
+    },
+    {
         "name": "source_page_layering",
         "label": "Source page layering",
         "layer": "source page public layer",
