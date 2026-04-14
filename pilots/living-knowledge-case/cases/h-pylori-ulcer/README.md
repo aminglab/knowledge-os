@@ -117,10 +117,10 @@ They now have:
 - a suite entrypoint,
 - a verification atlas,
 - an acceptance verdict at the current threshold,
-- direct claim-page pressure coverage checks,
-- source-page role-anchor checks,
-- snapshot subsection semantic-anchor checks,
-- fuller snapshot consistency checks,
+- claim-page direct pressure coverage,
+- source-page role anchors,
+- snapshot subsection semantic anchors,
+- fuller snapshot consistency checking,
 - and atlas-governance self-checking.
 
 Its current job remains narrower than the first case:
