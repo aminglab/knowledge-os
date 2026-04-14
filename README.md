@@ -111,8 +111,8 @@ It begins by pressure-testing the language and the product in live pilots.
 
 Current pilot directions:
 
-1. **SGUFT cockpit pilot** — a real long-running research program modeled as Claim / Evidence / Dissent / Verdict.
-2. **Living Knowledge Case pilot** — a public disputed scientific claim rendered as a living knowledge object.
+1. **Living Knowledge Case pilot — Power Posing** — a live public case testing false elevation, weakening, and public-layer rendering.
+2. **Living Knowledge Case pilot — H. pylori and Peptic Ulcer Disease** — a live public case testing false rejection, delayed vindication, stabilization, and descendant narrowing.
 
 ## Repository guide
 
