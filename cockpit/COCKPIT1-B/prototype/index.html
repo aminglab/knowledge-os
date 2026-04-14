@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COCKPIT1-B Static Prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">Knowledge OS / COCKPIT1-B</div>
+          <h1>Minimal Static Cockpit Prototype</h1>
+        </div>
+        <div class="topbar-meta">
+          <span class="pill">Mode: Cockpit</span>
+          <span class="pill">Two bound cases</span>
+          <span class="pill muted">Zero-build static skeleton</span>
+        </div>
+      </header>
+
+      <main class="cockpit-grid">
+        <aside class="left-rail panel">
+          <div class="panel-header">
+            <h2>States</h2>
+            <p>Five required Phase 1 screens</p>
+          </div>
+          <nav id="state-nav" class="state-nav"></nav>
+
+          <div class="panel-header compact">
+            <h2>Bound cases</h2>
+          </div>
+          <div class="case-list">
+            <div class="case-card">
+              <strong>power-posing</strong>
+              <p>richer seam / route complexity reference</p>
+            </div>
+            <div class="case-card">
+              <strong>h-pylori-ulcer</strong>
+              <p>cleaner current governance-boundary reference</p>
+            </div>
+          </div>
+        </aside>
+
+        <section class="main-panel panel">
+          <div class="panel-header">
+            <h2 id="screen-title">Screen</h2>
+            <p id="screen-subtitle"></p>
+          </div>
+          <div id="main-content" class="main-content"></div>
+        </section>
+
+        <aside class="right-rail panel">
+          <div class="panel-header">
+            <h2>Pressure / Verdict / Activity</h2>
+            <p>Always visible, never the center</p>
+          </div>
+          <div id="right-content" class="stack-list"></div>
+        </aside>
+      </main>
+
+      <section class="sidecar panel">
+        <div class="panel-header compact">
+          <h2>Sidecar Console</h2>
+          <p>Temporary analysis and drafting only</p>
+        </div>
+        <div id="sidecar-content" class="sidecar-content"></div>
+      </section>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
