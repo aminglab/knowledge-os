@@ -46,7 +46,7 @@ Then continue with:
 
 ## Developer / governance path
 
-For shell-reuse, second-case activation, and first public-layer governance, continue in this order.
+For shell-reuse, second-case activation, and current public-layer governance, continue in this order.
 
 1. [`../power-posing/case-template-boundary-v1.md`](../power-posing/case-template-boundary-v1.md) — the current seam boundary ruling
 2. [`../power-posing/case-template-extraction-checklist-v1.md`](../power-posing/case-template-extraction-checklist-v1.md) — the operational shell-copy discipline
@@ -57,7 +57,9 @@ For shell-reuse, second-case activation, and first public-layer governance, cont
 7. [`claim-page-layering-v1.md`](./claim-page-layering-v1.md) — claim-page public-layer rule
 8. [`source-page-layering-v1.md`](./source-page-layering-v1.md) — source-page public-layer rule
 9. [`snapshot-section-layering-v1.md`](./snapshot-section-layering-v1.md) — snapshot release-view rule
-10. [`references-metadata-v1.md`](./references-metadata-v1.md) — current stable source metadata floor for this case
+10. [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — current second-case public-layer verification map
+11. [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — current second-case acceptance verdict
+12. [`references-metadata-v1.md`](./references-metadata-v1.md) — current stable source metadata floor for this case
 
 ## Folder guide
 
@@ -77,23 +79,35 @@ For shell-reuse, second-case activation, and first public-layer governance, cont
 - [`claim-page-layering-v1.md`](./claim-page-layering-v1.md) — claim-page governance note
 - [`source-page-layering-v1.md`](./source-page-layering-v1.md) — source-page governance note
 - [`snapshot-section-layering-v1.md`](./snapshot-section-layering-v1.md) — snapshot governance note
+- [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — public-layer verification atlas
+- [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — public-layer acceptance pass record
 
 ## Current scope
 
 This case is not yet a full public-layer release like the first case.
 It is still the first shell-reuse test under a second payload.
 
-But it has now entered its first governed public-layer pass.
+But it has now completed:
+
+- first consistency pass,
+- first governed public-layer pass,
+- and first public-layer verification / acceptance pass.
+
 That means the current public claim, source, and snapshot surfaces are no longer being left purely informal.
+They now have:
+
+- explicit section obligations,
+- case-scoped checkers,
+- a suite entrypoint,
+- a verification atlas,
+- and an acceptance verdict at the current threshold.
 
 Its current job remains narrower than the first case:
 
 > to prove that the first living-case shell can carry a second, structurally different knowledge fate without cloning the first case’s content,
-> while beginning to govern the second case’s own public-facing layers.
+> while progressively governing the second case’s own public-facing layers.
 
-What changed after the initial object-skeleton drop is that the second case now has a more real and more governed source surface:
+The current stage verdict is therefore narrower than full public release and stronger than mere seeding:
 
-- a stable metadata floor,
-- a source-page index,
-- first written source pages,
-- and first lightweight public-layer checks.
+> the second case now holds an accepted first governed public layer,
+> while still retaining holds against full public release, page emission, richer semantic suite coverage, and repository-wide public-layer generalization.
