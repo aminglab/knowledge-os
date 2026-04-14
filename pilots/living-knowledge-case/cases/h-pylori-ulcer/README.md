@@ -63,9 +63,11 @@ For shell-reuse, second-case activation, and current public-layer governance, co
 12. [`snapshot-subsection-semantic-anchors-v1.md`](./snapshot-subsection-semantic-anchors-v1.md) — snapshot semantic-anchor hardening rule
 13. [`snapshot-consistency-v1.md`](./snapshot-consistency-v1.md) — fuller snapshot consistency rule
 14. [`public-layer-atlas-governance-v1.md`](./public-layer-atlas-governance-v1.md) — atlas-governance self-check rule
-15. [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — current second-case public-layer verification map
-16. [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — current second-case acceptance verdict
-17. [`references-metadata-v1.md`](./references-metadata-v1.md) — current stable source metadata floor for this case
+15. [`public-layer-orchestration-boundary-v1.md`](./public-layer-orchestration-boundary-v1.md) — public-layer orchestration boundary rule
+16. [`public-layer-orchestration-threshold-v1.md`](./public-layer-orchestration-threshold-v1.md) — public-layer orchestration threshold rule
+17. [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — current second-case public-layer verification map
+18. [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — current second-case acceptance verdict
+19. [`references-metadata-v1.md`](./references-metadata-v1.md) — current stable source metadata floor for this case
 
 ## Folder guide
 
@@ -90,6 +92,8 @@ For shell-reuse, second-case activation, and current public-layer governance, co
 - [`snapshot-subsection-semantic-anchors-v1.md`](./snapshot-subsection-semantic-anchors-v1.md) — snapshot semantic hardening note
 - [`snapshot-consistency-v1.md`](./snapshot-consistency-v1.md) — fuller snapshot consistency note
 - [`public-layer-atlas-governance-v1.md`](./public-layer-atlas-governance-v1.md) — atlas-governance self-check note
+- [`public-layer-orchestration-boundary-v1.md`](./public-layer-orchestration-boundary-v1.md) — orchestration boundary note
+- [`public-layer-orchestration-threshold-v1.md`](./public-layer-orchestration-threshold-v1.md) — orchestration threshold note
 - [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — public-layer verification atlas
 - [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — public-layer acceptance pass record
 
@@ -107,7 +111,8 @@ But it has now completed:
 - the second richer hardening lift on the source-page side,
 - the third richer hardening lift on the snapshot-subsection side,
 - the fourth richer hardening lift through fuller snapshot consistency checking,
-- and the fifth richer hardening lift through atlas-governance self-checking.
+- the fifth richer hardening lift through atlas-governance self-checking,
+- and the sixth richer hardening lift through public-layer orchestration boundary governance.
 
 That means the current public claim, source, and snapshot surfaces are no longer being left purely informal.
 They now have:
@@ -121,7 +126,8 @@ They now have:
 - source-page role anchors,
 - snapshot subsection semantic anchors,
 - fuller snapshot consistency checking,
-- and atlas-governance self-checking.
+- atlas-governance self-checking,
+- and public-layer orchestration boundary governance.
 
 Its current job remains narrower than the first case:
 
@@ -131,5 +137,5 @@ Its current job remains narrower than the first case:
 The current stage verdict is therefore narrower than full public release and stronger than mere seeding:
 
 > the second case now holds an accepted first governed public layer,
-> with richer hardening now landed on the claim-page, source-page, snapshot-side, and atlas-governance surfaces,
+> with richer hardening now landed on the claim-page, source-page, snapshot-side, atlas-governance, and orchestration-boundary surfaces,
 > while still retaining holds against full public release, page emission, a larger public-layer orchestration boundary, and repository-wide public-layer generalization.

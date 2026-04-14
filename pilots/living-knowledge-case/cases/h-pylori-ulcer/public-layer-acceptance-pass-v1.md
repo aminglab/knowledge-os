@@ -19,7 +19,7 @@ That sequence now makes a narrower but real acceptance question possible:
 > has the second case crossed the threshold for a first accepted governed public layer,
 > even though it is still far from the first case's fuller public-layer maturity?
 
-This file now also records the post-acceptance semantic and consistency hardening lifts inside that accepted public layer.
+This file now also records the post-acceptance semantic, consistency, and orchestration-governance lifts inside that accepted public layer.
 
 ---
 
@@ -29,12 +29,12 @@ Current verdict:
 
 > **PASS_FIRST_GOVERNED_PUBLIC_LAYER**
 >
-> The second case now has an accepted minimal governed public layer across claim pages, source pages, and snapshot structure.
+> The second case now has an accepted minimal governed public layer across claim pages, source pages, snapshot structure, and a named orchestration boundary.
 >
-> That accepted layer now includes five richer hardening moves:
-> claim-page direct pressure coverage, source-page role anchors, snapshot subsection semantic anchors, fuller snapshot consistency checking, and atlas-governance self-checking.
+> That accepted layer now includes six richer hardening moves:
+> claim-page direct pressure coverage, source-page role anchors, snapshot subsection semantic anchors, fuller snapshot consistency checking, atlas-governance self-checking, and public-layer orchestration boundary governance.
 >
-> It still does **not** yet have a full public-layer release, page-emission layer, or larger public-layer orchestration boundary.
+> It still does **not** yet have a full public-layer release, page-emission layer, or a larger orchestration expansion.
 
 ---
 
@@ -50,6 +50,7 @@ This acceptance pass is based on the current second-case public-layer stack:
 - snapshot subsection semantic-anchor rule + checker
 - snapshot consistency rule + checker
 - public-layer atlas-governance rule + checker
+- public-layer orchestration boundary rule + checker
 - public-layer verification atlas
 - public-layer suite entrypoint
 - workflow-level public-layer suite entry
@@ -106,7 +107,12 @@ The second case now has a fuller snapshot consistency check that keeps `snapshot
 
 The second case now has a small atlas-governance self-check that requires the suite entrypoint, verification atlas, acceptance record, and case README to stay aligned on the current stack.
 
-### 9. The current boundaries are explicitly stated
+### 9. The orchestration boundary is now explicit rather than implicit
+
+The second case now has a named public-layer orchestration boundary with a paired threshold note.
+That means the current do-not-expand-yet stance is now formal rather than inferred.
+
+### 10. The current boundaries are explicitly stated
 
 This acceptance pass does not confuse:
 
@@ -125,7 +131,7 @@ This verdict does **not** mean:
 
 - that the second case is now equivalent to `power-posing`,
 - that it already has a page-emission layer,
-- that it already has a larger public-layer orchestration boundary,
+- that it already has a larger orchestration expansion,
 - or that the repo has earned multi-case public-layer genericity.
 
 This is a local, stage-appropriate acceptance verdict.
@@ -148,9 +154,9 @@ They are the correct boundaries for the current stage.
 
 ## Next natural hardening options
 
-After the current claim-page, source-page, and snapshot-side hardening lifts, and after the current atlas-governance self-check, the next natural hardening option is:
+After the current claim-page, source-page, and snapshot-side hardening lifts, and after the current orchestration-boundary governance lift, the next natural hardening option is:
 
-1. consider whether a larger public-layer orchestration boundary is justified
+1. wait for a real forcing condition before opening a larger orchestration expansion
 
 That is now the natural upgrade order.
 
@@ -165,12 +171,14 @@ That is now the natural upgrade order.
   - source page public layer
   - snapshot release-view layer
   - public-layer verification entry surface
+  - public-layer orchestration boundary
 - current richer hardening lifts:
   - claim-page direct pressure coverage
   - source-page role anchors
   - snapshot subsection semantic anchors
   - fuller snapshot consistency checking
   - atlas-governance self-checking
+  - public-layer orchestration boundary governance
 - retained holds:
   - `HOLD_NO_FULL_PUBLIC_RELEASE`
   - `HOLD_NO_PAGE_EMISSION_LAYER`
