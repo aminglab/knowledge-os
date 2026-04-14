@@ -47,6 +47,12 @@ PUBLIC_LAYER_CHECKS = [
         "layer": "snapshot release-view layer",
         "cmd": [PYTHON, "scripts/check_h_pylori_snapshot_subsection_semantics.py"],
     },
+    {
+        "name": "snapshot_consistency",
+        "label": "Snapshot consistency",
+        "layer": "snapshot release-view layer",
+        "cmd": [PYTHON, "scripts/check_h_pylori_snapshot_consistency.py"],
+    },
 ]
 
 LAYER_ORDER = [
