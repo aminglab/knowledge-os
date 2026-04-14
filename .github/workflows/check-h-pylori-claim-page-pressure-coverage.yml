@@ -1,0 +1,39 @@
+name: Check H. pylori claim page pressure coverage
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/claims/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/objects/evidence/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/objects/dissents/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/claim-page-pressure-coverage-v1.md"
+      - "scripts/check_h_pylori_claim_page_pressure_coverage.py"
+      - ".github/workflows/check-h-pylori-claim-page-pressure-coverage.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/claims/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/objects/evidence/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/objects/dissents/**"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/claim-page-pressure-coverage-v1.md"
+      - "scripts/check_h_pylori_claim_page_pressure_coverage.py"
+      - ".github/workflows/check-h-pylori-claim-page-pressure-coverage.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-claim-page-pressure-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run claim page pressure coverage check
+        run: python scripts/check_h_pylori_claim_page_pressure_coverage.py
