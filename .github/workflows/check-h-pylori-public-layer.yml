@@ -8,6 +8,7 @@ on:
       - "pilots/living-knowledge-case/cases/h-pylori-ulcer/snapshots/**"
       - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-verification-atlas-v1.md"
       - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-acceptance-pass-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-atlas-governance-v1.md"
       - "pilots/living-knowledge-case/cases/h-pylori-ulcer/claim-page-pressure-coverage-v1.md"
       - "pilots/living-knowledge-case/cases/h-pylori-ulcer/source-page-role-anchors-v1.md"
       - "pilots/living-knowledge-case/cases/h-pylori-ulcer/snapshot-subsection-semantic-anchors-v1.md"
@@ -19,6 +20,7 @@ on:
       - "scripts/check_h_pylori_snapshot_section_layering.py"
       - "scripts/check_h_pylori_snapshot_subsection_semantics.py"
       - "scripts/check_h_pylori_snapshot_consistency.py"
+      - "scripts/check_h_pylori_public_layer_atlas_governance.py"
       - "scripts/check_h_pylori_public_layer.py"
       - ".github/workflows/check-h-pylori-public-layer.yml"
   pull_request:
@@ -28,6 +30,7 @@ on:
       - "pilots/living-knowledge-case/cases/h-pylori-ulcer/snapshots/**"
       - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-verification-atlas-v1.md"
       - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-acceptance-pass-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-atlas-governance-v1.md"
       - "pilots/living-knowledge-case/cases/h-pylori-ulcer/claim-page-pressure-coverage-v1.md"
       - "pilots/living-knowledge-case/cases/h-pylori-ulcer/source-page-role-anchors-v1.md"
       - "pilots/living-knowledge-case/cases/h-pylori-ulcer/snapshot-subsection-semantic-anchors-v1.md"
@@ -39,6 +42,7 @@ on:
       - "scripts/check_h_pylori_snapshot_section_layering.py"
       - "scripts/check_h_pylori_snapshot_subsection_semantics.py"
       - "scripts/check_h_pylori_snapshot_consistency.py"
+      - "scripts/check_h_pylori_public_layer_atlas_governance.py"
       - "scripts/check_h_pylori_public_layer.py"
       - ".github/workflows/check-h-pylori-public-layer.yml"
   workflow_dispatch:

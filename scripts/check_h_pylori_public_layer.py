@@ -53,12 +53,19 @@ PUBLIC_LAYER_CHECKS = [
         "layer": "snapshot release-view layer",
         "cmd": [PYTHON, "scripts/check_h_pylori_snapshot_consistency.py"],
     },
+    {
+        "name": "public_layer_atlas_governance",
+        "label": "Public-layer atlas governance",
+        "layer": "public-layer verification entry surface",
+        "cmd": [PYTHON, "scripts/check_h_pylori_public_layer_atlas_governance.py"],
+    },
 ]
 
 LAYER_ORDER = [
     "claim page public layer",
     "source page public layer",
     "snapshot release-view layer",
+    "public-layer verification entry surface",
 ]
 
 

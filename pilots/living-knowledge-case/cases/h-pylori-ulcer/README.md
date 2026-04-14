@@ -61,9 +61,11 @@ For shell-reuse, second-case activation, and current public-layer governance, co
 10. [`source-page-role-anchors-v1.md`](./source-page-role-anchors-v1.md) — source-page role-anchor hardening rule
 11. [`snapshot-section-layering-v1.md`](./snapshot-section-layering-v1.md) — snapshot release-view rule
 12. [`snapshot-subsection-semantic-anchors-v1.md`](./snapshot-subsection-semantic-anchors-v1.md) — snapshot semantic-anchor hardening rule
-13. [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — current second-case public-layer verification map
-14. [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — current second-case acceptance verdict
-15. [`references-metadata-v1.md`](./references-metadata-v1.md) — current stable source metadata floor for this case
+13. [`snapshot-consistency-v1.md`](./snapshot-consistency-v1.md) — fuller snapshot consistency rule
+14. [`public-layer-atlas-governance-v1.md`](./public-layer-atlas-governance-v1.md) — atlas-governance self-check rule
+15. [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — current second-case public-layer verification map
+16. [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — current second-case acceptance verdict
+17. [`references-metadata-v1.md`](./references-metadata-v1.md) — current stable source metadata floor for this case
 
 ## Folder guide
 
@@ -86,6 +88,8 @@ For shell-reuse, second-case activation, and current public-layer governance, co
 - [`source-page-role-anchors-v1.md`](./source-page-role-anchors-v1.md) — source-page semantic hardening note
 - [`snapshot-section-layering-v1.md`](./snapshot-section-layering-v1.md) — snapshot governance note
 - [`snapshot-subsection-semantic-anchors-v1.md`](./snapshot-subsection-semantic-anchors-v1.md) — snapshot semantic hardening note
+- [`snapshot-consistency-v1.md`](./snapshot-consistency-v1.md) — fuller snapshot consistency note
+- [`public-layer-atlas-governance-v1.md`](./public-layer-atlas-governance-v1.md) — atlas-governance self-check note
 - [`public-layer-verification-atlas-v1.md`](./public-layer-verification-atlas-v1.md) — public-layer verification atlas
 - [`public-layer-acceptance-pass-v1.md`](./public-layer-acceptance-pass-v1.md) — public-layer acceptance pass record
 
@@ -99,9 +103,11 @@ But it has now completed:
 - first consistency pass,
 - first governed public-layer pass,
 - first public-layer verification / acceptance pass,
-- the first richer semantic hardening lift on the claim-page side,
-- the second richer semantic hardening lift on the source-page side,
-- and the third richer semantic hardening lift on the snapshot-subsection side.
+- the first richer hardening lift on the claim-page side,
+- the second richer hardening lift on the source-page side,
+- the third richer hardening lift on the snapshot-subsection side,
+- the fourth richer hardening lift through fuller snapshot consistency checking,
+- and the fifth richer hardening lift through atlas-governance self-checking.
 
 That means the current public claim, source, and snapshot surfaces are no longer being left purely informal.
 They now have:
@@ -111,9 +117,11 @@ They now have:
 - a suite entrypoint,
 - a verification atlas,
 - an acceptance verdict at the current threshold,
-- direct claim-page pressure coverage checks,
-- source-page role-anchor checks,
-- and snapshot subsection semantic-anchor checks.
+- claim-page direct pressure coverage,
+- source-page role anchors,
+- snapshot subsection semantic anchors,
+- fuller snapshot consistency checking,
+- and atlas-governance self-checking.
 
 Its current job remains narrower than the first case:
 
@@ -123,5 +131,5 @@ Its current job remains narrower than the first case:
 The current stage verdict is therefore narrower than full public release and stronger than mere seeding:
 
 > the second case now holds an accepted first governed public layer,
-> with richer semantic hardening now landed on the claim-page, source-page, and snapshot-subsection surfaces,
-> while still retaining holds against full public release, page emission, fuller snapshot consistency checking, and repository-wide public-layer generalization.
+> with richer hardening now landed on the claim-page, source-page, snapshot-side, and atlas-governance surfaces,
+> while still retaining holds against full public release, page emission, a larger public-layer orchestration boundary, and repository-wide public-layer generalization.
