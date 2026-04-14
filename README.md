@@ -67,6 +67,15 @@ If you want to locally preview the current living page rather than only read mar
 
 The local preview helper can refresh `page-data.js` and start a tiny static server so a forked checkout can show the current page quickly.
 
+### Local preview of the first cockpit prototype
+
+If you want to locally preview the bounded cockpit prototype rather than only read the cockpit appendix files, start here:
+
+- [`COCKPIT1-B/prototype/README.md`](./cockpit/COCKPIT1-B/prototype/README.md)
+- [`preview_cockpit.py`](./cockpit/COCKPIT1-B/prototype/preview_cockpit.py)
+
+This route is intentionally modest: it previews a zero-build static cockpit skeleton and does not claim a production frontend.
+
 ### Revision governance
 
 If you want the current semantic revision rule for governed objects, start here:

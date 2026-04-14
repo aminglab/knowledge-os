@@ -72,7 +72,9 @@ This is a real public-layer foundation, not a finished public product shell.
 
 ---
 
-## Preview the first living page locally
+## Preview routes
+
+### Preview the first living page locally
 
 If you want to do more than read markdown and actually preview the current living page locally, go here:
 
@@ -80,6 +82,15 @@ If you want to do more than read markdown and actually preview the current livin
 - [`preview_page.py`](./pilots/living-knowledge-case/cases/power-posing/page/preview_page.py)
 
 That route now gives a forked checkout a small local preview path for the first public case.
+
+### Preview the bounded cockpit prototype locally
+
+If you want to preview the first cockpit skeleton rather than only read the cockpit appendix files, go here:
+
+- [`COCKPIT1-B/prototype/README.md`](./cockpit/COCKPIT1-B/prototype/README.md)
+- [`preview_cockpit.py`](./cockpit/COCKPIT1-B/prototype/preview_cockpit.py)
+
+This route exposes the current cockpit prototype honestly as a bounded local preview, not as a finished application shell.
 
 ---
 
@@ -118,3 +129,6 @@ If you want repository-level context instead, continue with:
 This public entry is a seed surface.
 Its job is not to simulate a complete public website.
 Its job is to give Knowledge OS a true public front door, so the first public case no longer has to carry the entire system-level identity burden by itself.
+
+The cockpit preview route is additive.
+It does not replace the current public-case entry chain.

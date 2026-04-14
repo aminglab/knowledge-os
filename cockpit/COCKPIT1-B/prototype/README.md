@@ -17,12 +17,33 @@ It exists to prove that the cockpit can:
 - `index.html` — static prototype shell
 - `styles.css` — prototype layout and visual hierarchy
 - `app.js` — hardcoded state fixtures and screen switching logic
+- `preview_cockpit.py` — tiny local preview helper
 
 ## Preview
 
-Open `index.html` directly in a browser, or serve the directory with a simple static server.
+### Fastest route
 
-Example:
+Run:
+
+```bash
+python preview_cockpit.py
+```
+
+This will:
+
+1. serve the current directory as a small static site,
+2. print the local preview URL,
+3. and open a browser tab unless `--no-browser` is supplied.
+
+Optional flags:
+
+```bash
+python preview_cockpit.py --port 8010 --no-browser
+```
+
+### Manual route
+
+You can also serve the directory manually:
 
 ```bash
 python -m http.server 8000
