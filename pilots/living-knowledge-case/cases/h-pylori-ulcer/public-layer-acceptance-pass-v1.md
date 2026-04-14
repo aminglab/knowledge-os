@@ -19,7 +19,7 @@ That sequence now makes a narrower but real acceptance question possible:
 > has the second case crossed the threshold for a first accepted governed public layer,
 > even though it is still far from the first case's fuller public-layer maturity?
 
-This file now also records the first **post-acceptance semantic hardening lift** inside that accepted public layer.
+This file now also records the first **post-acceptance semantic hardening lifts** inside that accepted public layer.
 
 ---
 
@@ -31,7 +31,8 @@ Current verdict:
 >
 > The second case now has an accepted minimal governed public layer across claim pages, source pages, and snapshot structure.
 >
-> That accepted layer now includes its first richer semantic hardening move on the claim-page side: direct pressure coverage.
+> That accepted layer now includes two richer semantic hardening moves:
+> claim-page direct pressure coverage and source-page role anchors.
 >
 > It still does **not** yet have a full public-layer release, page-emission layer, or first-case-equivalent orchestration boundary.
 
@@ -44,6 +45,7 @@ This acceptance pass is based on the current second-case public-layer stack:
 - claim-page layering rule + checker
 - claim-page pressure-coverage rule + checker
 - source-page layering rule + checker
+- source-page role-anchor rule + checker
 - snapshot section layering rule + checker
 - public-layer verification atlas
 - public-layer suite entrypoint
@@ -80,10 +82,14 @@ That makes acceptance more than a manual impression.
 
 The second case now has a richer semantic claim-page check that requires direct evidence objects and direct dissent objects to remain visible on the matching claim page.
 
-That does not make the whole public layer semantically rich.
-But it is a real hardening lift beyond section presence alone.
+### 5. Source pages now preserve role identity more faithfully
 
-### 5. The current boundaries are explicitly stated
+The second case now has a richer semantic source-page check that requires each source page to preserve the minimal role phrases that identify why that source matters in this case.
+
+That does not make the whole public layer semantically rich.
+But it is a real hardening lift beyond structure alone.
+
+### 6. The current boundaries are explicitly stated
 
 This acceptance pass does not confuse:
 
@@ -103,7 +109,6 @@ This verdict does **not** mean:
 - that the second case is now equivalent to `power-posing`,
 - that it already has a page-emission layer,
 - that it already has a public-layer atlas governance checker,
-- that it already has source-role-anchor checking,
 - that it already has richer snapshot semantic checking,
 - or that the repo has earned multi-case public-layer genericity.
 
@@ -118,7 +123,6 @@ The second case should continue to carry the following holds:
 - **HOLD_NO_FULL_PUBLIC_RELEASE**
 - **HOLD_NO_PAGE_EMISSION_LAYER**
 - **HOLD_NO_PUBLIC_LAYER_ATLAS_GOVERNANCE_CHECKER**
-- **HOLD_NO_SOURCE_ROLE_ANCHOR_CHECK**
 - **HOLD_NO_RICHER_SNAPSHOT_SEMANTIC_CHECKS**
 - **HOLD_NO_REPOSITORY_WIDE_PUBLIC_LAYER_GENERALIZATION**
 
@@ -129,11 +133,10 @@ They are the correct boundaries for the current stage.
 
 ## Next natural hardening options
 
-After this acceptance pass and the current claim-page hardening lift, the next natural hardening options are:
+After the current claim-page and source-page hardening lifts, the next natural hardening options are:
 
-1. add a stronger source-page role-anchor checker
-2. add a richer snapshot consistency / semantics checker
-3. only after those, consider whether a larger public-layer orchestration boundary is justified
+1. add a richer snapshot consistency / semantics checker
+2. only after that, consider whether a larger public-layer orchestration boundary is justified
 
 That is now the natural upgrade order.
 
@@ -148,12 +151,12 @@ That is now the natural upgrade order.
   - source page public layer
   - snapshot release-view layer
   - suite-level public-layer verification entry
-- current richer semantic lift:
+- current richer semantic lifts:
   - claim-page direct pressure coverage
+  - source-page role anchors
 - retained holds:
   - `HOLD_NO_FULL_PUBLIC_RELEASE`
   - `HOLD_NO_PAGE_EMISSION_LAYER`
   - `HOLD_NO_PUBLIC_LAYER_ATLAS_GOVERNANCE_CHECKER`
-  - `HOLD_NO_SOURCE_ROLE_ANCHOR_CHECK`
   - `HOLD_NO_RICHER_SNAPSHOT_SEMANTIC_CHECKS`
   - `HOLD_NO_REPOSITORY_WIDE_PUBLIC_LAYER_GENERALIZATION`
