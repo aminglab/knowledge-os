@@ -10,6 +10,11 @@ It does something more immediately useful:
 > clarifies what kind of drift each checker is meant to catch,
 > and names the public-layer gaps that are still intentionally uncovered.
 
+For the current boundary and threshold notes that govern the orchestration layer specifically, see:
+
+- [`public-layer-orchestration-boundary-v1.md`](./public-layer-orchestration-boundary-v1.md)
+- [`public-layer-orchestration-threshold-v1.md`](./public-layer-orchestration-threshold-v1.md)
+
 ---
 
 ## One-sentence ruling
@@ -17,7 +22,7 @@ It does something more immediately useful:
 Current ruling:
 
 > **The second case now has a real but still minimal governed public layer.**
-> **Its current verification stack is claim-page structure, claim-page direct pressure coverage, source-page structure, source-page role anchors, snapshot release-view structure, snapshot subsection semantics, fuller snapshot consistency, atlas-governance self-checking, and one small suite entrypoint that can run them together.**
+> **Its current verification stack is claim-page structure, claim-page direct pressure coverage, source-page structure, source-page role anchors, snapshot release-view structure, snapshot subsection semantics, fuller snapshot consistency, atlas-governance self-checking, a named orchestration boundary, and one suite entrypoint that can run them together.**
 
 ---
 
@@ -37,12 +42,13 @@ This means the earlier state of “a few separate checks but no public-layer sui
 
 ## Current public-layer stack
 
-The current `h-pylori-ulcer` public layer should now be read as four adjacent surfaces.
+The current `h-pylori-ulcer` public layer should now be read as five adjacent surfaces.
 
 1. **claim page public layer**
 2. **source page public layer**
 3. **snapshot release-view layer**
 4. **public-layer verification entry surface**
+5. **public-layer orchestration boundary**
 
 This is intentionally smaller than the current `power-posing` stack.
 That difference is a feature, not a defect.
@@ -67,6 +73,8 @@ The current layer-to-check grouping is:
 4. **public-layer verification entry surface**
    - `check_h_pylori_public_layer_atlas_governance.py`
    - `check_h_pylori_public_layer.py`
+5. **public-layer orchestration boundary**
+   - `check_h_pylori_public_layer_boundary.py`
 
 This grouping is not a grand checker taxonomy.
 It is a small naming and ordering discipline that keeps the second-case public layer readable and auditable.
@@ -85,7 +93,8 @@ The current public-layer subset includes the following named checks:
 6. `check_h_pylori_snapshot_subsection_semantics.py`
 7. `check_h_pylori_snapshot_consistency.py`
 8. `check_h_pylori_public_layer_atlas_governance.py`
-9. `check_h_pylori_public_layer.py` as the suite entrypoint
+9. `check_h_pylori_public_layer_boundary.py`
+10. `check_h_pylori_public_layer.py` as the suite entrypoint
 
 The important current fact is not just that these checks exist.
 It is that the second case now has a **named operational entry surface** for running them together.
@@ -100,9 +109,9 @@ This atlas should also say what is **not** yet covered.
 The current second case does not yet have a page-emission layer comparable to the first case.
 That means there is nothing here like `generate_page_data.py --check`.
 
-### 2. No larger public-layer orchestration boundary yet
-The current second-case stack is now large enough to justify a small atlas-governance self-check.
-It does not yet justify a larger orchestration boundary beyond the current suite entrypoint.
+### 2. No larger orchestration expansion yet
+The current second-case stack now has an explicit orchestration boundary.
+But it still does not justify a larger hidden-checks or multi-entry orchestration expansion beyond the current suite entrypoint and workflow.
 
 ### 3. No repository-wide public-layer governance layer yet
 The current second-case stack remains local.
@@ -115,5 +124,5 @@ It does not yet claim repository-wide public-layer governance.
 So the practical verdict is:
 
 - **the `h-pylori-ulcer` public layer now has a real but compact verification network**
-- **claim-page structure, claim-page direct pressure coverage, source-page structure, source-page role anchors, snapshot structure, snapshot subsection semantics, fuller snapshot consistency, atlas-governance self-checking, and suite-level entry are no longer being treated as one undifferentiated surface**
-- **the next hardening question is no longer whether atlas / acceptance / README can drift silently, but whether a larger public-layer orchestration boundary is now justified**
+- **claim-page structure, claim-page direct pressure coverage, source-page structure, source-page role anchors, snapshot structure, snapshot subsection semantics, fuller snapshot consistency, atlas-governance self-checking, a named orchestration boundary, and suite-level entry are no longer being treated as one undifferentiated surface**
+- **the next hardening question is no longer whether the second case has a named orchestration boundary at all, but whether a later larger expansion ever becomes justified**

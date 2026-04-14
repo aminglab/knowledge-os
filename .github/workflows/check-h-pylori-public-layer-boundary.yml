@@ -1,0 +1,41 @@
+name: Check H. pylori public-layer orchestration boundary
+
+on:
+  push:
+    paths:
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-verification-atlas-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-atlas-governance-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-orchestration-boundary-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-orchestration-threshold-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/README.md"
+      - "scripts/check_h_pylori_public_layer_boundary.py"
+      - ".github/workflows/check-h-pylori-public-layer-boundary.yml"
+  pull_request:
+    paths:
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-verification-atlas-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-atlas-governance-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-orchestration-boundary-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/public-layer-orchestration-threshold-v1.md"
+      - "pilots/living-knowledge-case/cases/h-pylori-ulcer/README.md"
+      - "scripts/check_h_pylori_public_layer_boundary.py"
+      - ".github/workflows/check-h-pylori-public-layer-boundary.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-public-layer-boundary:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run public-layer orchestration boundary check
+        run: python scripts/check_h_pylori_public_layer_boundary.py
