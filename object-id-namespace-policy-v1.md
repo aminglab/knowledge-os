@@ -87,7 +87,7 @@ So the id string does not bear the whole identity burden by itself.
 
 Immediate renaming of current ids into forms such as:
 
-- `sguft-C-0001`
+- `hpylori-C-0001`
 - `knowledgeos-C-0001`
 
 would currently create:
@@ -143,9 +143,9 @@ When the threshold is crossed, the preferred upgrade path is:
 
 Examples:
 
-- `sguft-C-0001`
+- `hpylori-C-0001`
 - `lkc-C-0001`
-- `cosfit-E-0012`
+- `lkc-E-0012`
 
 Where:
 

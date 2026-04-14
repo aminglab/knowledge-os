@@ -21,8 +21,8 @@ Before building a full product, run at least one real project using:
 The language survives contact with a live case.
 
 ### Candidate pilots
-1. **SGUFT cockpit pilot** — internal depth and long-duration pressure.
-2. **Living Knowledge Case pilot** — public intelligibility and external communication.
+1. **Living Knowledge Case pilot — Power Posing** — public intelligibility, false elevation, weakening, and living-page pressure.
+2. **Living Knowledge Case pilot — H. pylori and Peptic Ulcer Disease** — delayed vindication, stabilization, descendant narrowing, and public communication.
 
 ## Phase B — Single-user Cockpit
 
@@ -101,7 +101,7 @@ It should arrive only after:
 ### Immediate
 - publish repo entry docs,
 - finalize the canonical vocabulary,
-- choose the first live pilot,
+- expand the current live pilots,
 - define the minimum object envelope,
 - define the minimum revision model.
 
