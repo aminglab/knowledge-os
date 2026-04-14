@@ -120,7 +120,7 @@ Use the following rule.
 - you are tempted to open a larger boundary immediately,
 - or you need the current do-not-expand-yet judgment in one place.
 
-### Read `public-layer-orchestration-threshold-v1.md` when:
+### Read [`public-layer-orchestration-threshold-v1.md`](./public-layer-orchestration-threshold-v1.md) when:
 - you are asking what would justify a later orchestration expansion,
 - or you need threshold language rather than a present-boundary ruling.
 
@@ -146,4 +146,4 @@ So the practical verdict is:
 - the second case now has an explicit public-layer orchestration boundary,
 - that boundary is still intentionally smaller than the first case's broader public-layer ecology,
 - the current stage favors naming and checking the boundary,
-- and the larger-expansion question now belongs to an explicit threshold note rather than to memory or guesswork.
+- and the larger-expansion question now belongs to an explicit [`public-layer-orchestration-threshold-v1.md`](./public-layer-orchestration-threshold-v1.md) rather than to memory or guesswork.

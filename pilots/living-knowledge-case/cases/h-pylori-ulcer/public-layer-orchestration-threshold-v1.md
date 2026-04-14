@@ -29,7 +29,7 @@ The current stage continues to retain:
 - `HOLD_NO_LARGER_PUBLIC_LAYER_ORCHESTRATION_BOUNDARY`
 
 That hold is still correct.
-The current boundary is now named and governed, but it is not yet forced to expand further.
+The current boundary named in [`public-layer-orchestration-boundary-v1.md`](./public-layer-orchestration-boundary-v1.md) is now explicit and governed, but it is not yet forced to expand further.
 
 ---
 
@@ -76,6 +76,6 @@ The threshold should remain pressure-driven rather than aesthetics-driven.
 
 So the practical verdict is:
 
-- the current orchestration boundary is now explicit,
+- the current orchestration boundary exposed in [`public-layer-orchestration-boundary-v1.md`](./public-layer-orchestration-boundary-v1.md) is now explicit,
 - the larger expansion question is now a threshold question rather than a mood,
 - and the current hold remains lawful until the stack produces a genuine forcing condition.
