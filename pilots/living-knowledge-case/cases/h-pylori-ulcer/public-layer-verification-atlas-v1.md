@@ -17,7 +17,7 @@ It does something more immediately useful:
 Current ruling:
 
 > **The second case now has a real but still minimal governed public layer.**
-> **Its current verification stack is claim-page structure, claim-page direct pressure coverage, source-page structure, source-page role anchors, snapshot release-view structure, and one small suite entrypoint that can run them together.**
+> **Its current verification stack is claim-page structure, claim-page direct pressure coverage, source-page structure, source-page role anchors, snapshot release-view structure, snapshot subsection semantics, and one small suite entrypoint that can run them together.**
 
 ---
 
@@ -62,6 +62,7 @@ The current layer-to-check grouping is:
    - `check_h_pylori_source_page_role_anchors.py`
 3. **snapshot release-view layer**
    - `check_h_pylori_snapshot_section_layering.py`
+   - `check_h_pylori_snapshot_subsection_semantics.py`
 4. **public-layer verification entry surface**
    - `check_h_pylori_public_layer.py`
 
@@ -79,7 +80,8 @@ The current public-layer subset includes the following named checks:
 3. `check_h_pylori_source_page_layering.py`
 4. `check_h_pylori_source_page_role_anchors.py`
 5. `check_h_pylori_snapshot_section_layering.py`
-6. `check_h_pylori_public_layer.py` as the suite entrypoint
+6. `check_h_pylori_snapshot_subsection_semantics.py`
+7. `check_h_pylori_public_layer.py` as the suite entrypoint
 
 The important current fact is not just that these checks exist.
 It is that the second case now has a **named operational entry surface** for running them together.
@@ -100,9 +102,9 @@ The current second-case stack is still small enough that atlas self-governance d
 ### 3. No hidden-checks orchestration boundary yet
 The current second case does not yet need the stronger orchestration boundary used by the first case.
 
-### 4. No richer snapshot semantic checker yet
-The current pass now includes richer semantic hardening on the claim-page side and the source-page side.
-But it does not yet claim richer snapshot semantic coverage.
+### 4. No richer snapshot consistency checker yet
+The current pass now includes richer semantic hardening on the claim-page side, the source-page side, and the snapshot-subsection side.
+But it does not yet claim fuller snapshot consistency coverage.
 
 ---
 
@@ -111,5 +113,5 @@ But it does not yet claim richer snapshot semantic coverage.
 So the practical verdict is:
 
 - **the `h-pylori-ulcer` public layer now has a real but compact verification network**
-- **claim-page structure, claim-page direct pressure coverage, source-page structure, source-page role anchors, snapshot structure, and suite-level entry are no longer being treated as one undifferentiated surface**
-- **the next hardening question is no longer whether the source-page layer has any semantic anchors at all, but whether the snapshot release-view deserves the next semantic checker lift**
+- **claim-page structure, claim-page direct pressure coverage, source-page structure, source-page role anchors, snapshot structure, snapshot subsection semantics, and suite-level entry are no longer being treated as one undifferentiated surface**
+- **the next hardening question is no longer whether the snapshot layer has any semantic anchors at all, but whether the snapshot release-view deserves a fuller consistency checker lift**

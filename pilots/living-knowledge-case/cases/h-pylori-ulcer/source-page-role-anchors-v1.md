@@ -65,7 +65,7 @@ They only preserve the minimal role phrases that should remain visible if the pa
 - Source id: `Nobel_2005_Hpylori`
 - Required role anchors:
   - `strongest public-facing stabilization marker`
-  - `not the primary scientific proof layer`
+  - `does not serve as the primary scientific proof layer`
   - `public medical memory`
 
 ### `NIH_1994_Consensus`
