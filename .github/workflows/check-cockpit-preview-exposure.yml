@@ -1,0 +1,36 @@
+name: Check Cockpit Preview Exposure
+
+on:
+  pull_request:
+    paths:
+      - 'cockpit/COCKPIT1-B/prototype/**'
+      - 'cockpit/COCKPIT1-D/**'
+      - 'cockpit/COCKPIT1-E/**'
+      - 'README.md'
+      - 'PUBLIC-ENTRY.md'
+      - 'scripts/check_cockpit_preview_exposure.py'
+      - '.github/workflows/check-cockpit-preview-exposure.yml'
+  push:
+    paths:
+      - 'cockpit/COCKPIT1-B/prototype/**'
+      - 'cockpit/COCKPIT1-D/**'
+      - 'cockpit/COCKPIT1-E/**'
+      - 'README.md'
+      - 'PUBLIC-ENTRY.md'
+      - 'scripts/check_cockpit_preview_exposure.py'
+      - '.github/workflows/check-cockpit-preview-exposure.yml'
+
+jobs:
+  check-cockpit-preview-exposure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run cockpit preview exposure check
+        run: python scripts/check_cockpit_preview_exposure.py
