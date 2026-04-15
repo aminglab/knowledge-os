@@ -1,0 +1,28 @@
+name: check-cockpit2-b-b-result-pattern
+
+on:
+  push:
+    paths:
+      - 'cockpit/COCKPIT2-B-B/**'
+      - 'scripts/check_cockpit2_b_b_result_pattern.py'
+      - '.github/workflows/check-cockpit2-b-b-result-pattern.yml'
+  pull_request:
+    paths:
+      - 'cockpit/COCKPIT2-B-B/**'
+      - 'scripts/check_cockpit2_b_b_result_pattern.py'
+      - '.github/workflows/check-cockpit2-b-b-result-pattern.yml'
+
+jobs:
+  check-cockpit2-b-b-result-pattern:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run COCKPIT2-B-B result-pattern checker
+        run: python scripts/check_cockpit2_b_b_result_pattern.py
