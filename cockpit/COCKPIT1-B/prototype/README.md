@@ -55,6 +55,21 @@ Then open:
 http://localhost:8000/cockpit/COCKPIT1-B/prototype/
 ```
 
+## Operator and demo route
+
+If you want the current bounded way to use and demonstrate this prototype, continue with:
+
+- [`Operator note`](../../COCKPIT1-F/cockpit-operator-note-v1.md)
+- [`Demo script`](../../COCKPIT1-F/cockpit-demo-script-v1.md)
+- [`Preview smoke checklist`](../../COCKPIT1-F/cockpit-preview-smoke-checklist-v1.md)
+
+These three files complete the current preview-reading path:
+
+- the preview helper launches the bounded prototype,
+- the operator note defines how to use it,
+- the demo script defines the standard five-state walkthrough,
+- and the smoke checklist defines the minimum lawful preview run.
+
 ## Boundary
 
 This prototype does **not** claim:
