@@ -1,0 +1,28 @@
+name: check-cockpit2-b-c-trigger-closure
+
+on:
+  push:
+    paths:
+      - 'cockpit/COCKPIT2-B-C/**'
+      - 'scripts/check_cockpit2_b_c_trigger_closure.py'
+      - '.github/workflows/check-cockpit2-b-c-trigger-closure.yml'
+  pull_request:
+    paths:
+      - 'cockpit/COCKPIT2-B-C/**'
+      - 'scripts/check_cockpit2_b_c_trigger_closure.py'
+      - '.github/workflows/check-cockpit2-b-c-trigger-closure.yml'
+
+jobs:
+  check-cockpit2-b-c-trigger-closure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run COCKPIT2-B-C trigger-closure checker
+        run: python scripts/check_cockpit2_b_c_trigger_closure.py
