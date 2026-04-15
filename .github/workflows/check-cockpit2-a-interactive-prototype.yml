@@ -1,0 +1,28 @@
+name: check-cockpit2-a-interactive-prototype
+
+on:
+  push:
+    paths:
+      - 'cockpit/COCKPIT2-A/**'
+      - 'scripts/check_cockpit2_a_interactive_prototype.py'
+      - '.github/workflows/check-cockpit2-a-interactive-prototype.yml'
+  pull_request:
+    paths:
+      - 'cockpit/COCKPIT2-A/**'
+      - 'scripts/check_cockpit2_a_interactive_prototype.py'
+      - '.github/workflows/check-cockpit2-a-interactive-prototype.yml'
+
+jobs:
+  check-cockpit2-a-interactive-prototype:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run COCKPIT2-A interactive prototype checker
+        run: python scripts/check_cockpit2_a_interactive_prototype.py
