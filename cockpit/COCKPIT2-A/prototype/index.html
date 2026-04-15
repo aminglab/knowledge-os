@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COCKPIT2-A Interactive Prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">Knowledge OS / COCKPIT2-A</div>
+          <h1>Bounded Interactive Cockpit Prototype Lift</h1>
+        </div>
+        <div class="topbar-meta">
+          <span class="pill">Mode: Cockpit</span>
+          <span class="pill">Interactive prototype floor</span>
+          <span class="pill muted">No live runtime / no frontend mutation</span>
+        </div>
+      </header>
+
+      <main class="cockpit-grid">
+        <aside class="left-rail panel">
+          <div class="panel-header">
+            <h2>States</h2>
+            <p>Five bound screen states carried forward from COCKPIT1-B</p>
+          </div>
+          <nav id="state-nav" class="state-nav"></nav>
+
+          <div class="panel-header compact">
+            <h2>Object anchors</h2>
+            <p>Bounded object-browse surface</p>
+          </div>
+          <div id="object-nav" class="object-nav"></div>
+        </aside>
+
+        <section class="main-panel panel">
+          <div class="panel-header">
+            <h2 id="screen-title">Screen</h2>
+            <p id="screen-subtitle"></p>
+          </div>
+
+          <div class="lens-bar">
+            <div>
+              <strong>Lens switch</strong>
+              <p class="muted-text">Foreground changes only. Object state does not mutate.</p>
+            </div>
+            <div id="lens-nav" class="lens-nav"></div>
+          </div>
+
+          <div id="main-content" class="main-content"></div>
+        </section>
+
+        <aside class="right-rail panel">
+          <div class="panel-header">
+            <h2>Triggers / Pressure / Boundary</h2>
+            <p>Suggestion-layer only, never a write-capable command center</p>
+          </div>
+          <div id="trigger-panel" class="trigger-panel"></div>
+          <div id="right-content" class="stack-list"></div>
+        </aside>
+      </main>
+
+      <section class="sidecar panel">
+        <div class="panel-header compact">
+          <h2>Sidecar Audit Log</h2>
+          <p>Drafts, scans, and operator hints only</p>
+        </div>
+        <div id="sidecar-content" class="sidecar-content"></div>
+      </section>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
