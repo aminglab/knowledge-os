@@ -1,0 +1,28 @@
+name: check-cockpit3-a-governance-sidecar
+
+on:
+  push:
+    paths:
+      - 'cockpit/COCKPIT3-A/**'
+      - 'scripts/check_cockpit3_a_governance_sidecar.py'
+      - '.github/workflows/check-cockpit3-a-governance-sidecar.yml'
+  pull_request:
+    paths:
+      - 'cockpit/COCKPIT3-A/**'
+      - 'scripts/check_cockpit3_a_governance_sidecar.py'
+      - '.github/workflows/check-cockpit3-a-governance-sidecar.yml'
+
+jobs:
+  check-cockpit3-a-governance-sidecar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run COCKPIT3-A governance sidecar checker
+        run: python scripts/check_cockpit3_a_governance_sidecar.py
