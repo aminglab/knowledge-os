@@ -1,0 +1,28 @@
+name: check-cockpit3-b-a-review-boundary
+
+on:
+  push:
+    paths:
+      - 'cockpit/COCKPIT3-B-A/**'
+      - 'scripts/check_cockpit3_b_a_review_boundary.py'
+      - '.github/workflows/check-cockpit3-b-a-review-boundary.yml'
+  pull_request:
+    paths:
+      - 'cockpit/COCKPIT3-B-A/**'
+      - 'scripts/check_cockpit3_b_a_review_boundary.py'
+      - '.github/workflows/check-cockpit3-b-a-review-boundary.yml'
+
+jobs:
+  check-cockpit3-b-a-review-boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run COCKPIT3-B-A review boundary checker
+        run: python scripts/check_cockpit3_b_a_review_boundary.py
