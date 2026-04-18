@@ -18,7 +18,7 @@ The sidecar may display:
 
 - current execution-boundary class
 - current action posture
-- future classes that remain inactive
+- future classes not opened yet
 
 The sidecar may not silently upgrade result surfaces into executable actions.
 
