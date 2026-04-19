@@ -27,6 +27,7 @@ REQ_APP = [
     'action_posture: surface_only',
     'non-executable at current stage',
     'operator review is still not execution authority.',
+    'No current governed result surface is yet lawfully classified as operator_review_required.',
     'HOLD_NO_LIVE_RUNTIME_COCKPIT',
     'HOLD_NO_WRITE_CAPABLE_COCKPIT_SURFACE',
     'HOLD_NO_OBJECT_MUTATION_FROM_FRONTEND',
@@ -35,6 +36,7 @@ REQ_README = [
     'show review trigger, review scope, and review act next to the result surface',
     'keep all current result surfaces draft_only and non-executable',
     'operator review is still not execution authority',
+    'no current governed result surface is yet lawfully classified as operator_review_required',
 ]
 REQ_OBJECT = [
     'review_trigger',
@@ -42,6 +44,7 @@ REQ_OBJECT = [
     'review_act',
     'retained_holds',
     'operator review is still not execution authority.',
+    'No current governed result surface is yet lawfully classified as `operator_review_required`.',
 ]
 REQ_ACCEPT = [
     'PASS_REVIEW_BOUNDARY_PROTOTYPE_LIFT',
@@ -106,6 +109,7 @@ def main() -> int:
     print('- review_trigger / review_scope / review_act / retained_holds explicit')
     print('- draft_only / surface_only posture preserved')
     print('- operator review remains non-executional')
+    print('- no current surface is overclaimed as operator_review_required')
     return 0
 
 
