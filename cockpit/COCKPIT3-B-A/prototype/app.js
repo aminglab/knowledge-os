@@ -18,7 +18,8 @@ const app = document.getElementById('app');
 let mode = 'summary_review';
 let auditLog = [
   'COCKPIT3-B-A entered: bounded review-boundary prototype lift.',
-  'All current surfaces remain draft_only, surface_only, and non-executable at current stage.'
+  'All current surfaces remain draft_only, surface_only, and non-executable at current stage.',
+  'No current governed result surface is yet lawfully classified as operator_review_required.'
 ];
 
 const candidates = {
@@ -80,6 +81,7 @@ function render() {
           </div>
           <div class="block"><strong>Summary</strong><p>${c.summary}</p></div>
           <div class="block"><strong>Boundary honesty</strong><p>operator review is still not execution authority.</p></div>
+          <div class="block"><strong>Current non-upgrade clause</strong><p>No current governed result surface is yet lawfully classified as operator_review_required.</p></div>
           <div class="block"><strong>Anti-overclaim</strong><p>No execute, commit, apply, resolve, or publish authority is opened here.</p></div>
         </article>
       </section>
@@ -92,6 +94,7 @@ function render() {
           <div class="block"><strong>review_scope</strong><ul>${c.review_scope.map(i => `<li>${i}</li>`).join('')}</ul></div>
           <div class="block"><strong>review_act</strong><p>${c.review_act}</p></div>
           <div class="block"><strong>retained_holds</strong><ul><li>HOLD_NO_LIVE_RUNTIME_COCKPIT</li><li>HOLD_NO_WRITE_CAPABLE_COCKPIT_SURFACE</li><li>HOLD_NO_OBJECT_MUTATION_FROM_FRONTEND</li></ul></div>
+          <div class="block"><strong>Future class not yet opened</strong><p>No current governed result surface is yet lawfully classified as operator_review_required.</p></div>
         </article>
       </aside>
     </main>
@@ -105,7 +108,7 @@ function render() {
   document.querySelectorAll('button[data-mode]').forEach(btn => {
     btn.addEventListener('click', () => {
       mode = btn.dataset.mode;
-      pushAudit(`${mode} surfaced a bounded review candidate. operator review is still not execution authority.`);
+      pushAudit(`${mode} surfaced a bounded review candidate. operator review is still not execution authority. No current governed result surface is yet lawfully classified as operator_review_required.`);
       render();
     });
   });
