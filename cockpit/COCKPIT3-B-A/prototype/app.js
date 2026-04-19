@@ -30,6 +30,8 @@ const candidates = {
     review_trigger: 'handoff pressure is visible because the draft is likely to be reviewed for wording and bounded next-step framing',
     review_scope: ['wording only', 'bounded next-step suggestion only'],
     review_act: 'mark as review candidate for manual follow-up',
+    review_trigger_family: 'export_surface_pressure',
+    review_scope_family: 'export_only',
   },
   continuation_review: {
     title: 'Canonical continuation draft',
@@ -38,6 +40,8 @@ const candidates = {
     review_trigger: 'route-ordering pressure is visible because the draft proposes a stronger next-step ordering',
     review_scope: ['routing only', 'bounded continuation wording only'],
     review_act: 'freeze for later handoff to a human operator',
+    review_trigger_family: 'routing_handoff_pressure',
+    review_scope_family: 'routing_only',
   }
 };
 
@@ -78,6 +82,8 @@ function render() {
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <span class="badge">Output class: ${c.outputClass}</span>
             <span class="badge">Draft-only governed result</span>
+            <span class="badge">review_trigger_family: ${c.review_trigger_family}</span>
+            <span class="badge">review_scope_family: ${c.review_scope_family}</span>
           </div>
           <div class="block"><strong>Summary</strong><p>${c.summary}</p></div>
           <div class="block"><strong>Boundary honesty</strong><p>operator review is still not execution authority.</p></div>
@@ -91,7 +97,9 @@ function render() {
         <p>This sidecar names what a lawful review posture would have to contain.</p>
         <article class="boundary-card" data-review-boundary-sidecar="true">
           <div class="block"><strong>review_trigger</strong><p>${c.review_trigger}</p></div>
+          <div class="block"><strong>review_trigger_family</strong><p>${c.review_trigger_family}</p></div>
           <div class="block"><strong>review_scope</strong><ul>${c.review_scope.map(i => `<li>${i}</li>`).join('')}</ul></div>
+          <div class="block"><strong>review_scope_family</strong><p>${c.review_scope_family}</p></div>
           <div class="block"><strong>review_act</strong><p>${c.review_act}</p></div>
           <div class="block"><strong>retained_holds</strong><ul><li>HOLD_NO_LIVE_RUNTIME_COCKPIT</li><li>HOLD_NO_WRITE_CAPABLE_COCKPIT_SURFACE</li><li>HOLD_NO_OBJECT_MUTATION_FROM_FRONTEND</li></ul></div>
           <div class="block"><strong>Future class not yet opened</strong><p>No current governed result surface is yet lawfully classified as operator_review_required.</p></div>
@@ -108,7 +116,7 @@ function render() {
   document.querySelectorAll('button[data-mode]').forEach(btn => {
     btn.addEventListener('click', () => {
       mode = btn.dataset.mode;
-      pushAudit(`${mode} surfaced a bounded review candidate. operator review is still not execution authority. No current governed result surface is yet lawfully classified as operator_review_required.`);
+      pushAudit(`${mode} surfaced a bounded review candidate with emitted family labels. operator review is still not execution authority. No current governed result surface is yet lawfully classified as operator_review_required.`);
       render();
     });
   });
