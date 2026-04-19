@@ -19,7 +19,8 @@ The current smoke route is:
 2. confirm that the review-boundary panel is visible next to a governed result surface;
 3. confirm that `review_trigger`, `review_scope`, `review_act`, and `retained_holds` are visible;
 4. confirm that `draft_only` / `surface_only` / non-executable remain explicit;
-5. confirm that the prototype says operator review is still not execution authority.
+5. confirm that the prototype says operator review is still not execution authority;
+6. confirm that the prototype explicitly preserves the non-upgrade clause that no current governed result surface is yet lawfully classified as `operator_review_required`.
 
 ---
 
