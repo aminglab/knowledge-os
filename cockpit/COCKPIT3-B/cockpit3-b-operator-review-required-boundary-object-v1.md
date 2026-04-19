@@ -73,6 +73,8 @@ At the current stage, existing cockpit result surfaces remain lawfully classifie
 - `surface_only`
 - `non-executable at current stage`
 
+No current cockpit result surface is yet lawfully classified as `operator_review_required`.
+
 COCKPIT3-B does not upgrade those defaults.
 It only defines the minimum object that would be required before a future upgrade to `operator_review_required` could be discussed honestly.
 
