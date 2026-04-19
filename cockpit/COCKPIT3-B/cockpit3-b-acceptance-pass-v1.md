@@ -53,7 +53,7 @@ Failure mode:
 
 ### 5. Boundary-honesty sentence check
 
-The object must explicitly say that operator review is still not execution authority.
+The object must explicitly say that operator review is still not execution authority, and it must not imply that any current cockpit result surface is already lawfully classified as `operator_review_required`.
 
 Failure mode:
 - review posture is framed as an intermediate form of execution.
