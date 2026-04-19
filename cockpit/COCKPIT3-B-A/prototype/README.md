@@ -8,3 +8,4 @@ Current target:
 - keep all current result surfaces draft_only and non-executable
 - preserve all anti-runtime and anti-mutation holds
 - explicitly state that operator review is still not execution authority
+- explicitly state that no current governed result surface is yet lawfully classified as operator_review_required
