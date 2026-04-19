@@ -40,6 +40,10 @@ The prototype must still visibly preserve the current defaults:
 - `action_posture: surface_only`
 - `current_default_status: non-executable at current stage`
 
+It must also explicitly preserve the non-upgrade clause:
+
+- no current governed result surface is yet lawfully classified as `operator_review_required`
+
 ### 3. Boundary-honesty sentence check
 
 The prototype must explicitly say that operator review is still not execution authority.
