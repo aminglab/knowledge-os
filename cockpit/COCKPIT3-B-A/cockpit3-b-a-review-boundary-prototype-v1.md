@@ -41,6 +41,8 @@ At the current threshold, the lawful defaults still remain:
 - `action_posture: surface_only`
 - `current_default_status: non-executable at current stage`
 
+No current governed result surface is yet lawfully classified as `operator_review_required`.
+
 ---
 
 ## Boundary honesty sentence
