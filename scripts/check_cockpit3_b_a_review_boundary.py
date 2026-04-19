@@ -23,6 +23,12 @@ REQ_APP = [
     'review_scope',
     'review_act',
     'retained_holds',
+    'review_trigger_family',
+    'review_scope_family',
+    'export_surface_pressure',
+    'export_only',
+    'routing_handoff_pressure',
+    'routing_only',
     'execution_boundary_class: draft_only',
     'action_posture: surface_only',
     'non-executable at current stage',
@@ -34,6 +40,7 @@ REQ_APP = [
 ]
 REQ_README = [
     'show review trigger, review scope, and review act next to the result surface',
+    'emit `review_trigger_family` and `review_scope_family` as checker-visible labels',
     'keep all current result surfaces draft_only and non-executable',
     'operator review is still not execution authority',
     'no current governed result surface is yet lawfully classified as operator_review_required',
@@ -107,6 +114,7 @@ def main() -> int:
     print('- governed result surface present')
     print('- review boundary sidecar present')
     print('- review_trigger / review_scope / review_act / retained_holds explicit')
+    print('- review family labels emitted and checker-visible')
     print('- draft_only / surface_only posture preserved')
     print('- operator review remains non-executional')
     print('- no current surface is overclaimed as operator_review_required')
