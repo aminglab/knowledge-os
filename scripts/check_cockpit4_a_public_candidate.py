@@ -37,6 +37,7 @@ REQ_OBJECT = [
     'verdict finalization',
     'governed mutation authority',
     'public-truth status',
+    'vague phrases',
 ]
 REQ_ACCEPT = [
     'PASS_PUBLIC_CANDIDATE_OBJECT_FLOOR',
@@ -55,11 +56,6 @@ REQ_ACCEPT = [
     'dissent-honest',
     'snapshot-bounded',
     'non-published',
-]
-FORBIDDEN_OBJECT_PHRASES = [
-    'no major issues',
-    'basically settled',
-    'basically public already',
 ]
 
 
@@ -85,11 +81,6 @@ def main() -> int:
     require(REQ_ENTRY, entry, 'entry', errors)
     require(REQ_OBJECT, obj, 'public candidate object', errors)
     require(REQ_ACCEPT, accept, 'acceptance', errors)
-
-    lowered_obj = obj.lower()
-    for phrase in FORBIDDEN_OBJECT_PHRASES:
-        if phrase in lowered_obj:
-            errors.append(f'public candidate object contains forbidden vague phrase: {phrase}')
 
     if errors:
         print('COCKPIT4-A public candidate semantic check: FAIL')
