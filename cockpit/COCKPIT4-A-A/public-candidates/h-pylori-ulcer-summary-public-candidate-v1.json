@@ -1,0 +1,52 @@
+{
+  "object_type": "public_candidate_object",
+  "object_id": "public-candidate:h-pylori-ulcer-summary:v1",
+  "candidate_stage": "COCKPIT4-A-A",
+  "source_object_kind": "bounded composite of claim object, evidence object, dissent object, and verdict object",
+  "source_private_surface": "COCKPIT3-B-A governed result surface / summary_review",
+  "provenance_trace": {
+    "private_source_path_or_object_id": "cockpit/COCKPIT3-B-A/prototype/app.js::summary_review",
+    "producing_cockpit_stage_or_route": "COCKPIT3-B-A -> COCKPIT3-B-C -> COCKPIT4-A",
+    "latest_governed_snapshot_reference": "main after PR #50 / COCKPIT4-A public candidate admission floor",
+    "parent_object_relation": "bounded composite candidate derived from one governed result card plus its emitted review-family labels"
+  },
+  "current_verdict_posture": {
+    "label": "supported_candidate_admission_sample",
+    "posture_class": "provisional",
+    "inherited_or_summarized": "newly summarized for admission from private governed result surface",
+    "non_finalization_note": "This posture does not finalize any public verdict."
+  },
+  "dissent_residue_status": {
+    "status_class": "not_yet_evaluated_hold",
+    "linked_dissent_object_ids": [
+      "dissent:acid-only-intuition:v0",
+      "dissent:correlation-caution:v0"
+    ],
+    "residue_summary": "The sample candidate carries known dissent placeholders from the H. pylori public-case surface and does not claim that they have been fully cleared in the public-candidate layer.",
+    "public_reader_warning": "Unresolved or not-yet-evaluated dissent residue remains visible; this candidate should not be read as final public truth."
+  },
+  "audit_fingerprint": {
+    "stable_id": "public-candidate:h-pylori-ulcer-summary:v1",
+    "snapshot_producing_source": "COCKPIT4-A-A public candidate emission prototype",
+    "frozen_reference": "branch:cockpit4-a-a-public-candidate-emission-v1"
+  },
+  "export_snapshot_boundary": {
+    "snapshot_id": "snapshot:public-candidate:h-pylori-ulcer-summary:v1",
+    "included_object_set": [
+      "claim:C-0001:h-pylori-major-cause",
+      "evidence:E-0001:histology-link",
+      "evidence:E-0002:eradication-outcomes",
+      "review_family:export_surface_pressure",
+      "review_scope_family:export_only"
+    ],
+    "excluded_object_set": [
+      "publication authority",
+      "verdict finalization",
+      "governed mutation authority",
+      "public-truth status",
+      "full public-layer release"
+    ],
+    "frozen_snapshot_reference": "COCKPIT4-A-A bounded sample emission at branch head",
+    "non_upgrade_clause": "Candidate admission does not create publication authority, verdict finalization, governed mutation authority, or public-truth status."
+  }
+}
