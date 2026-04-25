@@ -47,3 +47,9 @@ COCKPIT4-A-A does **not**:
 - generalize candidate emission to every private result
 
 It only emits one bounded candidate sample for admission-surface validation.
+
+---
+
+## Non-upgrade clause
+
+Candidate admission does not create publication authority, verdict finalization, governed mutation authority, or public-truth status.
