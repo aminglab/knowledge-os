@@ -8,7 +8,11 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from scripts.lib.protocol_constants import (
+REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.lib.protocol_constants import (  # noqa: E402
     CANONICAL_RELATION_TYPES,
     ID_PREFIXES,
     LEGACY_RELATION_ALIASES,
@@ -16,7 +20,6 @@ from scripts.lib.protocol_constants import (
     VERDICT_LEVELS,
 )
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
 CASE_ROOT = REPO_ROOT / "pilots" / "living-knowledge-case" / "cases" / "power-posing"
 OBJECTS_ROOT = CASE_ROOT / "objects"
 
