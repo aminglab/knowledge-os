@@ -3,14 +3,18 @@
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
-from scripts.lib.protocol_constants import (
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.lib.protocol_constants import (  # noqa: E402
     CANONICAL_RELATION_TYPES,
     VERDICT_LEVELS,
 )
 
-ROOT = Path(__file__).resolve().parents[1]
 ENUMS = ROOT / 'protocol' / 'enums.md'
 LINK_TYPES = ROOT / 'protocol' / 'link-types.md'
 CEDV_SCHEMA = ROOT / 'protocol' / 'cedv' / 'canonical-object-schema-v1.md'
