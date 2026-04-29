@@ -1,0 +1,19 @@
+{
+  "index_type": "public_candidate_index",
+  "index_id": "public-candidate-index:v1",
+  "stage": "COCKPIT4-A-B",
+  "status": "candidate_index_floor",
+  "candidate_count": 1,
+  "non_publication_clause": "Indexing a public candidate does not create publication authority, verdict finalization, governed mutation authority, or public-truth status.",
+  "entries": [
+    {
+      "object_id": "public-candidate:h-pylori-ulcer-summary:v1",
+      "candidate_stage": "COCKPIT4-A-A",
+      "source_object_kind": "bounded composite of claim object, evidence object, dissent object, and verdict object",
+      "candidate_file": "cockpit/COCKPIT4-A-A/public-candidates/h-pylori-ulcer-summary-public-candidate-v1.json",
+      "dissent_residue_status_class": "not_yet_evaluated_hold",
+      "snapshot_id": "snapshot:public-candidate:h-pylori-ulcer-summary:v1",
+      "registry_status": "indexed_candidate_not_published"
+    }
+  ]
+}
