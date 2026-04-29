@@ -1,0 +1,18 @@
+id: V-0001
+object_type: verdict
+title: H. pylori causation claim is supported at the current public-candidate stage
+lifecycle_state: active
+visibility: public
+verdict_level: supported
+basis_refs:
+  - C-0001
+  - E-0001
+  - D-0001
+links:
+  - type: depends_on
+    target: C-0001
+  - type: pinned_in_snapshot
+    target: public-candidate:h-pylori-ulcer-summary:v1
+key_facts:
+  adjudication_scope: public_candidate_sample
+  case: h-pylori-ulcer
