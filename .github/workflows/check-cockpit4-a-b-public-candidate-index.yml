@@ -1,0 +1,30 @@
+name: check-cockpit4-a-b-public-candidate-index
+
+on:
+  push:
+    paths:
+      - 'cockpit/COCKPIT4-A-B/**'
+      - 'cockpit/COCKPIT4-A-A/public-candidates/**'
+      - 'scripts/check_cockpit4_a_b_public_candidate_index.py'
+      - '.github/workflows/check-cockpit4-a-b-public-candidate-index.yml'
+  pull_request:
+    paths:
+      - 'cockpit/COCKPIT4-A-B/**'
+      - 'cockpit/COCKPIT4-A-A/public-candidates/**'
+      - 'scripts/check_cockpit4_a_b_public_candidate_index.py'
+      - '.github/workflows/check-cockpit4-a-b-public-candidate-index.yml'
+
+jobs:
+  check-cockpit4-a-b-public-candidate-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run COCKPIT4-A-B public candidate index checker
+        run: python scripts/check_cockpit4_a_b_public_candidate_index.py
