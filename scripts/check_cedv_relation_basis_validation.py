@@ -3,11 +3,15 @@
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
-from scripts.lib.protocol_constants import CANONICAL_RELATION_TYPES
-
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.lib.protocol_constants import CANONICAL_RELATION_TYPES  # noqa: E402
+
 BASE = ROOT / 'protocol' / 'cedv'
 DOC = BASE / 'relation-basis-validation-v1.md'
 EXAMPLES = BASE / 'examples'
