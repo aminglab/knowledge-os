@@ -1,25 +1,16 @@
 #!/usr/bin/env python3
-"""Checker for the CEDV relation and basis validation floor."""
+"""Checker for the CEDV implementation subset of the record-consistency floor."""
 
 from __future__ import annotations
 
-import re
 from pathlib import Path
+
+from scripts.lib.protocol_constants import CANONICAL_RELATION_TYPES
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / 'protocol' / 'cedv'
 DOC = BASE / 'relation-basis-validation-v1.md'
 EXAMPLES = BASE / 'examples'
-
-CANONICAL_RELATIONS = {
-    'supports',
-    'challenges',
-    'cites',
-    'depends_on',
-    'descends_from',
-    'supersedes',
-    'pinned_in_snapshot',
-}
 
 REQ_DOC = [
     'object id uniqueness',
@@ -172,7 +163,7 @@ def main() -> int:
                 continue
             rel = link.get('type')
             target = link.get('target')
-            if rel not in CANONICAL_RELATIONS:
+            if rel not in CANONICAL_RELATION_TYPES:
                 errors.append(f'{object_id} link relation is not canonical: {rel}')
                 continue
             if not isinstance(target, str):
