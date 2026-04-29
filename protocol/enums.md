@@ -89,6 +89,8 @@ Current working values for verdict objects:
 - `local`
 - `provisional`
 - `supported`
+- `contested`
+- `weakened`
 - `stabilized`
 - `rejected`
 - `split`
@@ -96,6 +98,7 @@ Current working values for verdict objects:
 
 Notes:
 
-- `verdict_level` is distinct from claim-like `epistemic_status`.
-- older pilot materials may still use claim-status words such as `under_evaluation`, `contested`, or `weakened`; those should be migrated deliberately rather than silently mixed into new verdict objects.
+- verdict_level is distinct from claim-like `epistemic_status`.
+- `contested` and `weakened` are retained at this stage as transitional verdict levels because live pilot verdict records still use them.
+- future cleanup may migrate these into claim-level `epistemic_status` or a more precise verdict ladder, but that migration should be explicit rather than silently breaking current records.
 - this working set is mirrored in `scripts/lib/protocol_constants.py` so checkers have one shared source for current protocol constants.
