@@ -70,6 +70,8 @@ VERDICT_LEVELS = {
     "local",
     "provisional",
     "supported",
+    "contested",
+    "weakened",
     "stabilized",
     "rejected",
     "split",
