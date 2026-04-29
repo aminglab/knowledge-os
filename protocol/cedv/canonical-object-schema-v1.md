@@ -50,6 +50,9 @@ links: []
 The shared envelope is now treated as the common transport layer.
 The family-specific schemas below define the minimum required fields for each object family.
 
+Enum vocabularies are owned by `protocol/enums.md` and mirrored for checkers in `scripts/lib/protocol_constants.py`.
+Canonical relation names are owned by `protocol/link-types.md` and mirrored for checkers in `scripts/lib/protocol_constants.py`.
+
 ---
 
 ## Claim object
@@ -60,9 +63,9 @@ The family-specific schemas below define the minimum required fields for each ob
 id: C-0001
 object_type: claim
 title: ...
-lifecycle_state: draft | active | paused | superseded | withdrawn | archived
-epistemic_status: under_evaluation | supported | contested | weakened | rejected | split | stabilized
-visibility: private | team | public
+lifecycle_state: <see protocol/enums.md>
+epistemic_status: <see protocol/enums.md>
+visibility: <see protocol/enums.md>
 source_refs: []
 links: []
 ```
@@ -73,7 +76,7 @@ A Claim object states a proposition that can be supported, challenged, narrowed,
 
 ### Canonical relation expectations
 
-Claims may use:
+Claims may use canonical relation names from `protocol/link-types.md`, typically:
 
 - `depends_on`
 - `descends_from`
@@ -93,11 +96,11 @@ Dissent usually challenges claims from the dissent side.
 id: E-0001
 object_type: evidence
 title: ...
-lifecycle_state: draft | active | linked | paused | superseded | withdrawn | archived
-visibility: private | team | public
+lifecycle_state: <see protocol/enums.md>
+visibility: <see protocol/enums.md>
 source_refs: []
 links:
-  - type: supports | challenges | cites
+  - type: <see protocol/link-types.md>
     target: C-0001
 ```
 
@@ -124,13 +127,13 @@ Evidence objects should use authored outward relations:
 id: D-0001
 object_type: dissent
 title: ...
-lifecycle_state: draft | active | paused | superseded | withdrawn | archived
-visibility: private | team | public
-dissent_kind: empirical | methodological | logical | definitional | procedural | scope | interpretive
-severity: low | medium | high | critical
+lifecycle_state: <see protocol/enums.md>
+visibility: <see protocol/enums.md>
+dissent_kind: <see protocol/enums.md>
+severity: <see protocol/enums.md>
 source_refs: []
 links:
-  - type: challenges | cites
+  - type: <see protocol/link-types.md>
     target: C-0001
 ```
 
@@ -158,12 +161,12 @@ Dissent is not a comment thread. It is an accountable object.
 id: V-0001
 object_type: verdict
 title: ...
-lifecycle_state: draft | active | paused | superseded | withdrawn | archived
-visibility: private | team | public
-verdict_level: local | provisional | supported | stabilized | rejected | split | unresolved
+lifecycle_state: <see protocol/enums.md>
+visibility: <see protocol/enums.md>
+verdict_level: <see protocol/enums.md>
 basis_refs: []
 links:
-  - type: depends_on | supersedes | pinned_in_snapshot
+  - type: <see protocol/link-types.md>
     target: C-0001
 ```
 
