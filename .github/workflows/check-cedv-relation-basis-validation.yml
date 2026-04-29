@@ -1,0 +1,28 @@
+name: check-cedv-relation-basis-validation
+
+on:
+  push:
+    paths:
+      - 'protocol/cedv/**'
+      - 'scripts/check_cedv_relation_basis_validation.py'
+      - '.github/workflows/check-cedv-relation-basis-validation.yml'
+  pull_request:
+    paths:
+      - 'protocol/cedv/**'
+      - 'scripts/check_cedv_relation_basis_validation.py'
+      - '.github/workflows/check-cedv-relation-basis-validation.yml'
+
+jobs:
+  check-cedv-relation-basis-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run CEDV relation and basis validation checker
+        run: python scripts/check_cedv_relation_basis_validation.py
