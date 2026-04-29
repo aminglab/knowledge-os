@@ -47,3 +47,9 @@ COCKPIT4-A-B does **not**:
 - require more candidate samples
 
 It only introduces a registry floor for already emitted public-candidate samples.
+
+---
+
+## Non-upgrade clause
+
+Indexing a public candidate does not create publication authority, verdict finalization, governed mutation authority, or public-truth status.
