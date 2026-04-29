@@ -1,0 +1,15 @@
+id: C-0001
+object_type: claim
+title: Helicobacter pylori is a major cause of chronic gastritis and many peptic ulcers
+lifecycle_state: active
+epistemic_status: supported
+visibility: public
+source_refs:
+  - Warren_1983_Lancet
+  - Marshall_Warren_1984_Lancet
+key_facts:
+  domain: medicine
+  case: h-pylori-ulcer
+links:
+  - type: cites
+    target: Warren_1983_Lancet

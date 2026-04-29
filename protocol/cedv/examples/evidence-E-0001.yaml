@@ -1,0 +1,13 @@
+id: E-0001
+object_type: evidence
+title: Early histology and culture evidence linked curved bacilli to chronic gastritis
+lifecycle_state: linked
+visibility: public
+source_refs:
+  - Warren_1983_Lancet
+links:
+  - type: supports
+    target: C-0001
+key_facts:
+  evidence_mode: histology_and_culture
+  case: h-pylori-ulcer

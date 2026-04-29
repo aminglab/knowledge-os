@@ -1,0 +1,15 @@
+id: D-0001
+object_type: dissent
+title: Acid-only ulcer models historically challenged bacterial causation
+lifecycle_state: active
+visibility: public
+dissent_kind: interpretive
+severity: medium
+source_refs:
+  - NIH_1994_Consensus
+links:
+  - type: challenges
+    target: C-0001
+key_facts:
+  dissent_mode: historical_interpretive_resistance
+  case: h-pylori-ulcer
