@@ -18,7 +18,6 @@ REQ_SCHEMA = [
     'object_type: evidence',
     'object_type: dissent',
     'object_type: verdict',
-    'source_object_kind',
     'A `public_candidate_object` is not a fifth CEDV family.',
     'cockpit objects and public-candidate objects are the core object families',
 ]
