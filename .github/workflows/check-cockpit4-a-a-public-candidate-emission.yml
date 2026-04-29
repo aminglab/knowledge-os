@@ -1,0 +1,28 @@
+name: check-cockpit4-a-a-public-candidate-emission
+
+on:
+  push:
+    paths:
+      - 'cockpit/COCKPIT4-A-A/**'
+      - 'scripts/check_cockpit4_a_a_public_candidate_emission.py'
+      - '.github/workflows/check-cockpit4-a-a-public-candidate-emission.yml'
+  pull_request:
+    paths:
+      - 'cockpit/COCKPIT4-A-A/**'
+      - 'scripts/check_cockpit4_a_a_public_candidate_emission.py'
+      - '.github/workflows/check-cockpit4-a-a-public-candidate-emission.yml'
+
+jobs:
+  check-cockpit4-a-a-public-candidate-emission:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run COCKPIT4-A-A public candidate emission checker
+        run: python scripts/check_cockpit4_a_a_public_candidate_emission.py
