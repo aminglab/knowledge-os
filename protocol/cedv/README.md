@@ -25,7 +25,13 @@ Cockpit surfaces, public candidates, pages, and release layers are operational l
 3. `constant-authority-closeout-v1.md`
    - Records the post-PR #56 constant-authority closeout and the current ownership chain for enums, relation names, and checker-facing mirrors.
 
-4. `examples/`
+4. `example-registry-v1.md`
+   - Defines the first registry rule for the canonical CEDV example set.
+
+5. `examples/index-v1.json`
+   - Registers the current canonical example objects and their minimal graph expectations.
+
+6. `examples/`
    - Holds the current canonical example objects used to exercise the CEDV schema and relation-basis validation surface.
 
 ---
@@ -54,11 +60,27 @@ CEDV currently has:
 - canonical examples;
 - relation and basis validation;
 - shared constant-authority layer;
-- drift checking for the first protocol constant set.
+- drift checking for the first protocol constant set;
+- canonical example registry;
+- example-registry checker and workflow.
 
 Current verdict:
 
-> `PASS_CEDV_PROTOCOL_CORE_STARTED_WITH_WORKING_AUTHORITY_LAYER`
+> `PASS_CEDV_PROTOCOL_CORE_WITH_WORKING_AUTHORITY_AND_EXAMPLE_REGISTRY`
+
+---
+
+## Current checker surfaces
+
+Current CEDV-facing checkers include:
+
+- `scripts/check_cedv_canonical_schema.py`;
+- `scripts/check_cedv_relation_basis_validation.py`;
+- `scripts/check_cedv_example_registry.py`;
+- `scripts/check_protocol_constants.py`.
+
+The example-registry checker does not replace schema or graph validation.
+It only checks that the canonical example set is registered, discoverable, and aligned with its minimal expected graph.
 
 ---
 
@@ -70,7 +92,8 @@ This directory does not yet provide:
 - full JSON Schema or OpenAPI contract;
 - complete repository-wide object migration;
 - production runtime semantics;
-- public release semantics by itself.
+- public release semantics by itself;
+- repository-wide object registry.
 
 Public candidates and cockpit surfaces may consume CEDV objects, but they do not replace CEDV.
 
@@ -80,8 +103,8 @@ Public candidates and cockpit surfaces may consume CEDV objects, but they do not
 
 The next useful work is:
 
-> `CEDV-B / EXAMPLEREG1`
+> `CEDV-C / ENUMCOVER1`
 
 Expected purpose:
 
-> create a small canonical example registry so the current example set is discoverable, checkable as a set, and easier to keep aligned with the schema and validation floor.
+> extend protocol drift checking beyond `verdict_level` so lifecycle, visibility, epistemic status, dissent kind, severity, relation types, and checker mirrors are covered more uniformly.
