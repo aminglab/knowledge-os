@@ -1,0 +1,73 @@
+{
+  "schema_name": "cedv_canonical_example_registry",
+  "schema_version": "v1",
+  "registry_scope": "protocol/cedv/examples",
+  "status": "canonical_example_registry_floor",
+  "examples": [
+    {
+      "id": "C-0001",
+      "object_type": "claim",
+      "path": "protocol/cedv/examples/claim-C-0001.yaml",
+      "role": "minimal claim example",
+      "expected_title": "Helicobacter pylori is a major cause of chronic gastritis and many peptic ulcers"
+    },
+    {
+      "id": "E-0001",
+      "object_type": "evidence",
+      "path": "protocol/cedv/examples/evidence-E-0001.yaml",
+      "role": "minimal evidence example",
+      "expected_title": "Early histology and culture evidence linked curved bacilli to chronic gastritis"
+    },
+    {
+      "id": "D-0001",
+      "object_type": "dissent",
+      "path": "protocol/cedv/examples/dissent-D-0001.yaml",
+      "role": "minimal dissent example",
+      "expected_title": "Acid-only ulcer models historically challenged bacterial causation"
+    },
+    {
+      "id": "V-0001",
+      "object_type": "verdict",
+      "path": "protocol/cedv/examples/verdict-V-0001.yaml",
+      "role": "minimal verdict example",
+      "expected_title": "H. pylori causation claim is supported at the current public-candidate stage"
+    }
+  ],
+  "required_object_types": [
+    "claim",
+    "evidence",
+    "dissent",
+    "verdict"
+  ],
+  "graph_expectations": {
+    "required_links": [
+      {
+        "source": "E-0001",
+        "type": "supports",
+        "target": "C-0001"
+      },
+      {
+        "source": "D-0001",
+        "type": "challenges",
+        "target": "C-0001"
+      },
+      {
+        "source": "V-0001",
+        "type": "depends_on",
+        "target": "C-0001"
+      },
+      {
+        "source": "V-0001",
+        "type": "pinned_in_snapshot",
+        "target": "public-candidate:h-pylori-ulcer-summary:v1"
+      }
+    ],
+    "required_basis_refs": {
+      "V-0001": [
+        "C-0001",
+        "E-0001",
+        "D-0001"
+      ]
+    }
+  }
+}
