@@ -1,0 +1,32 @@
+name: check-cedv-example-registry
+
+on:
+  push:
+    paths:
+      - 'protocol/cedv/example-registry-v1.md'
+      - 'protocol/cedv/examples/**'
+      - 'scripts/check_cedv_example_registry.py'
+      - 'scripts/lib/protocol_constants.py'
+      - '.github/workflows/check-cedv-example-registry.yml'
+  pull_request:
+    paths:
+      - 'protocol/cedv/example-registry-v1.md'
+      - 'protocol/cedv/examples/**'
+      - 'scripts/check_cedv_example_registry.py'
+      - 'scripts/lib/protocol_constants.py'
+      - '.github/workflows/check-cedv-example-registry.yml'
+
+jobs:
+  check-cedv-example-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run CEDV example registry checker
+        run: python scripts/check_cedv_example_registry.py
