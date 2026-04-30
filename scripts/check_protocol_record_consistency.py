@@ -9,6 +9,17 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.lib.protocol_constants import (  # noqa: E402
+    CANONICAL_RELATION_TYPES,
+    ID_PREFIXES,
+    LEGACY_RELATION_ALIASES,
+    SELF_RELATION_TYPES,
+    VERDICT_LEVELS,
+)
+
 CASE_ROOT = REPO_ROOT / "pilots" / "living-knowledge-case" / "cases" / "power-posing"
 OBJECTS_ROOT = CASE_ROOT / "objects"
 
@@ -19,13 +30,6 @@ OBJECT_DIRS = {
     "verdict": OBJECTS_ROOT / "verdicts",
 }
 
-ID_PREFIXES = {
-    "claim": "C-",
-    "evidence": "E-",
-    "dissent": "D-",
-    "verdict": "V-",
-}
-
 REQUIRED_FIELDS = {
     "id",
     "object_type",
@@ -33,49 +37,6 @@ REQUIRED_FIELDS = {
     "lifecycle_state",
     "visibility",
     "links",
-}
-
-CANONICAL_RELATION_TYPES = {
-    "supports",
-    "challenges",
-    "cites",
-    "depends_on",
-    "descends_from",
-    "supersedes",
-    "pinned_in_snapshot",
-}
-
-LEGACY_RELATION_ALIASES = {
-    "supported_by",
-    "weakens",
-    "attacks",
-    "attacked_by",
-    "responds_to",
-    "rules_on",
-    "ruled_on",
-    "splits_from",
-    "splits_to",
-    "published_as",
-    "derived_from",
-    "based_on",
-    "cited_by",
-    "coexists_with",
-}
-
-SELF_RELATION_TYPES = {
-    "descends_from",
-    "supersedes",
-    "splits_from",
-    "splits_to",
-}
-
-CANONICAL_VERDICT_LEVELS = {
-    "under_evaluation",
-    "supported",
-    "contested",
-    "weakened",
-    "rejected",
-    "stabilized",
 }
 
 
@@ -329,7 +290,7 @@ def validate_verdict_record(
         verdict_level = None
     else:
         verdict_level = verdict_level.strip()
-        if verdict_level in CANONICAL_VERDICT_LEVELS:
+        if verdict_level in VERDICT_LEVELS:
             pass
         else:
             hard_failures.append(f"{object_id}: verdict_level `{verdict_level}` is outside the current compact verdict floor")
@@ -337,7 +298,7 @@ def validate_verdict_record(
     resolve_verdict_target(object_id, frontmatter, object_map, hard_failures)
 
     basis_refs = ensure_string_list(frontmatter.get("basis_refs"), "basis_refs", object_id, hard_failures)
-    if verdict_level != "under_evaluation" and not basis_refs:
+    if verdict_level not in {None, "local", "provisional", "unresolved"} and not basis_refs:
         hard_failures.append(f"{object_id}: nontrivial verdict must declare non-empty `basis_refs`")
 
     basis_types: list[str] = []

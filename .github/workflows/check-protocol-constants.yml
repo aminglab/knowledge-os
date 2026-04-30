@@ -1,0 +1,34 @@
+name: check-protocol-constants
+
+on:
+  push:
+    paths:
+      - 'protocol/enums.md'
+      - 'protocol/link-types.md'
+      - 'protocol/cedv/canonical-object-schema-v1.md'
+      - 'scripts/lib/protocol_constants.py'
+      - 'scripts/check_protocol_constants.py'
+      - '.github/workflows/check-protocol-constants.yml'
+  pull_request:
+    paths:
+      - 'protocol/enums.md'
+      - 'protocol/link-types.md'
+      - 'protocol/cedv/canonical-object-schema-v1.md'
+      - 'scripts/lib/protocol_constants.py'
+      - 'scripts/check_protocol_constants.py'
+      - '.github/workflows/check-protocol-constants.yml'
+
+jobs:
+  check-protocol-constants:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run protocol constants drift checker
+        run: python scripts/check_protocol_constants.py
