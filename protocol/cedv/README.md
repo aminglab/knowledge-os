@@ -31,10 +31,13 @@ Cockpit surfaces, public candidates, pages, and release layers are operational l
 5. `enum-coverage-v1.md`
    - Records the first expanded enum drift-coverage layer across the current working enum families.
 
-6. `examples/index-v1.json`
+6. `checker-import-convergence-v1.md`
+   - Records the first protocol-facing checker import convergence pass.
+
+7. `examples/index-v1.json`
    - Registers the current canonical example objects and their minimal graph expectations.
 
-7. `examples/`
+8. `examples/`
    - Holds the current canonical example objects used to exercise the CEDV schema and relation-basis validation surface.
 
 ---
@@ -64,12 +67,13 @@ CEDV currently has:
 - relation and basis validation;
 - shared constant-authority layer;
 - expanded enum drift coverage;
+- first protocol-facing checker import convergence pass;
 - canonical example registry;
 - example-registry checker and workflow.
 
 Current verdict:
 
-> `PASS_CEDV_PROTOCOL_CORE_WITH_AUTHORITY_EXAMPLE_REGISTRY_AND_ENUM_COVERAGE`
+> `PASS_CEDV_PROTOCOL_CORE_WITH_AUTHORITY_EXAMPLE_REGISTRY_ENUM_COVERAGE_AND_CHECKER_IMPORT_CONVERGENCE`
 
 ---
 
@@ -87,6 +91,8 @@ It only checks that the canonical example set is registered, discoverable, and a
 
 The protocol constants checker now covers the current working enum families as well as canonical relation names.
 
+The first checker-import convergence pass has moved the highest-value CEDV family/prefix vocabulary checks toward shared constants.
+
 ---
 
 ## Boundaries
@@ -99,7 +105,8 @@ This directory does not yet provide:
 - production runtime semantics;
 - public release semantics by itself;
 - repository-wide object registry;
-- proof that every checker has converged on shared constants.
+- proof that every checker has converged on shared constants;
+- shared YAML/frontmatter parsing utilities.
 
 Public candidates and cockpit surfaces may consume CEDV objects, but they do not replace CEDV.
 
@@ -109,8 +116,8 @@ Public candidates and cockpit surfaces may consume CEDV objects, but they do not
 
 The next useful work is:
 
-> `CEDV-D / CHECKERIMPORT1`
+> `CEDV-E / PARSEUTIL1`
 
 Expected purpose:
 
-> audit remaining protocol-facing checkers for hardcoded CEDV vocabulary and progressively move them to shared constants where warranted.
+> extract repeated tiny YAML/frontmatter parsing helpers used by CEDV protocol checkers into a shared utility module, without changing protocol semantics.
