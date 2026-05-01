@@ -15,6 +15,7 @@ from scripts.lib.protocol_constants import (  # noqa: E402
     CANONICAL_RELATION_TYPES,
     CEDV_OBJECT_TYPES,
 )
+from scripts.lib.simple_yaml import parse_simple_yaml  # noqa: E402
 
 BASE = ROOT / 'protocol' / 'cedv'
 EXAMPLES = BASE / 'examples'
@@ -36,50 +37,6 @@ def read_text(path: Path, errors: list[str]) -> str:
         errors.append(f'Missing file: {path.relative_to(ROOT)}')
         return ''
     return path.read_text(encoding='utf-8')
-
-
-def parse_simple_yaml(text: str) -> dict:
-    data: dict[str, object] = {}
-    current_list_key: str | None = None
-    current_map_key: str | None = None
-    current_map: dict[str, str] | None = None
-
-    for raw in text.splitlines():
-        line = raw.rstrip()
-        if not line.strip() or line.strip().startswith('#'):
-            continue
-        if not line.startswith(' ') and ':' in line:
-            key, value = line.split(':', 1)
-            key = key.strip()
-            value = value.strip()
-            current_map_key = None
-            current_map = None
-            if value == '':
-                data[key] = [] if key in {'source_refs', 'basis_refs', 'links'} else {}
-                current_list_key = key if key in {'source_refs', 'basis_refs', 'links'} else None
-            else:
-                data[key] = value
-                current_list_key = None
-            continue
-
-        stripped = line.strip()
-        if current_list_key and stripped.startswith('- '):
-            value = stripped[2:].strip()
-            if current_list_key == 'links' and ':' in value:
-                k, v = value.split(':', 1)
-                current_map = {k.strip(): v.strip()}
-                data[current_list_key].append(current_map)  # type: ignore[index]
-                current_map_key = current_list_key
-            else:
-                data[current_list_key].append(value)  # type: ignore[index]
-            continue
-
-        if current_map_key == 'links' and current_map is not None and ':' in stripped:
-            k, v = stripped.split(':', 1)
-            current_map[k.strip()] = v.strip()
-            continue
-
-    return data
 
 
 def load_registry(errors: list[str]) -> dict:
@@ -227,6 +184,7 @@ def main() -> int:
     print('- canonical example registry is present')
     print('- all example YAML files are registered')
     print('- required CEDV object families are represented')
+    print('- shared simple YAML parser is used by this checker')
     print('- minimal required graph expectations are satisfied')
     return 0
 
