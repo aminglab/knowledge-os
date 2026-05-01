@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from scripts.lib.cedv_objects import load_cedv_objects  # noqa: E402
 from scripts.lib.protocol_constants import (  # noqa: E402
     CANONICAL_RELATION_TYPES,
     CEDV_ID_PREFIX_TO_OBJECT_TYPE,
@@ -20,7 +21,6 @@ from scripts.lib.relation_matrix import (  # noqa: E402
     relation_allowed_by_matrix,
     validate_relation_matrix,
 )
-from scripts.lib.simple_yaml import parse_simple_yaml  # noqa: E402
 
 BASE = ROOT / 'protocol' / 'cedv'
 DOC = BASE / 'relation-basis-validation-v1.md'
@@ -75,19 +75,7 @@ def main() -> int:
         relation_matrix = load_relation_matrix(RELATION_MATRIX)
         errors.extend(validate_relation_matrix(relation_matrix))
 
-    objects: dict[str, dict] = {}
-    for filename in REQ_EXAMPLES:
-        text = read(EXAMPLES / filename, errors)
-        if not text:
-            continue
-        obj = parse_simple_yaml(text)
-        object_id = obj.get('id')
-        if not isinstance(object_id, str):
-            errors.append(f'{filename} missing id')
-            continue
-        if object_id in objects:
-            errors.append(f'duplicate object id: {object_id}')
-        objects[object_id] = obj
+    objects = load_cedv_objects((EXAMPLES / filename for filename in REQ_EXAMPLES), errors, ROOT)
 
     for object_id, obj in objects.items():
         source_type = obj.get('object_type')
@@ -95,7 +83,6 @@ def main() -> int:
             errors.append(f'{object_id} missing object_type')
             continue
         if source_type not in CEDV_OBJECT_TYPES:
-            errors.append(f'{object_id} object_type is not a shared CEDV type: {source_type}')
             continue
         links = obj.get('links')
         if not isinstance(links, list):
@@ -143,7 +130,7 @@ def main() -> int:
     print('- CEDV link targets and basis_refs resolve')
     print('- relation source/target families are admissible through relation-admissibility-matrix-v1.json')
     print('- shared CEDV prefix and object-type constants are used by this checker')
-    print('- shared simple YAML parser is used by this checker')
+    print('- shared CEDV object loader is used by this checker')
     print('- evidence, dissent, and verdict objects do not float free')
     return 0
 
