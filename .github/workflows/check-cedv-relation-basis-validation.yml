@@ -5,11 +5,19 @@ on:
     paths:
       - 'protocol/cedv/**'
       - 'scripts/check_cedv_relation_basis_validation.py'
+      - 'scripts/lib/cedv_objects.py'
+      - 'scripts/lib/protocol_constants.py'
+      - 'scripts/lib/relation_matrix.py'
+      - 'scripts/lib/simple_yaml.py'
       - '.github/workflows/check-cedv-relation-basis-validation.yml'
   pull_request:
     paths:
       - 'protocol/cedv/**'
       - 'scripts/check_cedv_relation_basis_validation.py'
+      - 'scripts/lib/cedv_objects.py'
+      - 'scripts/lib/protocol_constants.py'
+      - 'scripts/lib/relation_matrix.py'
+      - 'scripts/lib/simple_yaml.py'
       - '.github/workflows/check-cedv-relation-basis-validation.yml'
 
 jobs:
