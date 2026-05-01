@@ -40,13 +40,16 @@ Cockpit surfaces, public candidates, pages, and release layers are operational l
 8. `relation-matrix-convergence-v1.md`
    - Records the first relation-admissibility matrix convergence pass.
 
-9. `relation-admissibility-matrix-v1.json`
+9. `object-loader-convergence-v1.md`
+   - Records the first shared CEDV example object-loader convergence pass.
+
+10. `relation-admissibility-matrix-v1.json`
    - Declares the current explicit source/target relation-admissibility matrix for CEDV examples.
 
-10. `examples/index-v1.json`
+11. `examples/index-v1.json`
    - Registers the current canonical example objects and their minimal graph expectations.
 
-11. `examples/`
+12. `examples/`
    - Holds the current canonical example objects used to exercise the CEDV schema and relation-basis validation surface.
 
 ---
@@ -79,12 +82,13 @@ CEDV currently has:
 - first protocol-facing checker import convergence pass;
 - first shared parse utility convergence pass;
 - first relation-admissibility matrix;
+- first shared CEDV example object loader;
 - canonical example registry;
 - example-registry checker and workflow.
 
 Current verdict:
 
-> `PASS_CEDV_PROTOCOL_CORE_WITH_AUTHORITY_EXAMPLE_REGISTRY_ENUM_COVERAGE_CHECKER_IMPORT_PARSE_UTILITY_AND_RELATION_MATRIX`
+> `PASS_CEDV_PROTOCOL_CORE_WITH_AUTHORITY_EXAMPLE_REGISTRY_ENUM_COVERAGE_CHECKER_IMPORT_PARSE_UTILITY_RELATION_MATRIX_AND_OBJECT_LOADER`
 
 ---
 
@@ -108,6 +112,8 @@ The first parse-utility convergence pass has moved the repeated tiny YAML parser
 
 The first relation-matrix convergence pass has moved CEDV source/target admissibility out of imperative checker conditionals and into `relation-admissibility-matrix-v1.json`.
 
+The first object-loader convergence pass has moved repeated CEDV example object loading into `scripts/lib/cedv_objects.py`.
+
 ---
 
 ## Boundaries
@@ -122,8 +128,8 @@ This directory does not yet provide:
 - repository-wide object registry;
 - proof that every checker has converged on shared constants;
 - full YAML parsing;
-- shared CEDV object loading;
-- final graph ontology.
+- final graph ontology;
+- shared example-registry loader.
 
 Public candidates and cockpit surfaces may consume CEDV objects, but they do not replace CEDV.
 
@@ -133,8 +139,12 @@ Public candidates and cockpit surfaces may consume CEDV objects, but they do not
 
 The next useful work is:
 
-> `CEDV-G / OBJECTLOAD1`
+> `CEDV-H / REGLOAD1`
 
 Expected purpose:
 
-> introduce a small shared CEDV object loader used by example-registry and relation-basis validation checkers, if repeated object-loading logic remains concentrated after the parser and matrix passes.
+> consider whether the example registry JSON loading and validation shape should be extracted into a tiny shared helper, but only if another protocol checker starts consuming the registry.
+
+Current caution:
+
+> avoid over-abstracting; the object loader closes the repeated object-loading loop, and that may be enough for this phase.
