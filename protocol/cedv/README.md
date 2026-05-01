@@ -28,10 +28,13 @@ Cockpit surfaces, public candidates, pages, and release layers are operational l
 4. `example-registry-v1.md`
    - Defines the first registry rule for the canonical CEDV example set.
 
-5. `examples/index-v1.json`
+5. `enum-coverage-v1.md`
+   - Records the first expanded enum drift-coverage layer across the current working enum families.
+
+6. `examples/index-v1.json`
    - Registers the current canonical example objects and their minimal graph expectations.
 
-6. `examples/`
+7. `examples/`
    - Holds the current canonical example objects used to exercise the CEDV schema and relation-basis validation surface.
 
 ---
@@ -60,13 +63,13 @@ CEDV currently has:
 - canonical examples;
 - relation and basis validation;
 - shared constant-authority layer;
-- drift checking for the first protocol constant set;
+- expanded enum drift coverage;
 - canonical example registry;
 - example-registry checker and workflow.
 
 Current verdict:
 
-> `PASS_CEDV_PROTOCOL_CORE_WITH_WORKING_AUTHORITY_AND_EXAMPLE_REGISTRY`
+> `PASS_CEDV_PROTOCOL_CORE_WITH_AUTHORITY_EXAMPLE_REGISTRY_AND_ENUM_COVERAGE`
 
 ---
 
@@ -82,6 +85,8 @@ Current CEDV-facing checkers include:
 The example-registry checker does not replace schema or graph validation.
 It only checks that the canonical example set is registered, discoverable, and aligned with its minimal expected graph.
 
+The protocol constants checker now covers the current working enum families as well as canonical relation names.
+
 ---
 
 ## Boundaries
@@ -93,7 +98,8 @@ This directory does not yet provide:
 - complete repository-wide object migration;
 - production runtime semantics;
 - public release semantics by itself;
-- repository-wide object registry.
+- repository-wide object registry;
+- proof that every checker has converged on shared constants.
 
 Public candidates and cockpit surfaces may consume CEDV objects, but they do not replace CEDV.
 
@@ -103,8 +109,8 @@ Public candidates and cockpit surfaces may consume CEDV objects, but they do not
 
 The next useful work is:
 
-> `CEDV-C / ENUMCOVER1`
+> `CEDV-D / CHECKERIMPORT1`
 
 Expected purpose:
 
-> extend protocol drift checking beyond `verdict_level` so lifecycle, visibility, epistemic status, dissent kind, severity, relation types, and checker mirrors are covered more uniformly.
+> audit remaining protocol-facing checkers for hardcoded CEDV vocabulary and progressively move them to shared constants where warranted.
