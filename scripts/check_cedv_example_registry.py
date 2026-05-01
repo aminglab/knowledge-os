@@ -11,11 +11,11 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from scripts.lib.cedv_objects import load_cedv_objects  # noqa: E402
 from scripts.lib.protocol_constants import (  # noqa: E402
     CANONICAL_RELATION_TYPES,
     CEDV_OBJECT_TYPES,
 )
-from scripts.lib.simple_yaml import parse_simple_yaml  # noqa: E402
 
 BASE = ROOT / 'protocol' / 'cedv'
 EXAMPLES = BASE / 'examples'
@@ -73,8 +73,9 @@ def main() -> int:
         examples = []
 
     registered_paths = set()
-    objects: dict[str, dict] = {}
     object_types_seen: set[str] = set()
+    example_paths: list[Path] = []
+    registry_entries_by_id: dict[str, dict] = {}
 
     for entry in examples:
         if not isinstance(entry, dict):
@@ -83,10 +84,10 @@ def main() -> int:
         object_id = entry.get('id')
         object_type = entry.get('object_type')
         path_value = entry.get('path')
-        expected_title = entry.get('expected_title')
         if not isinstance(object_id, str):
             errors.append('registry example missing string id')
             continue
+        registry_entries_by_id[object_id] = entry
         if object_type not in CEDV_OBJECT_TYPES:
             errors.append(f'{object_id}: registry object_type is not a CEDV type: {object_type}')
         else:
@@ -98,14 +99,16 @@ def main() -> int:
             errors.append(f'{object_id}: registry path must stay under protocol/cedv/examples')
             continue
         registered_paths.add(path_value)
-        path = ROOT / path_value
-        text = read_text(path, errors)
-        if not text:
+        example_paths.append(ROOT / path_value)
+
+    objects = load_cedv_objects(example_paths, errors, ROOT)
+
+    for object_id, entry in registry_entries_by_id.items():
+        if object_id not in objects:
             continue
-        parsed = parse_simple_yaml(text)
-        objects[object_id] = parsed
-        if parsed.get('id') != object_id:
-            errors.append(f'{object_id}: YAML id does not match registry id')
+        parsed = objects[object_id]
+        object_type = entry.get('object_type')
+        expected_title = entry.get('expected_title')
         if parsed.get('object_type') != object_type:
             errors.append(f'{object_id}: YAML object_type does not match registry object_type')
         if isinstance(expected_title, str) and parsed.get('title') != expected_title:
@@ -184,7 +187,7 @@ def main() -> int:
     print('- canonical example registry is present')
     print('- all example YAML files are registered')
     print('- required CEDV object families are represented')
-    print('- shared simple YAML parser is used by this checker')
+    print('- shared CEDV object loader is used by this checker')
     print('- minimal required graph expectations are satisfied')
     return 0
 
