@@ -6,14 +6,18 @@ on:
       - 'protocol/cedv/example-registry-v1.md'
       - 'protocol/cedv/examples/**'
       - 'scripts/check_cedv_example_registry.py'
+      - 'scripts/lib/cedv_objects.py'
       - 'scripts/lib/protocol_constants.py'
+      - 'scripts/lib/simple_yaml.py'
       - '.github/workflows/check-cedv-example-registry.yml'
   pull_request:
     paths:
       - 'protocol/cedv/example-registry-v1.md'
       - 'protocol/cedv/examples/**'
       - 'scripts/check_cedv_example_registry.py'
+      - 'scripts/lib/cedv_objects.py'
       - 'scripts/lib/protocol_constants.py'
+      - 'scripts/lib/simple_yaml.py'
       - '.github/workflows/check-cedv-example-registry.yml'
 
 jobs:
