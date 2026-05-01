@@ -10,7 +10,11 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.lib.protocol_constants import CANONICAL_RELATION_TYPES  # noqa: E402
+from scripts.lib.protocol_constants import (  # noqa: E402
+    CANONICAL_RELATION_TYPES,
+    CEDV_ID_PREFIX_TO_OBJECT_TYPE,
+    CEDV_OBJECT_TYPES,
+)
 
 BASE = ROOT / 'protocol' / 'cedv'
 DOC = BASE / 'relation-basis-validation-v1.md'
@@ -88,14 +92,9 @@ def parse_simple_yaml(text: str) -> dict:
 
 
 def object_family(object_id: str) -> str | None:
-    if object_id.startswith('C-'):
-        return 'claim'
-    if object_id.startswith('E-'):
-        return 'evidence'
-    if object_id.startswith('D-'):
-        return 'dissent'
-    if object_id.startswith('V-'):
-        return 'verdict'
+    for prefix, object_type in CEDV_ID_PREFIX_TO_OBJECT_TYPE.items():
+        if object_id.startswith(prefix):
+            return object_type
     return None
 
 
@@ -112,9 +111,9 @@ def relation_allowed(source_type: str, rel: str, target: str) -> bool:
     if source_type == 'evidence':
         return rel in {'supports', 'challenges'} and target_type in {'claim', 'verdict'}
     if source_type == 'dissent':
-        return rel == 'challenges' and target_type in {'claim', 'evidence', 'dissent', 'verdict'}
+        return rel == 'challenges' and target_type in CEDV_OBJECT_TYPES
     if source_type == 'verdict':
-        return (rel == 'depends_on' and target_type in {'claim', 'evidence', 'dissent', 'verdict'}) or (rel == 'supersedes' and target_type == 'verdict')
+        return (rel == 'depends_on' and target_type in CEDV_OBJECT_TYPES) or (rel == 'supersedes' and target_type == 'verdict')
     return False
 
 
@@ -143,6 +142,9 @@ def main() -> int:
         source_type = obj.get('object_type')
         if not isinstance(source_type, str):
             errors.append(f'{object_id} missing object_type')
+            continue
+        if source_type not in CEDV_OBJECT_TYPES:
+            errors.append(f'{object_id} object_type is not a shared CEDV type: {source_type}')
             continue
         links = obj.get('links')
         if not isinstance(links, list):
@@ -188,6 +190,7 @@ def main() -> int:
     print('- object ids are unique')
     print('- CEDV link targets and basis_refs resolve')
     print('- relation source/target families are admissible')
+    print('- shared CEDV prefix and object-type constants are used by this checker')
     print('- evidence, dissent, and verdict objects do not float free')
     return 0
 
