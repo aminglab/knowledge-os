@@ -37,10 +37,16 @@ Cockpit surfaces, public candidates, pages, and release layers are operational l
 7. `parse-utility-convergence-v1.md`
    - Records the first shared parse utility convergence pass for CEDV protocol checkers.
 
-8. `examples/index-v1.json`
+8. `relation-matrix-convergence-v1.md`
+   - Records the first relation-admissibility matrix convergence pass.
+
+9. `relation-admissibility-matrix-v1.json`
+   - Declares the current explicit source/target relation-admissibility matrix for CEDV examples.
+
+10. `examples/index-v1.json`
    - Registers the current canonical example objects and their minimal graph expectations.
 
-9. `examples/`
+11. `examples/`
    - Holds the current canonical example objects used to exercise the CEDV schema and relation-basis validation surface.
 
 ---
@@ -72,12 +78,13 @@ CEDV currently has:
 - expanded enum drift coverage;
 - first protocol-facing checker import convergence pass;
 - first shared parse utility convergence pass;
+- first relation-admissibility matrix;
 - canonical example registry;
 - example-registry checker and workflow.
 
 Current verdict:
 
-> `PASS_CEDV_PROTOCOL_CORE_WITH_AUTHORITY_EXAMPLE_REGISTRY_ENUM_COVERAGE_CHECKER_IMPORT_AND_PARSE_UTILITY_CONVERGENCE`
+> `PASS_CEDV_PROTOCOL_CORE_WITH_AUTHORITY_EXAMPLE_REGISTRY_ENUM_COVERAGE_CHECKER_IMPORT_PARSE_UTILITY_AND_RELATION_MATRIX`
 
 ---
 
@@ -99,6 +106,8 @@ The first checker-import convergence pass has moved the highest-value CEDV famil
 
 The first parse-utility convergence pass has moved the repeated tiny YAML parser into `scripts/lib/simple_yaml.py`.
 
+The first relation-matrix convergence pass has moved CEDV source/target admissibility out of imperative checker conditionals and into `relation-admissibility-matrix-v1.json`.
+
 ---
 
 ## Boundaries
@@ -113,7 +122,8 @@ This directory does not yet provide:
 - repository-wide object registry;
 - proof that every checker has converged on shared constants;
 - full YAML parsing;
-- shared CEDV object loading or relation matrix semantics.
+- shared CEDV object loading;
+- final graph ontology.
 
 Public candidates and cockpit surfaces may consume CEDV objects, but they do not replace CEDV.
 
@@ -123,8 +133,8 @@ Public candidates and cockpit surfaces may consume CEDV objects, but they do not
 
 The next useful work is:
 
-> `CEDV-F / RELMATRIX1`
+> `CEDV-G / OBJECTLOAD1`
 
 Expected purpose:
 
-> move the current relation source/target admissibility rules out of imperative checker code and into a small explicit relation-admissibility matrix, if the next audit confirms that relation rules are becoming the next hidden protocol surface.
+> introduce a small shared CEDV object loader used by example-registry and relation-basis validation checkers, if repeated object-loading logic remains concentrated after the parser and matrix passes.
