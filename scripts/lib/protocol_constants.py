@@ -108,3 +108,5 @@ CEDV_OBJECT_TYPES = {
     "dissent",
     "verdict",
 }
+
+CEDV_ID_PREFIX_TO_OBJECT_TYPE = {prefix: object_type for object_type, prefix in ID_PREFIXES.items()}
