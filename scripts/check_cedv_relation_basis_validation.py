@@ -15,11 +15,17 @@ from scripts.lib.protocol_constants import (  # noqa: E402
     CEDV_ID_PREFIX_TO_OBJECT_TYPE,
     CEDV_OBJECT_TYPES,
 )
+from scripts.lib.relation_matrix import (  # noqa: E402
+    load_relation_matrix,
+    relation_allowed_by_matrix,
+    validate_relation_matrix,
+)
 from scripts.lib.simple_yaml import parse_simple_yaml  # noqa: E402
 
 BASE = ROOT / 'protocol' / 'cedv'
 DOC = BASE / 'relation-basis-validation-v1.md'
 EXAMPLES = BASE / 'examples'
+RELATION_MATRIX = BASE / 'relation-admissibility-matrix-v1.json'
 
 REQ_DOC = [
     'object id uniqueness',
@@ -55,31 +61,19 @@ def object_family(object_id: str) -> str | None:
     return None
 
 
-def relation_allowed(source_type: str, rel: str, target: str) -> bool:
-    target_type = object_family(target)
-    if rel == 'cites':
-        return True
-    if rel == 'pinned_in_snapshot':
-        return source_type == 'verdict' and (target.startswith('public-candidate:') or target.startswith('snapshot:'))
-    if not target_type:
-        return False
-    if source_type == 'claim':
-        return (rel in {'depends_on', 'descends_from'} and target_type == 'claim') or (rel == 'supersedes' and target_type in {'claim', 'verdict'})
-    if source_type == 'evidence':
-        return rel in {'supports', 'challenges'} and target_type in {'claim', 'verdict'}
-    if source_type == 'dissent':
-        return rel == 'challenges' and target_type in CEDV_OBJECT_TYPES
-    if source_type == 'verdict':
-        return (rel == 'depends_on' and target_type in CEDV_OBJECT_TYPES) or (rel == 'supersedes' and target_type == 'verdict')
-    return False
-
-
 def main() -> int:
     errors: list[str] = []
     doc = read(DOC, errors)
     for snippet in REQ_DOC:
         if snippet not in doc:
             errors.append(f'doc missing snippet: {snippet}')
+
+    if not RELATION_MATRIX.exists():
+        errors.append(f'Missing relation matrix: {RELATION_MATRIX.relative_to(ROOT)}')
+        relation_matrix = {}
+    else:
+        relation_matrix = load_relation_matrix(RELATION_MATRIX)
+        errors.extend(validate_relation_matrix(relation_matrix))
 
     objects: dict[str, dict] = {}
     for filename in REQ_EXAMPLES:
@@ -132,9 +126,10 @@ def main() -> int:
             if not isinstance(target, str):
                 errors.append(f'{object_id} link target missing')
                 continue
-            if not relation_allowed(source_type, rel, target):
+            target_type = object_family(target)
+            if not relation_allowed_by_matrix(relation_matrix, source_type, rel, target, target_type):
                 errors.append(f'{object_id} relation not admissible: {source_type} {rel} {target}')
-            if object_family(target) and target not in objects:
+            if target_type and target not in objects:
                 errors.append(f'{object_id} link target does not resolve: {target}')
 
     if errors:
@@ -146,7 +141,7 @@ def main() -> int:
     print('CEDV relation and basis validation check: PASS')
     print('- object ids are unique')
     print('- CEDV link targets and basis_refs resolve')
-    print('- relation source/target families are admissible')
+    print('- relation source/target families are admissible through relation-admissibility-matrix-v1.json')
     print('- shared CEDV prefix and object-type constants are used by this checker')
     print('- shared simple YAML parser is used by this checker')
     print('- evidence, dissent, and verdict objects do not float free')
