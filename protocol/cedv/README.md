@@ -34,10 +34,13 @@ Cockpit surfaces, public candidates, pages, and release layers are operational l
 6. `checker-import-convergence-v1.md`
    - Records the first protocol-facing checker import convergence pass.
 
-7. `examples/index-v1.json`
+7. `parse-utility-convergence-v1.md`
+   - Records the first shared parse utility convergence pass for CEDV protocol checkers.
+
+8. `examples/index-v1.json`
    - Registers the current canonical example objects and their minimal graph expectations.
 
-8. `examples/`
+9. `examples/`
    - Holds the current canonical example objects used to exercise the CEDV schema and relation-basis validation surface.
 
 ---
@@ -68,12 +71,13 @@ CEDV currently has:
 - shared constant-authority layer;
 - expanded enum drift coverage;
 - first protocol-facing checker import convergence pass;
+- first shared parse utility convergence pass;
 - canonical example registry;
 - example-registry checker and workflow.
 
 Current verdict:
 
-> `PASS_CEDV_PROTOCOL_CORE_WITH_AUTHORITY_EXAMPLE_REGISTRY_ENUM_COVERAGE_AND_CHECKER_IMPORT_CONVERGENCE`
+> `PASS_CEDV_PROTOCOL_CORE_WITH_AUTHORITY_EXAMPLE_REGISTRY_ENUM_COVERAGE_CHECKER_IMPORT_AND_PARSE_UTILITY_CONVERGENCE`
 
 ---
 
@@ -93,6 +97,8 @@ The protocol constants checker now covers the current working enum families as w
 
 The first checker-import convergence pass has moved the highest-value CEDV family/prefix vocabulary checks toward shared constants.
 
+The first parse-utility convergence pass has moved the repeated tiny YAML parser into `scripts/lib/simple_yaml.py`.
+
 ---
 
 ## Boundaries
@@ -106,7 +112,8 @@ This directory does not yet provide:
 - public release semantics by itself;
 - repository-wide object registry;
 - proof that every checker has converged on shared constants;
-- shared YAML/frontmatter parsing utilities.
+- full YAML parsing;
+- shared CEDV object loading or relation matrix semantics.
 
 Public candidates and cockpit surfaces may consume CEDV objects, but they do not replace CEDV.
 
@@ -116,8 +123,8 @@ Public candidates and cockpit surfaces may consume CEDV objects, but they do not
 
 The next useful work is:
 
-> `CEDV-E / PARSEUTIL1`
+> `CEDV-F / RELMATRIX1`
 
 Expected purpose:
 
-> extract repeated tiny YAML/frontmatter parsing helpers used by CEDV protocol checkers into a shared utility module, without changing protocol semantics.
+> move the current relation source/target admissibility rules out of imperative checker code and into a small explicit relation-admissibility matrix, if the next audit confirms that relation rules are becoming the next hidden protocol surface.
