@@ -1,0 +1,84 @@
+{
+  "schema_name": "cedv_relation_admissibility_matrix",
+  "schema_version": "v1",
+  "status": "working_relation_matrix_floor",
+  "scope": "protocol/cedv/examples",
+  "notes": [
+    "This matrix externalizes the current source/target admissibility rules used by the CEDV relation-basis checker.",
+    "It is not a full graph ontology and does not freeze future relation grammar."
+  ],
+  "relation_rules": [
+    {
+      "source_type": "claim",
+      "relation": "depends_on",
+      "target_types": ["claim"]
+    },
+    {
+      "source_type": "claim",
+      "relation": "descends_from",
+      "target_types": ["claim"]
+    },
+    {
+      "source_type": "claim",
+      "relation": "supersedes",
+      "target_types": ["claim", "verdict"]
+    },
+    {
+      "source_type": "evidence",
+      "relation": "supports",
+      "target_types": ["claim", "verdict"]
+    },
+    {
+      "source_type": "evidence",
+      "relation": "challenges",
+      "target_types": ["claim", "verdict"]
+    },
+    {
+      "source_type": "dissent",
+      "relation": "challenges",
+      "target_types": ["claim", "evidence", "dissent", "verdict"]
+    },
+    {
+      "source_type": "verdict",
+      "relation": "depends_on",
+      "target_types": ["claim", "evidence", "dissent", "verdict"]
+    },
+    {
+      "source_type": "verdict",
+      "relation": "supersedes",
+      "target_types": ["verdict"]
+    }
+  ],
+  "external_target_rules": [
+    {
+      "source_type": "claim",
+      "relation": "cites",
+      "allowed": true,
+      "target_prefixes": ["*"]
+    },
+    {
+      "source_type": "evidence",
+      "relation": "cites",
+      "allowed": true,
+      "target_prefixes": ["*"]
+    },
+    {
+      "source_type": "dissent",
+      "relation": "cites",
+      "allowed": true,
+      "target_prefixes": ["*"]
+    },
+    {
+      "source_type": "verdict",
+      "relation": "cites",
+      "allowed": true,
+      "target_prefixes": ["*"]
+    },
+    {
+      "source_type": "verdict",
+      "relation": "pinned_in_snapshot",
+      "allowed": true,
+      "target_prefixes": ["public-candidate:", "snapshot:"]
+    }
+  ]
+}
